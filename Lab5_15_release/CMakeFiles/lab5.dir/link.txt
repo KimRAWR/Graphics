@@ -1,0 +1,1 @@
+/usr/bin/c++    -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/lab5.dir/main.cpp.o CMakeFiles/lab5.dir/GLSL.cpp.o CMakeFiles/lab5.dir/tiny_obj_loader.cc.o  -o lab5  -framework OpenGL /usr/local/lib/libglfw3.dylib /usr/local/lib/libGLEW.dylib -framework Cocoa -framework IOKit -framework CoreVideo 

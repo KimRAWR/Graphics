@@ -1,0 +1,2 @@
+/Users/karre/Graphics/2BProject/CMakeFiles/Project.dir
+/Users/karre/Graphics/2BProject/dependencies/glfw/src/CMakeFiles/glfw.dir

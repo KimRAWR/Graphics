@@ -1,0 +1,32 @@
+#version 120
+
+// Interpolated values from the vertex shaders
+varying vec3 fragmentColor;
+uniform vec2 center;
+
+void main(){
+    
+    // Output color = color specified in the vertex shader,
+    // interpolated between all 3 surrounding vertices
+    
+    float dist = distance(gl_FragCoord, vec4(center, 0, 0));
+    float radius = min(center.x, center.y) * .8;
+    
+    float scale = clamp(dist/radius, 0, 1);
+    
+    // amount to add to fragment color that
+    vec3 remainingColor = (1 - fragmentColor) * scale;
+    
+    if (dist < 20.0) {
+        discard;
+    }
+    
+    /*else if (gl_FragCoord.y > center.y) {
+        gl_FragColor = vec4(0, 0, .65, 1);
+    }*/
+    
+    else {
+        gl_FragColor = vec4(fragmentColor + remainingColor, 1);
+    }
+    
+}

@@ -1,0 +1,38 @@
+/*
+ * Kim Arre
+ * CPE 471 - Winter 2015
+ * Section 01
+ */
+
+#version 120
+
+// Interpolated values from the vertex shaders
+varying vec3 fragmentColor;
+uniform vec2 center;
+
+uniform float isBackground;
+
+void main(){
+    float dist, radius, scale;
+    gl_FragColor = vec4(1.0, 0.0, 0.0, 1);
+    if (isBackground == 0) {
+        dist = distance(gl_FragCoord, vec4(center, 0, 0));
+        radius = min(center.x, center.y) * .8;
+        
+        scale = clamp(dist/radius, 0, 1);
+        
+        // amount to add to fragment color to fade to white
+        vec3 remainingColor = (1 - fragmentColor) * scale;
+        
+        if (dist < 100.0) {
+            gl_FragColor = vec4(.01, .7, .9, 1);
+        }
+        else {
+            gl_FragColor = vec4(fragmentColor, 1 - scale + .2);
+        }
+    }
+    else {
+        gl_FragColor = vec4(0.0, 0.0, 1.0, 1);
+    }
+    
+}

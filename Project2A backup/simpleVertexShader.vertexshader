@@ -1,0 +1,26 @@
+#version 120
+
+// Input vertex data, different for all executions of this shader.
+attribute vec3 vertexPosition_modelspace;
+attribute vec3 vertexColor;
+
+// Output data ; will be interpolated for each fragment.
+varying vec3 fragmentColor;
+
+uniform vec2 windowScale;
+uniform vec2 velocity;
+uniform float time;
+
+void main(){
+    
+    // Output position of the vertex, in clip space : MVP * position
+    vec3 movement = vec3(velocity.x * time, velocity.y * time, 1);
+    
+    vec3 position = vertexPosition_modelspace * vec3(windowScale, 0) + movement;
+    gl_Position = vec4(position, 1);
+    
+    // The color of each vertex will be interpolated
+    // to produce the color of each fragment
+    fragmentColor = vertexColor;
+}
+
