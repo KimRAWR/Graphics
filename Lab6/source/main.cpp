@@ -32,12 +32,22 @@ GLint aPos = 0;
 GLint aNor = 0;
 GLint uMV = 0;
 GLint uP = 0;
+bool wave = true;
+float direction = 1;
+bool upperDown = false;
+
 
 static float g_width, g_height;
-float theta;
+float lowerTheta, upperTheta;
 
 //declare a matrix stack
 RenderingHelper ModelTrans;
+
+void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mods) {  
+   if (key == GLFW_KEY_SPACE && action == GLFW_PRESS) {
+      wave = !wave;
+   }
+}
 
 void loadShapes(const string &objFile)
 {
@@ -81,7 +91,8 @@ void initGL()
    //initialize the modeltrans matrix stack
    ModelTrans.useModelViewMatrix();
    ModelTrans.loadIdentity();
-   theta = 0;
+   lowerTheta = 0;
+   upperTheta = 0;
 }
 
 bool installShaders(const string &vShaderName, const string &fShaderName)
@@ -167,37 +178,55 @@ void drawGL()
 	// Compute and send the projection matrix - leave this as is
    glm::mat4 Projection = glm::perspective(80.0f, (float)g_width/g_height, 0.1f, 100.f); 
 	glUniformMatrix4fv(uP, 1, GL_FALSE, glm::value_ptr(Projection));
- 
-   //create the model transforms 
-   /*ModelTrans.loadIdentity();
-   ModelTrans.translate(glm::vec3(0, 0, -2));
-   ModelTrans.rotate(theta, glm::vec3(0, 0, 1));
-   theta += 0.1;
-   ModelTrans.scale(2, 1, 1);
-	glUniformMatrix4fv(uMV, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
-	glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);*/
    
    ModelTrans.loadIdentity();
-   ModelTrans.translate(glm::vec3(-.6, 0, -2));  //global trans and rotate
-   //ModelTrans.rotate(8, glm::vec3(0, 0, 1));
+   ModelTrans.translate(glm::vec3(-.8, 0, -2));  //global trans and rotate
    ModelTrans.pushMatrix();
-      //torso
-      ModelTrans.scale(1, 1.5, 1);
-      glUniformMatrix4fv(uMV, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
-      glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-   ModelTrans.popMatrix();
-   ModelTrans.pushMatrix();
-      // shoulder
-      ModelTrans.scale(1, .3, .5);
-      
-      ModelTrans.translate(glm::vec3(1.5, 0, 0));
-      ModelTrans.rotate(50, glm::vec3(0, 0, 1));
-      
+
+         // Upper arm
+         ModelTrans.translate(glm::vec3(.55, 0, 0));
+         ModelTrans.rotate(upperTheta, glm::vec3(0, 0, 1));
+         ModelTrans.translate(glm::vec3(.3, 0, 0));
+         
+         if (upperTheta > 40.0) {
+               direction = -1.0;
+            } else if (upperTheta < 0.0) {
+               direction = 1.0;
+            }
+            upperTheta += direction * .35;
+
+         ModelTrans.pushMatrix();
+
+            // lowerArm
+            ModelTrans.translate(glm::vec3(.3, 0, 0));
+            ModelTrans.rotate(lowerTheta, glm::vec3(0, 0, 1));
+            ModelTrans.translate(glm::vec3(.3, 0, 0));
+            ModelTrans.scale(.65, .2, 1);
+
+            if (lowerTheta > 40.0) {
+               direction = -1.0;
+            } else if (lowerTheta < 0.0) {
+               direction = 1.0;
+            }
+
+            lowerTheta += direction * .35;
+
+            // draw lower arm
+            glUniformMatrix4fv(uMV, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
+            glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+         ModelTrans.popMatrix();
 
 
+         // draw upper arm
+         ModelTrans.scale(.65, .2, 1);
+         glUniformMatrix4fv(uMV, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
+         glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+      ModelTrans.popMatrix();
+
+      // draw torso
+      ModelTrans.scale(1, 1.5, 1);  //global trans and rotate
       glUniformMatrix4fv(uMV, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
       glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-      //ModelTrans.popMatrix();
    
 	
    // Disable and unbind
@@ -266,6 +295,7 @@ int main(int argc, char **argv)
         // Swap buffers
       glfwSwapBuffers(window);
       glfwPollEvents();
+      glfwSetKeyCallback(window, keyPressed);
 
     } // Check if the ESC key was pressed or the window was closed
    while( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&
