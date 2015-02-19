@@ -1,0 +1,2 @@
+/Users/karre/Graphics/Program3/CMakeFiles/Lab6.dir
+/Users/karre/Graphics/Program3/dependencies/glfw/src/CMakeFiles/glfw.dir
