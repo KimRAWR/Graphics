@@ -7,10 +7,6 @@
 #include <stdlib.h>
 #include <iostream>
 
-//#include <GL/glew.h>
-
-//#include <GLFW/glfw3.h>
-
 #include <cassert>
 #include <cmath>
 
@@ -84,6 +80,12 @@ void SetMaterial(int i) {
         glUniform3f(h_uMatDif, 0.91, 0.782, 0.82);
         glUniform3f(h_uMatSpec, 1.0, 0.913, 0.8);
         glUniform1f(h_uMatShine, 200.0);
+        break;
+    case 3: // SUPER AWESOME ROSE GOLD BUNNY
+        glUniform3f(h_uMatAmb, 0.63, 0.63, 0.63);
+        glUniform3f(h_uMatDif, 0.96, 0.47, 0.22);
+        glUniform3f(h_uMatSpec, .96, 0.6, 0.23);
+        glUniform1f(h_uMatShine, 175.0);
         break;
   }
 }
@@ -394,7 +396,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     if (key == GLFW_KEY_D && action == GLFW_PRESS)
       g_angle -= 10;
     if (key == GLFW_KEY_X && action == GLFW_PRESS)
-     g_mat_id = (g_mat_id+1)%3; 
+     g_mat_id = (g_mat_id+1)%4; 
     if (key == GLFW_KEY_Z && action == GLFW_PRESS) {
       g_SM = !g_SM; 
     }
