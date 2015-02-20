@@ -38,7 +38,7 @@ GLuint posBufObj = 0;
 GLuint norBufObj = 0;
 GLuint indBufObj = 0;
 
-float drawNormals = 0.0;
+int drawNormals = 0;
 
 //Handles to the shader data
 GLint h_aPosition;
@@ -389,7 +389,7 @@ void window_size_callback(GLFWwindow* window, int w, int h){
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
     if (key == GLFW_KEY_N && action == GLFW_PRESS)  
-      drawNormals = 1.0;
+      drawNormals = !drawNormals;
 
     if (key == GLFW_KEY_A && action == GLFW_PRESS)
       g_angle += 10;

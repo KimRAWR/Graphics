@@ -1,3 +1,8 @@
+/* Kim Arre
+ * CPE 471
+ * February 19, 2015
+ */
+
 varying vec3 vCol;
 
 uniform float whichSphere;
