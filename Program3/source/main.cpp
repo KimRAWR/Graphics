@@ -1,6 +1,7 @@
-// Base code for program 3 - does not compile as is, needs other files 
-//and shaders but has skeleton for much of the data transfer for shading
-//and traversal of the mesh for computing normals - you must compute normals
+/* Kim Arre
+ * CPE 471
+ * February 19, 2015
+ */
 
 #include "GLIncludes.h"
 #include <stdio.h>
@@ -16,6 +17,7 @@
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp" //perspective, trans etc
 #include "glm/gtc/type_ptr.hpp" //value_ptr
+#include "RenderingHelper.h"
 
 GLFWwindow* window;
 using namespace std;
@@ -33,6 +35,10 @@ int g_mat_id =0;
 glm::vec3 g_trans(0, 0, 0);
 glm::vec3 g_light(2, 6, 6);
 
+/*glm::vec3 eye(0,0,0);
+glm::vec3 center(0, 0, 0);
+glm::vec3 up(0, 1, 0);*/
+
 GLuint ShadeProg;
 GLuint posBufObj = 0;
 GLuint norBufObj = 0;
@@ -40,15 +46,24 @@ GLuint indBufObj = 0;
 
 int drawNormals = 0;
 
+glm::vec3 target = glm::vec3(0, 0, -1);
+glm::vec3 eye = glm::vec3(0, 0, 0);
+glm::vec3 up = glm::vec3(0, 1, 0);
+double phi = 0.0;  //pitch
+double theta = 0.0; //yaw
+
+RenderingHelper ModelTrans;
+
 //Handles to the shader data
 GLint h_aPosition;
 GLint h_aNormal;
 GLint h_uModelMatrix;
-GLint h_uViewMatrix;
+GLint uMV;
 GLint h_uProjMatrix;
 GLint h_uLightPos;
 GLint h_uMatAmb, h_uMatDif, h_uMatSpec, h_uMatShine;
 GLint h_uShadeM;
+GLint h_cameratrans;
 
 GLint colorByNormalsID;
 
@@ -56,6 +71,18 @@ GLint colorByNormalsID;
 inline void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]) {
   if (handle >= 0)
     glUniformMatrix4fv(handle, 1, GL_FALSE, data);
+}
+
+void scrollCallback(GLFWwindow *window, double xoffset, double yoffset) {
+   phi -= .1*yoffset;
+   theta += .1*xoffset;
+
+   // calculate look at location
+   float x = 1*cos(phi)*cos(theta);
+   float y = 1*sin(phi);
+   float z = 1*cos(phi)*cos(90-theta);
+
+   target = glm::vec3(x, y, z);
 }
 
 /* helper function to send materials to the shader - you must create your own */
@@ -98,8 +125,9 @@ void SetProjectionMatrix() {
 
 /* camera controls - do not change beyond the current set up to rotate*/
 void SetView() {
-  glm::mat4 Trans = glm::translate( glm::mat4(1.0f), glm::vec3(0.0f, 0, g_Camtrans));
-  safe_glUniformMatrix4fv(h_uViewMatrix, glm::value_ptr(Trans));
+  //glm::mat4 Trans = glm::translate( glm::mat4(1.0f), glm::vec3(0.0f, 0, g_Camtrans));
+  glm::mat4 Trans = glm::lookAt(eye, target, up);
+  safe_glUniformMatrix4fv(uMV, glm::value_ptr(Trans));
 }
 
 /* model transforms */
@@ -108,6 +136,13 @@ void SetModel() {
   glm::mat4 RotateY = glm::rotate( glm::mat4(1.0f), g_angle, glm::vec3(0.0f, 1, 0));
   glm::mat4 RotateX = glm::rotate( glm::mat4(1.0f), g_vertAngle, glm::vec3(1, 0, 0));
   glm::mat4 com = Trans*RotateY*RotateX;
+  safe_glUniformMatrix4fv(h_uModelMatrix, glm::value_ptr(com));
+}
+
+void SetLightModel() {
+  glm::mat4 Trans = glm::translate( glm::mat4(1.0f), g_light);
+  
+  glm::mat4 com = Trans;
   safe_glUniformMatrix4fv(h_uModelMatrix, glm::value_ptr(com));
 }
 
@@ -264,6 +299,10 @@ void initGL()
    GLSL::checkVersion();
    assert(glGetError() == GL_NO_ERROR);
 
+   //initialize the modeltrans matrix stack
+   ModelTrans.useModelViewMatrix();
+   ModelTrans.loadIdentity();
+
 }
 
 bool installShaders(const string &vShaderName, const string &fShaderName)
@@ -318,14 +357,16 @@ bool installShaders(const string &vShaderName, const string &fShaderName)
     h_aPosition = GLSL::getAttribLocation(ShadeProg, "aPos");
     h_aNormal = GLSL::getAttribLocation(ShadeProg, "aNor");
     h_uProjMatrix = GLSL::getUniformLocation(ShadeProg, "P");
-    h_uViewMatrix = GLSL::getUniformLocation(ShadeProg, "V");
-    h_uModelMatrix = GLSL::getUniformLocation(ShadeProg, "M");
+    //h_uViewMatrix = GLSL::getUniformLocation(ShadeProg, "V");
+    //h_uModelMatrix = GLSL::getUniformLocation(ShadeProg, "M");
+    uMV = GLSL::getUniformLocation(ShadeProg, "MV");
     h_uLightPos = GLSL::getUniformLocation(ShadeProg, "uLightPos");
     h_uMatAmb = GLSL::getUniformLocation(ShadeProg, "UaColor");
     h_uMatDif = GLSL::getUniformLocation(ShadeProg, "UdColor");
     h_uMatSpec = GLSL::getUniformLocation(ShadeProg, "UsColor");
     h_uMatShine = GLSL::getUniformLocation(ShadeProg, "Ushine");
     h_uShadeM = GLSL::getUniformLocation(ShadeProg, "uShadeModel");
+    h_cameratrans = GLSL::getUniformLocation(ShadeProg, "cameraTrans");
     colorByNormalsID = GLSL::getUniformLocation(ShadeProg, "colorByNormals");
    
    assert(glGetError() == GL_NO_ERROR);
@@ -349,6 +390,7 @@ void drawGL()
     glUniform3f(h_uLightPos, g_light.x, g_light.y, g_light.z);
     glUniform1i(h_uShadeM, g_SM);
     glUniform1f(colorByNormalsID, drawNormals);
+    glUniform1f(h_cameratrans, g_Camtrans);
 
    // Enable and bind position array for drawing
    GLSL::enableVertexAttribArray(h_aPosition);
@@ -364,12 +406,42 @@ void drawGL()
    int nIndices = (int)shapes[0].mesh.indices.size();
    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indBufObj);
    
-   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+   //glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+   ModelTrans.loadIdentity();
+   ModelTrans.lookAt(eye, target, up);
+   //ModelTrans.translate(glm::vec3(-.8 + translate, 0, 0));  //global trans and rotate
+   ModelTrans.scale(.4, .4, .4);
+   ModelTrans.translate(glm::vec3(0, 0, 0));  //global trans and rotate
+   //ModelTrans.pushMatrix();
+      
+      ModelTrans.translate(glm::vec3(3, 0, 0));
+      
+      glUniformMatrix4fv(uMV, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
+      glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+
+      ModelTrans.translate(glm::vec3(-6, 0, 0));
+
+      glUniformMatrix4fv(uMV, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
+      glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+
+      ModelTrans.translate(glm::vec3(3, 0, 3));
+
+      glUniformMatrix4fv(uMV, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
+      glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+
+      ModelTrans.translate(glm::vec3(0, 0, -6));
+
+      glUniformMatrix4fv(uMV, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
+      glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
    
    GLSL::disableVertexAttribArray(h_aPosition);
    GLSL::disableVertexAttribArray(h_aNormal);
    glBindBuffer(GL_ARRAY_BUFFER, 0);
    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+   SetLightModel();
+   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+
    
    // Disable and unbind
    glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -464,6 +536,7 @@ int main(int argc, char **argv)
         // Swap buffers
       glfwSwapBuffers(window);
       glfwPollEvents();
+      glfwSetScrollCallback(window, scrollCallback);
 
     } // Check if the ESC key was pressed or the window was closed
    while( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&
