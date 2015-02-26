@@ -54,7 +54,7 @@ RenderingHelper ModelTrans;
 GLint h_aPosition;
 GLint h_aNormal;
 GLint h_uModelMatrix;
-GLint uMV;
+GLint h_uViewMatrix;
 GLint h_uProjMatrix;
 GLint h_uLightPos;
 GLint h_uMatAmb, h_uMatDif, h_uMatSpec, h_uMatShine;
@@ -71,6 +71,9 @@ inline void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]) {
 
 void scrollCallback(GLFWwindow *window, double xoffset, double yoffset) {
    phi -= .1*yoffset;
+   phi = min(phi, .8);
+   phi = max(phi, -.8);
+
    theta += .1*xoffset;
 
    // calculate look at location
@@ -78,7 +81,7 @@ void scrollCallback(GLFWwindow *window, double xoffset, double yoffset) {
    float y = .5*sin(phi);
    float z = .5*cos(phi)*cos(90-theta);
 
-   lookAt = glm::vec3(x, y, z);
+   lookAt = glm::vec3(x, y, z) + eye;
 }
 
 void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mods) {  
@@ -148,7 +151,7 @@ void SetProjectionMatrix() {
 void SetView() {
   //glm::mat4 Trans = glm::translate( glm::mat4(1.0f), glm::vec3(0.0f, 0, g_Camtrans));
   glm::mat4 Trans = glm::lookAt(eye, lookAt, up);
-  safe_glUniformMatrix4fv(uMV, glm::value_ptr(Trans));
+  safe_glUniformMatrix4fv(h_uViewMatrix, glm::value_ptr(Trans));
 }
 
 /* model transforms */
@@ -378,9 +381,9 @@ bool installShaders(const string &vShaderName, const string &fShaderName)
     h_aPosition = GLSL::getAttribLocation(ShadeProg, "aPos");
     h_aNormal = GLSL::getAttribLocation(ShadeProg, "aNor");
     h_uProjMatrix = GLSL::getUniformLocation(ShadeProg, "P");
-    //h_uViewMatrix = GLSL::getUniformLocation(ShadeProg, "V");
-    //h_uModelMatrix = GLSL::getUniformLocation(ShadeProg, "M");
-    uMV = GLSL::getUniformLocation(ShadeProg, "MV");
+    h_uViewMatrix = GLSL::getUniformLocation(ShadeProg, "V");
+    h_uModelMatrix = GLSL::getUniformLocation(ShadeProg, "M");
+    //uMV = GLSL::getUniformLocation(ShadeProg, "MV");
     h_uLightPos = GLSL::getUniformLocation(ShadeProg, "uLightPos");
     h_uMatAmb = GLSL::getUniformLocation(ShadeProg, "UaColor");
     h_uMatDif = GLSL::getUniformLocation(ShadeProg, "UdColor");
@@ -437,22 +440,22 @@ void drawGL()
       
       ModelTrans.translate(glm::vec3(3, 0, 0));
       
-      glUniformMatrix4fv(uMV, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
+      glUniformMatrix4fv(h_uViewMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
       glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
 
       ModelTrans.translate(glm::vec3(-6, 0, 0));
 
-      glUniformMatrix4fv(uMV, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
+      glUniformMatrix4fv(h_uViewMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
       glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
 
       ModelTrans.translate(glm::vec3(3, 0, 3));
 
-      glUniformMatrix4fv(uMV, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
+      glUniformMatrix4fv(h_uViewMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
       glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
 
       ModelTrans.translate(glm::vec3(0, 0, -6));
 
-      glUniformMatrix4fv(uMV, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
+      glUniformMatrix4fv(h_uViewMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
       glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
    
    GLSL::disableVertexAttribArray(h_aPosition);
