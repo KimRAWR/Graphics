@@ -35,10 +35,6 @@ int g_mat_id =0;
 glm::vec3 g_trans(0, 0, 0);
 glm::vec3 g_light(2, 6, 6);
 
-/*glm::vec3 eye(0,0,0);
-glm::vec3 center(0, 0, 0);
-glm::vec3 up(0, 1, 0);*/
-
 GLuint ShadeProg;
 GLuint posBufObj = 0;
 GLuint norBufObj = 0;
@@ -46,7 +42,7 @@ GLuint indBufObj = 0;
 
 int drawNormals = 0;
 
-glm::vec3 target = glm::vec3(0, 0, -1);
+glm::vec3 lookAt = glm::vec3(0, 0, -1);
 glm::vec3 eye = glm::vec3(0, 0, 0);
 glm::vec3 up = glm::vec3(0, 1, 0);
 double phi = 0.0;  //pitch
@@ -78,11 +74,36 @@ void scrollCallback(GLFWwindow *window, double xoffset, double yoffset) {
    theta += .1*xoffset;
 
    // calculate look at location
-   float x = 1*cos(phi)*cos(theta);
-   float y = 1*sin(phi);
-   float z = 1*cos(phi)*cos(90-theta);
+   float x = .5*cos(phi)*cos(theta);
+   float y = .5*sin(phi);
+   float z = .5*cos(phi)*cos(90-theta);
 
-   target = glm::vec3(x, y, z);
+   lookAt = glm::vec3(x, y, z);
+}
+
+void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mods) {  
+   float x = .5*cos(phi)*cos(theta);
+   float y = .5*sin(phi);
+   float z = .5*cos(phi)*cos(90-theta);
+   // RIGHT
+   if (key == GLFW_KEY_D && action == GLFW_PRESS) {
+      
+   }
+   // LEFT
+   else if (key == GLFW_KEY_A && action == GLFW_PRESS) {
+      
+   }
+   
+   // FORWARD
+   else if (key == GLFW_KEY_W && action == GLFW_PRESS) {
+      eye += glm::vec3(x, y, z) * glm::vec3(.25, .25, .25);
+      lookAt += glm::vec3(x, y, z) * glm::vec3(.25, .25, .25);
+   }
+   // BACK
+   else if (key == GLFW_KEY_S && action == GLFW_PRESS) {
+      eye -= glm::vec3(x, y, z) * glm::vec3(.25, .25, .25);
+      lookAt -= glm::vec3(x, y, z) * glm::vec3(.25, .25, .25);
+   }
 }
 
 /* helper function to send materials to the shader - you must create your own */
@@ -126,7 +147,7 @@ void SetProjectionMatrix() {
 /* camera controls - do not change beyond the current set up to rotate*/
 void SetView() {
   //glm::mat4 Trans = glm::translate( glm::mat4(1.0f), glm::vec3(0.0f, 0, g_Camtrans));
-  glm::mat4 Trans = glm::lookAt(eye, target, up);
+  glm::mat4 Trans = glm::lookAt(eye, lookAt, up);
   safe_glUniformMatrix4fv(uMV, glm::value_ptr(Trans));
 }
 
@@ -383,7 +404,7 @@ void drawGL()
    glUseProgram(ShadeProg);
 
     SetProjectionMatrix();
-    SetView();
+    //SetView();
 
     SetModel();
     SetMaterial(g_mat_id);
@@ -408,7 +429,7 @@ void drawGL()
    
    //glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
    ModelTrans.loadIdentity();
-   ModelTrans.lookAt(eye, target, up);
+   ModelTrans.lookAt(eye, lookAt, up);
    //ModelTrans.translate(glm::vec3(-.8 + translate, 0, 0));  //global trans and rotate
    ModelTrans.scale(.4, .4, .4);
    ModelTrans.translate(glm::vec3(0, 0, 0));  //global trans and rotate
@@ -522,7 +543,7 @@ int main(int argc, char **argv)
 
     glEnable (GL_BLEND);
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-   loadShapes("bunny.obj");
+   loadShapes("cow-nonormals.obj");
    //loadShapes("sphere.obj");
    //loadShapes("cube.obj");
    initGL();
@@ -536,6 +557,7 @@ int main(int argc, char **argv)
         // Swap buffers
       glfwSwapBuffers(window);
       glfwPollEvents();
+      glfwSetKeyCallback(window, keyPressed);
       glfwSetScrollCallback(window, scrollCallback);
 
     } // Check if the ESC key was pressed or the window was closed

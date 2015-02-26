@@ -3,7 +3,9 @@ attribute vec3 aNor;
 uniform mat4 P;
 uniform mat4 MV;
 varying vec3 vCol;
+uniform vec3 uLightPos;
 
+varying vec3 interpolatedLight;
 varying vec3 interpolatedNormal;
 varying vec3 interpolatedPos;
 
@@ -16,4 +18,5 @@ void main()
 
    interpolatedPos = gl_Position.xyz;
    interpolatedNormal = updated_aNor;
+   interpolatedLight = uLightPos;
 }

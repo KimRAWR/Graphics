@@ -8,6 +8,7 @@ uniform vec3 uLightPos;
 varying vec3 vCol;
 varying vec3 interpolatedNormal;
 varying vec3 interpolatedPos;
+varying vec3 interpolatedLight;
 
 void main()
 {
@@ -15,7 +16,7 @@ void main()
 
    vec3 Ia = .1 * UaColor;
 
-   vec3 L = normalize(uLightPos );//- interpolatedNormal.xyz);
+   vec3 L = normalize(interpolatedLight - interpolatedNormal.xyz);
    vec3 Id = .9 * max(0.0, dot(normalize(interpolatedNormal), L)) * UdColor;
 
    vec3 H = normalize(L + interpolatedPos.xyz);

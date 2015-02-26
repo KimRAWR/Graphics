@@ -100,6 +100,7 @@ CMakeFiles/Lab6.dir/source/RenderingHelper.cpp.o
 CMakeFiles/Lab6.dir/source/main.cpp.o
  /Users/karre/Graphics/Program3/source/GLIncludes.h
  /Users/karre/Graphics/Program3/source/GLSL.h
+ /Users/karre/Graphics/Program3/source/RenderingHelper.h
  /Users/karre/Graphics/Program3/source/glm/./core/_detail.hpp
  /Users/karre/Graphics/Program3/source/glm/./core/_fixes.hpp
  /Users/karre/Graphics/Program3/source/glm/./core/_swizzle.hpp
@@ -164,12 +165,28 @@ CMakeFiles/Lab6.dir/source/main.cpp.o
  /Users/karre/Graphics/Program3/source/glm/glm.hpp
  /Users/karre/Graphics/Program3/source/glm/gtc/half_float.hpp
  /Users/karre/Graphics/Program3/source/glm/gtc/half_float.inl
+ /Users/karre/Graphics/Program3/source/glm/gtc/matrix_access.hpp
+ /Users/karre/Graphics/Program3/source/glm/gtc/matrix_access.inl
+ /Users/karre/Graphics/Program3/source/glm/gtc/matrix_integer.hpp
+ /Users/karre/Graphics/Program3/source/glm/gtc/matrix_inverse.hpp
+ /Users/karre/Graphics/Program3/source/glm/gtc/matrix_inverse.inl
  /Users/karre/Graphics/Program3/source/glm/gtc/matrix_transform.hpp
  /Users/karre/Graphics/Program3/source/glm/gtc/matrix_transform.inl
  /Users/karre/Graphics/Program3/source/glm/gtc/quaternion.hpp
  /Users/karre/Graphics/Program3/source/glm/gtc/quaternion.inl
  /Users/karre/Graphics/Program3/source/glm/gtc/type_ptr.hpp
  /Users/karre/Graphics/Program3/source/glm/gtc/type_ptr.inl
+ /Users/karre/Graphics/Program3/source/glm/gtx/component_wise.hpp
+ /Users/karre/Graphics/Program3/source/glm/gtx/component_wise.inl
+ /Users/karre/Graphics/Program3/source/glm/gtx/epsilon.hpp
+ /Users/karre/Graphics/Program3/source/glm/gtx/epsilon.inl
+ /Users/karre/Graphics/Program3/source/glm/gtx/quaternion.hpp
+ /Users/karre/Graphics/Program3/source/glm/gtx/rotate_vector.hpp
+ /Users/karre/Graphics/Program3/source/glm/gtx/rotate_vector.inl
+ /Users/karre/Graphics/Program3/source/glm/gtx/transform.hpp
+ /Users/karre/Graphics/Program3/source/glm/gtx/transform.inl
+ /Users/karre/Graphics/Program3/source/glm/gtx/vector_angle.hpp
+ /Users/karre/Graphics/Program3/source/glm/gtx/vector_angle.inl
  /Users/karre/Graphics/Program3/source/main.cpp
  /Users/karre/Graphics/Program3/source/tiny_obj_loader.h
  dependencies/glfw/include/GLFW/glfw3.h

@@ -99,6 +99,7 @@ CMakeFiles/Lab6.dir/source/RenderingHelper.cpp.o: source/glm/gtx/vector_angle.in
 
 CMakeFiles/Lab6.dir/source/main.cpp.o: source/GLIncludes.h
 CMakeFiles/Lab6.dir/source/main.cpp.o: source/GLSL.h
+CMakeFiles/Lab6.dir/source/main.cpp.o: source/RenderingHelper.h
 CMakeFiles/Lab6.dir/source/main.cpp.o: source/glm/./core/_detail.hpp
 CMakeFiles/Lab6.dir/source/main.cpp.o: source/glm/./core/_fixes.hpp
 CMakeFiles/Lab6.dir/source/main.cpp.o: source/glm/./core/_swizzle.hpp
@@ -163,12 +164,28 @@ CMakeFiles/Lab6.dir/source/main.cpp.o: source/glm/core/setup.hpp
 CMakeFiles/Lab6.dir/source/main.cpp.o: source/glm/glm.hpp
 CMakeFiles/Lab6.dir/source/main.cpp.o: source/glm/gtc/half_float.hpp
 CMakeFiles/Lab6.dir/source/main.cpp.o: source/glm/gtc/half_float.inl
+CMakeFiles/Lab6.dir/source/main.cpp.o: source/glm/gtc/matrix_access.hpp
+CMakeFiles/Lab6.dir/source/main.cpp.o: source/glm/gtc/matrix_access.inl
+CMakeFiles/Lab6.dir/source/main.cpp.o: source/glm/gtc/matrix_integer.hpp
+CMakeFiles/Lab6.dir/source/main.cpp.o: source/glm/gtc/matrix_inverse.hpp
+CMakeFiles/Lab6.dir/source/main.cpp.o: source/glm/gtc/matrix_inverse.inl
 CMakeFiles/Lab6.dir/source/main.cpp.o: source/glm/gtc/matrix_transform.hpp
 CMakeFiles/Lab6.dir/source/main.cpp.o: source/glm/gtc/matrix_transform.inl
 CMakeFiles/Lab6.dir/source/main.cpp.o: source/glm/gtc/quaternion.hpp
 CMakeFiles/Lab6.dir/source/main.cpp.o: source/glm/gtc/quaternion.inl
 CMakeFiles/Lab6.dir/source/main.cpp.o: source/glm/gtc/type_ptr.hpp
 CMakeFiles/Lab6.dir/source/main.cpp.o: source/glm/gtc/type_ptr.inl
+CMakeFiles/Lab6.dir/source/main.cpp.o: source/glm/gtx/component_wise.hpp
+CMakeFiles/Lab6.dir/source/main.cpp.o: source/glm/gtx/component_wise.inl
+CMakeFiles/Lab6.dir/source/main.cpp.o: source/glm/gtx/epsilon.hpp
+CMakeFiles/Lab6.dir/source/main.cpp.o: source/glm/gtx/epsilon.inl
+CMakeFiles/Lab6.dir/source/main.cpp.o: source/glm/gtx/quaternion.hpp
+CMakeFiles/Lab6.dir/source/main.cpp.o: source/glm/gtx/rotate_vector.hpp
+CMakeFiles/Lab6.dir/source/main.cpp.o: source/glm/gtx/rotate_vector.inl
+CMakeFiles/Lab6.dir/source/main.cpp.o: source/glm/gtx/transform.hpp
+CMakeFiles/Lab6.dir/source/main.cpp.o: source/glm/gtx/transform.inl
+CMakeFiles/Lab6.dir/source/main.cpp.o: source/glm/gtx/vector_angle.hpp
+CMakeFiles/Lab6.dir/source/main.cpp.o: source/glm/gtx/vector_angle.inl
 CMakeFiles/Lab6.dir/source/main.cpp.o: source/main.cpp
 CMakeFiles/Lab6.dir/source/main.cpp.o: source/tiny_obj_loader.h
 CMakeFiles/Lab6.dir/source/main.cpp.o: dependencies/glfw/include/GLFW/glfw3.h
