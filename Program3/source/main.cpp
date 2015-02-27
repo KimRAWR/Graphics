@@ -88,13 +88,18 @@ void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mods)
    float x = .5*cos(phi)*cos(theta);
    float y = .5*sin(phi);
    float z = .5*cos(phi)*cos(90-theta);
+
+   lookAt = glm::vec3(x, y, z) + eye;
+
    // RIGHT
    if (key == GLFW_KEY_D && action == GLFW_PRESS) {
-      
+      eye += glm::cross(lookAt - eye, up) * .25f; 
+      lookAt += glm::cross(lookAt - eye, up) * .25f;
    }
    // LEFT
    else if (key == GLFW_KEY_A && action == GLFW_PRESS) {
-      
+      eye -= glm::cross(lookAt - eye, up) * .25f; 
+      lookAt -= glm::cross(lookAt - eye, up) * .25f;
    }
    
    // FORWARD
