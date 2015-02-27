@@ -18,6 +18,7 @@
 #include "glm/gtc/matrix_transform.hpp" //perspective, trans etc
 #include "glm/gtc/type_ptr.hpp" //value_ptr
 #include "RenderingHelper.h"
+#include "givenFunctions.h"
 
 GLFWwindow* window;
 using namespace std;
@@ -35,10 +36,15 @@ int g_mat_id =0;
 glm::vec3 g_trans(0, 0, 0);
 glm::vec3 g_light(2, 6, 6);
 
+float forcedY = 0.0;
+
 GLuint ShadeProg;
 GLuint posBufObj = 0;
 GLuint norBufObj = 0;
 GLuint indBufObj = 0;
+
+GLuint posBufObjG = 0;
+GLuint norBufObjG = 0;
 
 int drawNormals = 0;
 
@@ -104,13 +110,13 @@ void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mods)
    
    // FORWARD
    else if (key == GLFW_KEY_W && action == GLFW_PRESS) {
-      eye += glm::vec3(x, y, z) * glm::vec3(.25, .25, .25);
-      lookAt += glm::vec3(x, y, z) * glm::vec3(.25, .25, .25);
+      eye += glm::vec3(x, y, z) * glm::vec3(.25, forcedY, .25);
+      lookAt += glm::vec3(x, y, z) * glm::vec3(.25, forcedY, .25);
    }
    // BACK
    else if (key == GLFW_KEY_S && action == GLFW_PRESS) {
-      eye -= glm::vec3(x, y, z) * glm::vec3(.25, .25, .25);
-      lookAt -= glm::vec3(x, y, z) * glm::vec3(.25, .25, .25);
+      eye -= glm::vec3(x, y, z) * glm::vec3(.25, forcedY, .25);
+      lookAt -= glm::vec3(x, y, z) * glm::vec3(.25, forcedY, .25);
    }
 }
 
@@ -175,70 +181,6 @@ void SetLightModel() {
   safe_glUniformMatrix4fv(h_uModelMatrix, glm::value_ptr(com));
 }
 
-//Given a vector of shapes which has already been read from an obj file
-// resize all vertices to the range [-1, 1]
-void resize_obj(std::vector<tinyobj::shape_t> &shapes){
-    float minX, minY, minZ;
-    float maxX, maxY, maxZ;
-    float scaleX, scaleY, scaleZ;
-    float shiftX, shiftY, shiftZ;
-    float epsilon = 0.001;
-
-    minX = minY = minZ = 1.1754E+38F;
-    maxX = maxY = maxZ = -1.1754E+38F;
-
-    //Go through all vertices to determine min and max of each dimension
-    for (size_t i = 0; i < shapes.size(); i++) {
-        for (size_t v = 0; v < shapes[i].mesh.positions.size() / 3; v++) {
-            if(shapes[i].mesh.positions[3*v+0] < minX) minX = shapes[i].mesh.positions[3*v+0];
-            if(shapes[i].mesh.positions[3*v+0] > maxX) maxX = shapes[i].mesh.positions[3*v+0];
-
-            if(shapes[i].mesh.positions[3*v+1] < minY) minY = shapes[i].mesh.positions[3*v+1];
-            if(shapes[i].mesh.positions[3*v+1] > maxY) maxY = shapes[i].mesh.positions[3*v+1];
-
-            if(shapes[i].mesh.positions[3*v+2] < minZ) minZ = shapes[i].mesh.positions[3*v+2];
-            if(shapes[i].mesh.positions[3*v+2] > maxZ) maxZ = shapes[i].mesh.positions[3*v+2];
-        }
-    }
-   //From min and max compute necessary scale and shift for each dimension
-   float maxExtent, xExtent, yExtent, zExtent;
-   xExtent = maxX-minX;
-   yExtent = maxY-minY;
-   zExtent = maxZ-minZ;
-   if (xExtent >= yExtent && xExtent >= zExtent) {
-     maxExtent = xExtent;
-   }
-   if (yExtent >= xExtent && yExtent >= zExtent) {
-     maxExtent = yExtent;
-   }
-   if (zExtent >= xExtent && zExtent >= yExtent) {
-     maxExtent = zExtent;
-   }
-    scaleX = 2.0 /maxExtent;
-    shiftX = minX + (xExtent/ 2.0);
-    scaleY = 2.0 / maxExtent;
-    shiftY = minY + (yExtent / 2.0);
-    scaleZ = 2.0/ maxExtent;
-    shiftZ = minZ + (zExtent)/2.0;
-
-    //Go through all verticies shift and scale them
-    for (size_t i = 0; i < shapes.size(); i++) {
-        for (size_t v = 0; v < shapes[i].mesh.positions.size() / 3; v++) {
-            shapes[i].mesh.positions[3*v+0] = (shapes[i].mesh.positions[3*v+0] - shiftX) * scaleX;
-            assert(shapes[i].mesh.positions[3*v+0] >= -1.0 - epsilon);
-            assert(shapes[i].mesh.positions[3*v+0] <= 1.0 + epsilon);
-            shapes[i].mesh.positions[3*v+1] = (shapes[i].mesh.positions[3*v+1] - shiftY) * scaleY;
-            assert(shapes[i].mesh.positions[3*v+1] >= -1.0 - epsilon);
-            assert(shapes[i].mesh.positions[3*v+1] <= 1.0 + epsilon);
-            shapes[i].mesh.positions[3*v+2] = (shapes[i].mesh.positions[3*v+2] - shiftZ) * scaleZ;
-            assert(shapes[i].mesh.positions[3*v+2] >= -1.0 - epsilon);
-            assert(shapes[i].mesh.positions[3*v+2] <= 1.0 + epsilon);
-        }
-    }
-}
-
-
-
 void loadShapes(const string &objFile)
 {
    string err = tinyobj::LoadObj(shapes, materials, objFile.c_str());
@@ -248,8 +190,42 @@ void loadShapes(const string &objFile)
    resize_obj(shapes);
 }
 
+void initGround() {
+
+  float G_edge = 20;
+  GLfloat g_backgnd_data[] = {
+      -G_edge, -6.7f, -G_edge,
+        -G_edge,  -6.7f, G_edge,
+        G_edge, -6.7f, -G_edge,
+        -G_edge,  -6.7f, G_edge,
+        G_edge, -6.7f, -G_edge,
+        G_edge, -6.7f, G_edge,
+  };
+
+
+  GLfloat nor_Buf_G[] = { 
+      0.0f, 1.0f, 0.0f,
+      0.0f, 1.0f, 0.0f,
+      0.0f, 1.0f, 0.0f,
+      0.0f, 1.0f, 0.0f,
+      0.0f, 1.0f, 0.0f,
+      0.0f, 1.0f, 0.0f,
+  };
+
+   glGenBuffers(1, &posBufObjG);
+   glBindBuffer(GL_ARRAY_BUFFER, posBufObjG);
+   glBufferData(GL_ARRAY_BUFFER, sizeof(g_backgnd_data), g_backgnd_data, GL_STATIC_DRAW);
+   
+   glGenBuffers(1, &norBufObjG);
+   glBindBuffer(GL_ARRAY_BUFFER, norBufObjG);
+   glBufferData(GL_ARRAY_BUFFER, sizeof(nor_Buf_G), nor_Buf_G, GL_STATIC_DRAW);
+
+}
+
 void initGL()
 {
+   initGround();
+
    // Set the background color
    glClearColor(0.6f, 0.6f, 0.8f, 1.0f);
    // Enable Z-buffer test
@@ -331,6 +307,8 @@ void initGL()
    //initialize the modeltrans matrix stack
    ModelTrans.useModelViewMatrix();
    ModelTrans.loadIdentity();
+
+   initGround();
 
 }
 
@@ -475,6 +453,23 @@ void drawGL()
    // Disable and unbind
    glBindBuffer(GL_ARRAY_BUFFER, 0);
    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+   // ==========================================================
+   // DRAW THE GROUND
+
+   glEnableVertexAttribArray(h_aPosition);
+   glBindBuffer(GL_ARRAY_BUFFER, posBufObjG);
+   glVertexAttribPointer( h_aPosition, 3,  GL_FLOAT, GL_FALSE, 0, (void*)0);
+   GLSL::enableVertexAttribArray(h_aNormal);
+   glBindBuffer(GL_ARRAY_BUFFER, norBufObjG);
+   glVertexAttribPointer(h_aNormal, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+   glDrawArrays(GL_TRIANGLES, 0, 6);
+
+   GLSL::disableVertexAttribArray(h_aPosition);
+   GLSL::disableVertexAttribArray(h_aNormal);
+   glBindBuffer(GL_ARRAY_BUFFER, 0);
+
    glUseProgram(0);
    assert(glGetError() == GL_NO_ERROR);
    

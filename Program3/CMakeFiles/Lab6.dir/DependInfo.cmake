@@ -11,6 +11,7 @@ set(CMAKE_C_COMPILER_ID "Clang")
 set(CMAKE_DEPENDS_CHECK_CXX
   "/Users/karre/Graphics/Program3/source/GLSL.cpp" "/Users/karre/Graphics/Program3/CMakeFiles/Lab6.dir/source/GLSL.cpp.o"
   "/Users/karre/Graphics/Program3/source/RenderingHelper.cpp" "/Users/karre/Graphics/Program3/CMakeFiles/Lab6.dir/source/RenderingHelper.cpp.o"
+  "/Users/karre/Graphics/Program3/source/givenFunctions.cpp" "/Users/karre/Graphics/Program3/CMakeFiles/Lab6.dir/source/givenFunctions.cpp.o"
   "/Users/karre/Graphics/Program3/source/main.cpp" "/Users/karre/Graphics/Program3/CMakeFiles/Lab6.dir/source/main.cpp.o"
   "/Users/karre/Graphics/Program3/source/tiny_obj_loader.cc" "/Users/karre/Graphics/Program3/CMakeFiles/Lab6.dir/source/tiny_obj_loader.cc.o"
   )

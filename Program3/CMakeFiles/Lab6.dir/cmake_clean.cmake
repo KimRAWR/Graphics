@@ -3,6 +3,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/Lab6.dir/source/GLSL.cpp.o"
   "CMakeFiles/Lab6.dir/source/tiny_obj_loader.cc.o"
   "CMakeFiles/Lab6.dir/source/RenderingHelper.cpp.o"
+  "CMakeFiles/Lab6.dir/source/givenFunctions.cpp.o"
   "CMakeFiles/Lab6.dir/dependencies/glad/src/glad.c.o"
   "Lab6.pdb"
   "Lab6"

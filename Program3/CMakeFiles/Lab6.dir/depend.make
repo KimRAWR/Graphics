@@ -97,9 +97,15 @@ CMakeFiles/Lab6.dir/source/RenderingHelper.cpp.o: source/glm/gtx/transform.inl
 CMakeFiles/Lab6.dir/source/RenderingHelper.cpp.o: source/glm/gtx/vector_angle.hpp
 CMakeFiles/Lab6.dir/source/RenderingHelper.cpp.o: source/glm/gtx/vector_angle.inl
 
+CMakeFiles/Lab6.dir/source/givenFunctions.cpp.o: source/GLIncludes.h
+CMakeFiles/Lab6.dir/source/givenFunctions.cpp.o: source/givenFunctions.cpp
+CMakeFiles/Lab6.dir/source/givenFunctions.cpp.o: source/tiny_obj_loader.h
+CMakeFiles/Lab6.dir/source/givenFunctions.cpp.o: dependencies/glfw/include/GLFW/glfw3.h
+
 CMakeFiles/Lab6.dir/source/main.cpp.o: source/GLIncludes.h
 CMakeFiles/Lab6.dir/source/main.cpp.o: source/GLSL.h
 CMakeFiles/Lab6.dir/source/main.cpp.o: source/RenderingHelper.h
+CMakeFiles/Lab6.dir/source/main.cpp.o: source/givenFunctions.h
 CMakeFiles/Lab6.dir/source/main.cpp.o: source/glm/./core/_detail.hpp
 CMakeFiles/Lab6.dir/source/main.cpp.o: source/glm/./core/_fixes.hpp
 CMakeFiles/Lab6.dir/source/main.cpp.o: source/glm/./core/_swizzle.hpp

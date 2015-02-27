@@ -97,10 +97,16 @@ CMakeFiles/Lab6.dir/source/RenderingHelper.cpp.o
  /Users/karre/Graphics/Program3/source/glm/gtx/transform.inl
  /Users/karre/Graphics/Program3/source/glm/gtx/vector_angle.hpp
  /Users/karre/Graphics/Program3/source/glm/gtx/vector_angle.inl
+CMakeFiles/Lab6.dir/source/givenFunctions.cpp.o
+ /Users/karre/Graphics/Program3/source/GLIncludes.h
+ /Users/karre/Graphics/Program3/source/givenFunctions.cpp
+ /Users/karre/Graphics/Program3/source/tiny_obj_loader.h
+ dependencies/glfw/include/GLFW/glfw3.h
 CMakeFiles/Lab6.dir/source/main.cpp.o
  /Users/karre/Graphics/Program3/source/GLIncludes.h
  /Users/karre/Graphics/Program3/source/GLSL.h
  /Users/karre/Graphics/Program3/source/RenderingHelper.h
+ /Users/karre/Graphics/Program3/source/givenFunctions.h
  /Users/karre/Graphics/Program3/source/glm/./core/_detail.hpp
  /Users/karre/Graphics/Program3/source/glm/./core/_fixes.hpp
  /Users/karre/Graphics/Program3/source/glm/./core/_swizzle.hpp

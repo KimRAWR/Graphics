@@ -141,9 +141,32 @@ CMakeFiles/Lab6.dir/source/RenderingHelper.cpp.o.provides: CMakeFiles/Lab6.dir/s
 
 CMakeFiles/Lab6.dir/source/RenderingHelper.cpp.o.provides.build: CMakeFiles/Lab6.dir/source/RenderingHelper.cpp.o
 
+CMakeFiles/Lab6.dir/source/givenFunctions.cpp.o: CMakeFiles/Lab6.dir/flags.make
+CMakeFiles/Lab6.dir/source/givenFunctions.cpp.o: source/givenFunctions.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /Users/karre/Graphics/Program3/CMakeFiles $(CMAKE_PROGRESS_5)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Lab6.dir/source/givenFunctions.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Lab6.dir/source/givenFunctions.cpp.o -c /Users/karre/Graphics/Program3/source/givenFunctions.cpp
+
+CMakeFiles/Lab6.dir/source/givenFunctions.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Lab6.dir/source/givenFunctions.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/karre/Graphics/Program3/source/givenFunctions.cpp > CMakeFiles/Lab6.dir/source/givenFunctions.cpp.i
+
+CMakeFiles/Lab6.dir/source/givenFunctions.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Lab6.dir/source/givenFunctions.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/karre/Graphics/Program3/source/givenFunctions.cpp -o CMakeFiles/Lab6.dir/source/givenFunctions.cpp.s
+
+CMakeFiles/Lab6.dir/source/givenFunctions.cpp.o.requires:
+.PHONY : CMakeFiles/Lab6.dir/source/givenFunctions.cpp.o.requires
+
+CMakeFiles/Lab6.dir/source/givenFunctions.cpp.o.provides: CMakeFiles/Lab6.dir/source/givenFunctions.cpp.o.requires
+	$(MAKE) -f CMakeFiles/Lab6.dir/build.make CMakeFiles/Lab6.dir/source/givenFunctions.cpp.o.provides.build
+.PHONY : CMakeFiles/Lab6.dir/source/givenFunctions.cpp.o.provides
+
+CMakeFiles/Lab6.dir/source/givenFunctions.cpp.o.provides.build: CMakeFiles/Lab6.dir/source/givenFunctions.cpp.o
+
 CMakeFiles/Lab6.dir/dependencies/glad/src/glad.c.o: CMakeFiles/Lab6.dir/flags.make
 CMakeFiles/Lab6.dir/dependencies/glad/src/glad.c.o: dependencies/glad/src/glad.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/karre/Graphics/Program3/CMakeFiles $(CMAKE_PROGRESS_5)
+	$(CMAKE_COMMAND) -E cmake_progress_report /Users/karre/Graphics/Program3/CMakeFiles $(CMAKE_PROGRESS_6)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object CMakeFiles/Lab6.dir/dependencies/glad/src/glad.c.o"
 	/usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/Lab6.dir/dependencies/glad/src/glad.c.o   -c /Users/karre/Graphics/Program3/dependencies/glad/src/glad.c
 
@@ -170,6 +193,7 @@ Lab6_OBJECTS = \
 "CMakeFiles/Lab6.dir/source/GLSL.cpp.o" \
 "CMakeFiles/Lab6.dir/source/tiny_obj_loader.cc.o" \
 "CMakeFiles/Lab6.dir/source/RenderingHelper.cpp.o" \
+"CMakeFiles/Lab6.dir/source/givenFunctions.cpp.o" \
 "CMakeFiles/Lab6.dir/dependencies/glad/src/glad.c.o"
 
 # External object files for target Lab6
@@ -179,6 +203,7 @@ Lab6: CMakeFiles/Lab6.dir/source/main.cpp.o
 Lab6: CMakeFiles/Lab6.dir/source/GLSL.cpp.o
 Lab6: CMakeFiles/Lab6.dir/source/tiny_obj_loader.cc.o
 Lab6: CMakeFiles/Lab6.dir/source/RenderingHelper.cpp.o
+Lab6: CMakeFiles/Lab6.dir/source/givenFunctions.cpp.o
 Lab6: CMakeFiles/Lab6.dir/dependencies/glad/src/glad.c.o
 Lab6: CMakeFiles/Lab6.dir/build.make
 Lab6: dependencies/glfw/src/libglfw3.a
@@ -194,6 +219,7 @@ CMakeFiles/Lab6.dir/requires: CMakeFiles/Lab6.dir/source/main.cpp.o.requires
 CMakeFiles/Lab6.dir/requires: CMakeFiles/Lab6.dir/source/GLSL.cpp.o.requires
 CMakeFiles/Lab6.dir/requires: CMakeFiles/Lab6.dir/source/tiny_obj_loader.cc.o.requires
 CMakeFiles/Lab6.dir/requires: CMakeFiles/Lab6.dir/source/RenderingHelper.cpp.o.requires
+CMakeFiles/Lab6.dir/requires: CMakeFiles/Lab6.dir/source/givenFunctions.cpp.o.requires
 CMakeFiles/Lab6.dir/requires: CMakeFiles/Lab6.dir/dependencies/glad/src/glad.c.o.requires
 .PHONY : CMakeFiles/Lab6.dir/requires
 

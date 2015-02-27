@@ -52,6 +52,16 @@ glm/gtc/matrix_inverse.hpp
 glm/gtc/matrix_transform.hpp
 /Users/karre/Graphics/Program3/source/glm/gtc/matrix_transform.hpp
 
+/Users/karre/Graphics/Program3/source/givenFunctions.cpp
+GLIncludes.h
+/Users/karre/Graphics/Program3/source/GLIncludes.h
+tiny_obj_loader.h
+/Users/karre/Graphics/Program3/source/tiny_obj_loader.h
+cassert
+-
+
+/Users/karre/Graphics/Program3/source/givenFunctions.h
+
 /Users/karre/Graphics/Program3/source/glm/./core/_detail.hpp
 setup.hpp
 /Users/karre/Graphics/Program3/source/glm/./core/setup.hpp
@@ -567,6 +577,8 @@ glm/gtc/type_ptr.hpp
 /Users/karre/Graphics/Program3/source/glm/gtc/type_ptr.hpp
 RenderingHelper.h
 /Users/karre/Graphics/Program3/source/RenderingHelper.h
+givenFunctions.h
+/Users/karre/Graphics/Program3/source/givenFunctions.h
 
 /Users/karre/Graphics/Program3/source/tiny_obj_loader.cc
 cstdlib

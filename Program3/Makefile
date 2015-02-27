@@ -200,6 +200,30 @@ source/RenderingHelper.cpp.s:
 	$(MAKE) -f CMakeFiles/Lab6.dir/build.make CMakeFiles/Lab6.dir/source/RenderingHelper.cpp.s
 .PHONY : source/RenderingHelper.cpp.s
 
+source/givenFunctions.o: source/givenFunctions.cpp.o
+.PHONY : source/givenFunctions.o
+
+# target to build an object file
+source/givenFunctions.cpp.o:
+	$(MAKE) -f CMakeFiles/Lab6.dir/build.make CMakeFiles/Lab6.dir/source/givenFunctions.cpp.o
+.PHONY : source/givenFunctions.cpp.o
+
+source/givenFunctions.i: source/givenFunctions.cpp.i
+.PHONY : source/givenFunctions.i
+
+# target to preprocess a source file
+source/givenFunctions.cpp.i:
+	$(MAKE) -f CMakeFiles/Lab6.dir/build.make CMakeFiles/Lab6.dir/source/givenFunctions.cpp.i
+.PHONY : source/givenFunctions.cpp.i
+
+source/givenFunctions.s: source/givenFunctions.cpp.s
+.PHONY : source/givenFunctions.s
+
+# target to generate assembly for a file
+source/givenFunctions.cpp.s:
+	$(MAKE) -f CMakeFiles/Lab6.dir/build.make CMakeFiles/Lab6.dir/source/givenFunctions.cpp.s
+.PHONY : source/givenFunctions.cpp.s
+
 source/main.o: source/main.cpp.o
 .PHONY : source/main.o
 
@@ -267,6 +291,9 @@ help:
 	@echo "... source/RenderingHelper.o"
 	@echo "... source/RenderingHelper.i"
 	@echo "... source/RenderingHelper.s"
+	@echo "... source/givenFunctions.o"
+	@echo "... source/givenFunctions.i"
+	@echo "... source/givenFunctions.s"
 	@echo "... source/main.o"
 	@echo "... source/main.i"
 	@echo "... source/main.s"

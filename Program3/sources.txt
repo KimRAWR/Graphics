@@ -4,6 +4,7 @@ set(HEADERS
    GLSL.h
    tiny_obj_loader.h
    RenderingHelper.h
+   givenFunctions.h
 )
 
 # List all .c / .cpp files here
@@ -12,4 +13,5 @@ set(SOURCES
    GLSL.cpp
    tiny_obj_loader.cc
    RenderingHelper.cpp
+   givenFunctions.cpp
 )

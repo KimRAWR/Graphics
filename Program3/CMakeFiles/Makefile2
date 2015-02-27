@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = /Users/karre/Graphics/Program3
 CMakeFiles/Lab6.dir/all: dependencies/glfw/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f CMakeFiles/Lab6.dir/build.make CMakeFiles/Lab6.dir/depend
 	$(MAKE) -f CMakeFiles/Lab6.dir/build.make CMakeFiles/Lab6.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/karre/Graphics/Program3/CMakeFiles  1 2 3 4 5
+	$(CMAKE_COMMAND) -E cmake_progress_report /Users/karre/Graphics/Program3/CMakeFiles  1 2 3 4 5 6
 	@echo "Built target Lab6"
 .PHONY : CMakeFiles/Lab6.dir/all
 
@@ -69,7 +69,7 @@ all: CMakeFiles/Lab6.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Lab6.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karre/Graphics/Program3/CMakeFiles 17
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karre/Graphics/Program3/CMakeFiles 18
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/Lab6.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karre/Graphics/Program3/CMakeFiles 0
 .PHONY : CMakeFiles/Lab6.dir/rule
@@ -124,7 +124,7 @@ dependencies/glfw/src/preinstall:
 dependencies/glfw/src/CMakeFiles/glfw.dir/all:
 	$(MAKE) -f dependencies/glfw/src/CMakeFiles/glfw.dir/build.make dependencies/glfw/src/CMakeFiles/glfw.dir/depend
 	$(MAKE) -f dependencies/glfw/src/CMakeFiles/glfw.dir/build.make dependencies/glfw/src/CMakeFiles/glfw.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/karre/Graphics/Program3/CMakeFiles  6 7 8 9 10 11 12 13 14 15 16 17
+	$(CMAKE_COMMAND) -E cmake_progress_report /Users/karre/Graphics/Program3/CMakeFiles  7 8 9 10 11 12 13 14 15 16 17 18
 	@echo "Built target glfw"
 .PHONY : dependencies/glfw/src/CMakeFiles/glfw.dir/all
 
