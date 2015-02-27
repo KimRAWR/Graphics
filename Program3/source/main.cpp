@@ -87,7 +87,7 @@ void initBunnyArrays() {
    for (int i=0; i<NUM_BUNNIES; i++) {
       g_bunny_positionX[i] = 25 * (rand() / (float)RAND_MAX - .5);
       g_bunny_positionZ[i] = 25 * (rand() / (float)RAND_MAX - .5);// (float)RAND_MAX;
-      g_bunny_rotation[i] = rand() / (float)RAND_MAX;
+      g_bunny_rotation[i] = 360 * ((rand() / (float)RAND_MAX) * 2 - 1);
    }
 }
 
