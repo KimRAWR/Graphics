@@ -3,6 +3,8 @@
  * February 19, 2015
  */
 
+ #define NUM_BUNNIES 10
+
 #include "GLIncludes.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -38,6 +40,18 @@ glm::vec3 g_light(2, 6, 6);
 
 float forcedY = 0.0;
 
+float g_bunny_positionX[NUM_BUNNIES];/* = {
+   //3.0, -3.0, -7.0, 1.0, 2.4, -2, -4.5, 5.3, 0.0, 6.0,
+};*/
+
+float g_bunny_positionZ[NUM_BUNNIES];/*{
+   -3.0, 1.0, -7.0, 1.5, -2.0, -4.5, 3.0, 5.5, -5.5, -1.0,
+};*/
+
+float g_bunny_rotation[NUM_BUNNIES];/* = {
+   45.0, -90.0, 0.0,
+};*/
+
 GLuint ShadeProg;
 GLuint posBufObj = 0;
 GLuint norBufObj = 0;
@@ -68,6 +82,14 @@ GLint h_uShadeM;
 GLint h_cameratrans;
 
 GLint colorByNormalsID;
+
+void initBunnyArrays() {
+   for (int i=0; i<NUM_BUNNIES; i++) {
+      g_bunny_positionX[i] = 25 * (rand() / (float)RAND_MAX - .5);
+      g_bunny_positionZ[i] = 25 * (rand() / (float)RAND_MAX - .5);// (float)RAND_MAX;
+      g_bunny_rotation[i] = rand() / (float)RAND_MAX;
+   }
+}
 
 /* helper function to make sure your matrix handle is correct */
 inline void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]) {
@@ -202,7 +224,6 @@ void initGround() {
         G_edge, -6.7f, G_edge,
   };
 
-
   GLfloat nor_Buf_G[] = { 
       0.0f, 1.0f, 0.0f,
       0.0f, 1.0f, 0.0f,
@@ -222,9 +243,17 @@ void initGround() {
 
 }
 
+void drawBunny(int numBunny) {
+  glm::mat4 Trans = glm::translate( glm::mat4(1.0f), glm::vec3(g_bunny_positionX[numBunny], 0, g_bunny_positionZ[numBunny]));
+  glm::mat4 RotateY = glm::rotate( glm::mat4(1.0f), g_bunny_rotation[numBunny], glm::vec3(0.0f, 1, 0));
+  glm::mat4 com = Trans*RotateY;
+  safe_glUniformMatrix4fv(h_uModelMatrix, glm::value_ptr(com));
+}
+
 void initGL()
 {
    initGround();
+   initBunnyArrays();
 
    // Set the background color
    glClearColor(0.6f, 0.6f, 0.8f, 1.0f);
@@ -301,14 +330,21 @@ void initGL()
    // Unbind the arrays
    glBindBuffer(GL_ARRAY_BUFFER, 0);
    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-   GLSL::checkVersion();
-   assert(glGetError() == GL_NO_ERROR);
+   
 
    //initialize the modeltrans matrix stack
    ModelTrans.useModelViewMatrix();
    ModelTrans.loadIdentity();
 
    initGround();
+
+   /*for (int i=0; i<NUM_BUNNIES; i++) {
+      g_bunny_positionX[i] = 100 * rand() / (float)RAND_MAX;//0.0; //std::rand() / (double)RAND_MAX;
+      g_bunny_positionZ[i] = 100 * rand() / (float)RAND_MAX;
+   }*/
+
+   GLSL::checkVersion();
+   assert(glGetError() == GL_NO_ERROR);
 
 }
 
@@ -412,7 +448,9 @@ void drawGL()
    // Bind index array for drawing
    int nIndices = (int)shapes[0].mesh.indices.size();
    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indBufObj);
+
    
+   SetMaterial(3);
    //glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
    ModelTrans.loadIdentity();
    ModelTrans.lookAt(eye, lookAt, up);
@@ -421,7 +459,7 @@ void drawGL()
    ModelTrans.translate(glm::vec3(0, 0, 0));  //global trans and rotate
    //ModelTrans.pushMatrix();
       
-      ModelTrans.translate(glm::vec3(3, 0, 0));
+      /*ModelTrans.translate(glm::vec3(3, 0, 0));
       
       glUniformMatrix4fv(h_uViewMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
       glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
@@ -436,11 +474,17 @@ void drawGL()
       glUniformMatrix4fv(h_uViewMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
       glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
 
-      ModelTrans.translate(glm::vec3(0, 0, -6));
+      ModelTrans.translate(glm::vec3(0, 0, -6));*/
 
       glUniformMatrix4fv(h_uViewMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
-      glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+      //glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
    
+
+   for (int i=0; i<NUM_BUNNIES; i++) {
+      drawBunny(i);
+      glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+   }
+
    GLSL::disableVertexAttribArray(h_aPosition);
    GLSL::disableVertexAttribArray(h_aNormal);
    glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -456,6 +500,8 @@ void drawGL()
 
    // ==========================================================
    // DRAW THE GROUND
+
+   SetMaterial(g_mat_id);
 
    glEnableVertexAttribArray(h_aPosition);
    glBindBuffer(GL_ARRAY_BUFFER, posBufObjG);
