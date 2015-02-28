@@ -1,9 +1,10 @@
 /* Kim Arre
  * CPE 471
- * February 19, 2015
+ * February 27, 2015
  */
 
  #define NUM_BUNNIES 10
+ #define NUM_PENGUINS 10
 
 #include "GLIncludes.h"
 #include <stdio.h>
@@ -25,7 +26,8 @@
 GLFWwindow* window;
 using namespace std;
 
-vector<tinyobj::shape_t> shapes;
+vector<tinyobj::shape_t> bunny;
+vector<tinyobj::shape_t> penguin;
 vector<tinyobj::material_t> materials;
 
 int g_SM = 0;
@@ -40,22 +42,22 @@ glm::vec3 g_light(2, 6, 6);
 
 float forcedY = 0.0;
 
-float g_bunny_positionX[NUM_BUNNIES];/* = {
-   //3.0, -3.0, -7.0, 1.0, 2.4, -2, -4.5, 5.3, 0.0, 6.0,
-};*/
+float g_bunny_positionX[NUM_BUNNIES];
+float g_bunny_positionZ[NUM_BUNNIES];
+float g_bunny_rotation[NUM_BUNNIES];
 
-float g_bunny_positionZ[NUM_BUNNIES];/*{
-   -3.0, 1.0, -7.0, 1.5, -2.0, -4.5, 3.0, 5.5, -5.5, -1.0,
-};*/
-
-float g_bunny_rotation[NUM_BUNNIES];/* = {
-   45.0, -90.0, 0.0,
-};*/
+float g_penguin_positionX[NUM_PENGUINS];
+float g_penguin_positionZ[NUM_PENGUINS];
+float g_penguin_rotation[NUM_PENGUINS];
 
 GLuint ShadeProg;
-GLuint posBufObj = 0;
-GLuint norBufObj = 0;
-GLuint indBufObj = 0;
+GLuint posBufObjB = 0;
+GLuint norBufObjB = 0;
+GLuint indBufObjB = 0;
+
+GLuint posBufObjP = 0;
+GLuint norBufObjP = 0;
+GLuint indBufObjP = 0;
 
 GLuint posBufObjG = 0;
 GLuint norBufObjG = 0;
@@ -83,11 +85,16 @@ GLint h_cameratrans;
 
 GLint colorByNormalsID;
 
-void initBunnyArrays() {
+void initModelArrays() {
    for (int i=0; i<NUM_BUNNIES; i++) {
       g_bunny_positionX[i] = 25 * (rand() / (float)RAND_MAX - .5);
       g_bunny_positionZ[i] = 25 * (rand() / (float)RAND_MAX - .5);// (float)RAND_MAX;
       g_bunny_rotation[i] = 360 * ((rand() / (float)RAND_MAX) * 2 - 1);
+   }
+   for (int i=0; i<NUM_PENGUINS; i++) {
+      g_penguin_positionX[i] = 25 * (rand() / (float)RAND_MAX - .5);
+      g_penguin_positionZ[i] = 25 * (rand() / (float)RAND_MAX - .5);// (float)RAND_MAX;
+      g_penguin_rotation[i] = 360 * ((rand() / (float)RAND_MAX) * 2 - 1);
    }
 }
 
@@ -120,23 +127,23 @@ void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mods)
    lookAt = glm::vec3(x, y, z) + eye;
 
    // RIGHT
-   if (key == GLFW_KEY_D && action == GLFW_PRESS) {
+   if (key == GLFW_KEY_D && (action == GLFW_PRESS || action == GLFW_REPEAT)) {
       eye += glm::cross(lookAt - eye, up) * .25f; 
       lookAt += glm::cross(lookAt - eye, up) * .25f;
    }
    // LEFT
-   else if (key == GLFW_KEY_A && action == GLFW_PRESS) {
+   else if (key == GLFW_KEY_A && (action == GLFW_PRESS || action == GLFW_REPEAT)) {
       eye -= glm::cross(lookAt - eye, up) * .25f; 
       lookAt -= glm::cross(lookAt - eye, up) * .25f;
    }
    
    // FORWARD
-   else if (key == GLFW_KEY_W && action == GLFW_PRESS) {
+   else if (key == GLFW_KEY_W && (action == GLFW_PRESS || action == GLFW_REPEAT)) {
       eye += glm::vec3(x, y, z) * glm::vec3(.25, forcedY, .25);
       lookAt += glm::vec3(x, y, z) * glm::vec3(.25, forcedY, .25);
    }
    // BACK
-   else if (key == GLFW_KEY_S && action == GLFW_PRESS) {
+   else if (key == GLFW_KEY_S && (action == GLFW_PRESS || action == GLFW_REPEAT)) {
       eye -= glm::vec3(x, y, z) * glm::vec3(.25, forcedY, .25);
       lookAt -= glm::vec3(x, y, z) * glm::vec3(.25, forcedY, .25);
    }
@@ -203,7 +210,7 @@ void SetLightModel() {
   safe_glUniformMatrix4fv(h_uModelMatrix, glm::value_ptr(com));
 }
 
-void loadShapes(const string &objFile)
+void loadShapes(const string &objFile, std::vector<tinyobj::shape_t>& shapes)
 {
    string err = tinyobj::LoadObj(shapes, materials, objFile.c_str());
    if(!err.empty()) {
@@ -243,17 +250,140 @@ void initGround() {
 
 }
 
-void drawBunny(int numBunny) {
+void setBunny(int numBunny) {
   glm::mat4 Trans = glm::translate( glm::mat4(1.0f), glm::vec3(g_bunny_positionX[numBunny], 0, g_bunny_positionZ[numBunny]));
   glm::mat4 RotateY = glm::rotate( glm::mat4(1.0f), g_bunny_rotation[numBunny], glm::vec3(0.0f, 1, 0));
   glm::mat4 com = Trans*RotateY;
   safe_glUniformMatrix4fv(h_uModelMatrix, glm::value_ptr(com));
 }
 
+void setPenguin(int numPenguin) {
+  glm::mat4 Trans = glm::translate( glm::mat4(1.0f), glm::vec3(g_penguin_positionX[numPenguin], 0, g_penguin_positionZ[numPenguin]));
+  glm::mat4 RotateY = glm::rotate( glm::mat4(1.0f), g_penguin_rotation[numPenguin], glm::vec3(0.0f, 1, 0));
+  glm::mat4 com = Trans*RotateY;
+  safe_glUniformMatrix4fv(h_uModelMatrix, glm::value_ptr(com));
+}
+
+void initBunny(std::vector<tinyobj::shape_t>& shape) {
+
+   // Send the position array to the GPU
+   const vector<float> &posBuf = shape[0].mesh.positions;
+   glGenBuffers(1, &posBufObjB);
+   glBindBuffer(GL_ARRAY_BUFFER, posBufObjB);
+   glBufferData(GL_ARRAY_BUFFER, posBuf.size()*sizeof(float), &posBuf[0], GL_STATIC_DRAW);
+   
+   // Send the normal array to the GPU
+   vector<float> norBuf;
+   glm::vec3 v1, v2, v3;
+   glm::vec3 edge1, edge2, norm;
+   int idx1, idx2, idx3;
+   //for every vertex initialize the vertex normal to 0
+   for (int j = 0; j < shape[0].mesh.positions.size()/3; j++) {
+      norBuf.push_back(0);
+      norBuf.push_back(0);
+      norBuf.push_back(0);
+   }
+   //process the mesh and compute the normals - for every face
+   //add its normal to its associated vertex
+   for (int i = 0; i < shape[0].mesh.indices.size()/3; i++) {
+      idx1 = shape[0].mesh.indices[3*i+0];
+      idx2 = shape[0].mesh.indices[3*i+1];
+      idx3 = shape[0].mesh.indices[3*i+2];
+      v1 = glm::vec3(shape[0].mesh.positions[3*idx1 +0],shape[0].mesh.positions[3*idx1 +1], shape[0].mesh.positions[3*idx1 +2]);
+      v2 = glm::vec3(shape[0].mesh.positions[3*idx2 +0],shape[0].mesh.positions[3*idx2 +1], shape[0].mesh.positions[3*idx2 +2]);
+      v3 = glm::vec3(shape[0].mesh.positions[3*idx3 +0],shape[0].mesh.positions[3*idx3 +1], shape[0].mesh.positions[3*idx3 +2]);
+      edge1 = v2 - v1;
+      edge2 = v3 - v1;
+      norm = glm::cross(edge1, edge2);
+      norBuf[3*idx1+0] += (norm.x);
+      norBuf[3*idx1+1] += (norm.y);
+      norBuf[3*idx1+2] += (norm.z);
+      norBuf[3*idx2+0] += (norm.x);
+      norBuf[3*idx2+1] += (norm.y);
+      norBuf[3*idx2+2] += (norm.z);
+      norBuf[3*idx3+0] += (norm.x);
+      norBuf[3*idx3+1] += (norm.y);
+      norBuf[3*idx3+2] += (norm.z);
+   }
+   glGenBuffers(1, &norBufObjB);
+   glBindBuffer(GL_ARRAY_BUFFER, norBufObjB);
+   glBufferData(GL_ARRAY_BUFFER, norBuf.size()*sizeof(float), &norBuf[0], GL_STATIC_DRAW);
+   
+   // Send the index array to the GPU
+   const vector<unsigned int> &indBuf = shape[0].mesh.indices;
+   glGenBuffers(1, &indBufObjB);
+   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indBufObjB);
+   glBufferData(GL_ELEMENT_ARRAY_BUFFER, indBuf.size()*sizeof(unsigned int), &indBuf[0], GL_STATIC_DRAW);
+
+   // Unbind the arrays
+   glBindBuffer(GL_ARRAY_BUFFER, 0);
+   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+   GLSL::checkVersion();
+   assert(glGetError() == GL_NO_ERROR);
+}
+
+void initPenguin(std::vector<tinyobj::shape_t>& shape) {
+
+   // Send the position array to the GPU
+   const vector<float> &posBuf = shape[0].mesh.positions;
+   glGenBuffers(1, &posBufObjP);
+   glBindBuffer(GL_ARRAY_BUFFER, posBufObjP);
+   glBufferData(GL_ARRAY_BUFFER, posBuf.size()*sizeof(float), &posBuf[0], GL_STATIC_DRAW);
+   
+   // Send the normal array to the GPU
+   vector<float> norBuf;
+   glm::vec3 v1, v2, v3;
+   glm::vec3 edge1, edge2, norm;
+   int idx1, idx2, idx3;
+   //for every vertex initialize the vertex normal to 0
+   for (int j = 0; j < shape[0].mesh.positions.size()/3; j++) {
+      norBuf.push_back(0);
+      norBuf.push_back(0);
+      norBuf.push_back(0);
+   }
+   //process the mesh and compute the normals - for every face
+   //add its normal to its associated vertex
+   for (int i = 0; i < shape[0].mesh.indices.size()/3; i++) {
+      idx1 = shape[0].mesh.indices[3*i+0];
+      idx2 = shape[0].mesh.indices[3*i+1];
+      idx3 = shape[0].mesh.indices[3*i+2];
+      v1 = glm::vec3(shape[0].mesh.positions[3*idx1 +0],shape[0].mesh.positions[3*idx1 +1], shape[0].mesh.positions[3*idx1 +2]);
+      v2 = glm::vec3(shape[0].mesh.positions[3*idx2 +0],shape[0].mesh.positions[3*idx2 +1], shape[0].mesh.positions[3*idx2 +2]);
+      v3 = glm::vec3(shape[0].mesh.positions[3*idx3 +0],shape[0].mesh.positions[3*idx3 +1], shape[0].mesh.positions[3*idx3 +2]);
+      edge1 = v2 - v1;
+      edge2 = v3 - v1;
+      norm = glm::cross(edge1, edge2);
+      norBuf[3*idx1+0] += (norm.x);
+      norBuf[3*idx1+1] += (norm.y);
+      norBuf[3*idx1+2] += (norm.z);
+      norBuf[3*idx2+0] += (norm.x);
+      norBuf[3*idx2+1] += (norm.y);
+      norBuf[3*idx2+2] += (norm.z);
+      norBuf[3*idx3+0] += (norm.x);
+      norBuf[3*idx3+1] += (norm.y);
+      norBuf[3*idx3+2] += (norm.z);
+   }
+   glGenBuffers(1, &norBufObjP);
+   glBindBuffer(GL_ARRAY_BUFFER, norBufObjP);
+   glBufferData(GL_ARRAY_BUFFER, norBuf.size()*sizeof(float), &norBuf[0], GL_STATIC_DRAW);
+   
+   // Send the index array to the GPU
+   const vector<unsigned int> &indBuf = shape[0].mesh.indices;
+   glGenBuffers(1, &indBufObjP);
+   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indBufObjP);
+   glBufferData(GL_ELEMENT_ARRAY_BUFFER, indBuf.size()*sizeof(unsigned int), &indBuf[0], GL_STATIC_DRAW);
+
+   // Unbind the arrays
+   glBindBuffer(GL_ARRAY_BUFFER, 0);
+   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+   GLSL::checkVersion();
+   assert(glGetError() == GL_NO_ERROR);
+}
+
 void initGL()
 {
    initGround();
-   initBunnyArrays();
+   initModelArrays();
 
    // Set the background color
    glClearColor(0.6f, 0.6f, 0.8f, 1.0f);
@@ -261,87 +391,15 @@ void initGL()
    glEnable(GL_DEPTH_TEST);
    glPointSize(18);
    
-   // Send the position array to the GPU
-   const vector<float> &posBuf = shapes[0].mesh.positions;
-   glGenBuffers(1, &posBufObj);
-   glBindBuffer(GL_ARRAY_BUFFER, posBufObj);
-   glBufferData(GL_ARRAY_BUFFER, posBuf.size()*sizeof(float), &posBuf[0], GL_STATIC_DRAW);
-   
-   // TODO compute the normals per vertex - you must fill this in 
-   vector<float> norBuf;
-   int idx1, idx2, idx3;
-   glm::vec3 v1, v2, v3;
+   initPenguin(penguin);
+   initBunny(bunny);
 
-   //for every vertex initialize a normal to 0
-   for (int j = 0; j < shapes[0].mesh.positions.size()/3; j++) {
-      norBuf.push_back(0);
-      norBuf.push_back(0);
-      norBuf.push_back(0);
-   }
-   // DO work here to compute the normals for every face
-   //then add its normal to its associated vertex
-   for (int i = 0; i < shapes[0].mesh.indices.size()/3; i++) {
-      idx1 = shapes[0].mesh.indices[3*i+0];
-      idx2 = shapes[0].mesh.indices[3*i+1];
-      idx3 = shapes[0].mesh.indices[3*i+2];
-      v1 = glm::vec3(shapes[0].mesh.positions[3*idx1 +0],shapes[0].mesh.positions[3*idx1 +1], shapes[0].mesh.positions[3*idx1 +2]); 
-      v2 = glm::vec3(shapes[0].mesh.positions[3*idx2 +0],shapes[0].mesh.positions[3*idx2 +1], shapes[0].mesh.positions[3*idx2 +2]); 
-      v3 = glm::vec3(shapes[0].mesh.positions[3*idx3 +0],shapes[0].mesh.positions[3*idx3 +1], shapes[0].mesh.positions[3*idx3 +2]); 
-
-      // Calculate two vectors from the three points 
-      v1 = v1 - v2;
-      v2 = v2 - v3;
-
-      // Take the cross product of the two vectors to get the normal vector 
-      
-      glm::vec3 out = glm::vec3(glm::cross(v1, v2)); 
-      
-      norBuf[3*idx1+0] += out.x;
-      norBuf[3*idx1+1] += out.y;
-      norBuf[3*idx1+2] += out.z;
-
-      norBuf[3*idx2+0] += out.x;
-      norBuf[3*idx2+1] += out.y;
-      norBuf[3*idx2+2] += out.z;
-
-      norBuf[3*idx3+0] += out.x;
-      norBuf[3*idx3+1] += out.y;
-      norBuf[3*idx3+2] += out.z;
-   }
-
-   for (int i = 0; i < norBuf.size(); i += 3) {
-      glm::vec3 toNormalize = glm::vec3(norBuf[i+0], norBuf[i+1], norBuf[i+2]);
-      toNormalize = glm::normalize(toNormalize);
-      norBuf[i+0] = toNormalize.x;
-      norBuf[i+1] = toNormalize.y;
-      norBuf[i+2] = toNormalize.z;
-   }
-
-   glGenBuffers(1, &norBufObj);
-   glBindBuffer(GL_ARRAY_BUFFER, norBufObj);
-   glBufferData(GL_ARRAY_BUFFER, norBuf.size()*sizeof(float), &norBuf[0], GL_STATIC_DRAW);
-   
-   // Send the index array to the GPU
-   const vector<unsigned int> &indBuf = shapes[0].mesh.indices;
-   glGenBuffers(1, &indBufObj);
-   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indBufObj);
-   glBufferData(GL_ELEMENT_ARRAY_BUFFER, indBuf.size()*sizeof(unsigned int), &indBuf[0], GL_STATIC_DRAW);
-
-   // Unbind the arrays
-   glBindBuffer(GL_ARRAY_BUFFER, 0);
-   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-   
 
    //initialize the modeltrans matrix stack
    ModelTrans.useModelViewMatrix();
    ModelTrans.loadIdentity();
 
    initGround();
-
-   /*for (int i=0; i<NUM_BUNNIES; i++) {
-      g_bunny_positionX[i] = 100 * rand() / (float)RAND_MAX;//0.0; //std::rand() / (double)RAND_MAX;
-      g_bunny_positionZ[i] = 100 * rand() / (float)RAND_MAX;
-   }*/
 
    GLSL::checkVersion();
    assert(glGetError() == GL_NO_ERROR);
@@ -416,6 +474,56 @@ bool installShaders(const string &vShaderName, const string &fShaderName)
    return true;
 }
 
+/*void drawAPenguin(int nIndices) {
+   // ============= sample from draw bunny ================
+      /*glm::mat4 Trans = glm::translate( glm::mat4(1.0f), glm::vec3(g_bunny_positionX[numBunny], 0, g_bunny_positionZ[numBunny]));
+      glm::mat4 RotateY = glm::rotate( glm::mat4(1.0f), g_bunny_rotation[numBunny], glm::vec3(0.0f, 1, 0));
+      glm::mat4 com = Trans*RotateY;
+      safe_glUniformMatrix4fv(h_uModelMatrix, glm::value_ptr(com));
+      
+
+   glEnableVertexAttribArray(h_aPosition);
+   glBindBuffer(GL_ARRAY_BUFFER, posBufObjG);
+   glVertexAttribPointer( h_aPosition, 3,  GL_FLOAT, GL_FALSE, 0, (void*)0);
+   GLSL::enableVertexAttribArray(h_aNormal);
+   glBindBuffer(GL_ARRAY_BUFFER, norBufObjG);
+   glVertexAttribPointer(h_aNormal, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+   ModelTrans.translate(glm::vec3(3, 0, 0));
+   
+   glUniformMatrix4fv(h_uViewMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
+   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+
+   ModelTrans.translate(glm::vec3(-6, 0, 0));
+
+   glUniformMatrix4fv(h_uViewMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
+   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+
+   ModelTrans.translate(glm::vec3(3, 0, 3));
+
+   glUniformMatrix4fv(h_uViewMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
+   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+
+   ModelTrans.translate(glm::vec3(0, 0, -6));
+
+      
+   GLSL::disableVertexAttribArray(h_aPosition);
+   GLSL::disableVertexAttribArray(h_aNormal);
+   glBindBuffer(GL_ARRAY_BUFFER, 0);
+      
+      //glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+
+   // BODY
+   //createTranslateMat(transMat, 0, 0, -2);
+   //createScaleMat(scaleMat, .35, .85, .35); //x and z should match
+   //multMat(temp, transMat, scaleMat);
+
+   //keypressRotate(MV, temp, modelRotation);
+
+   //glUniformMatrix4fv(uMV, 1, GL_FALSE, MV);
+   //glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+}*/
+
 
 void drawGL()
 {
@@ -428,8 +536,11 @@ void drawGL()
     SetProjectionMatrix();
     //SetView();
 
-    SetModel();
-    SetMaterial(g_mat_id);
+    // ==============================================================
+    // DRAW BUNNY
+
+    //setBunny();
+    //SetMaterial(g_mat_id);
     glUniform3f(h_uLightPos, g_light.x, g_light.y, g_light.z);
     glUniform1i(h_uShadeM, g_SM);
     glUniform1f(colorByNormalsID, drawNormals);
@@ -437,51 +548,31 @@ void drawGL()
 
    // Enable and bind position array for drawing
    GLSL::enableVertexAttribArray(h_aPosition);
-   glBindBuffer(GL_ARRAY_BUFFER, posBufObj);
+   glBindBuffer(GL_ARRAY_BUFFER, posBufObjB);
    glVertexAttribPointer(h_aPosition, 3, GL_FLOAT, GL_FALSE, 0, 0);
    
    // Enable and bind normal array for drawing
    GLSL::enableVertexAttribArray(h_aNormal);
-   glBindBuffer(GL_ARRAY_BUFFER, norBufObj);
+   glBindBuffer(GL_ARRAY_BUFFER, norBufObjB);
    glVertexAttribPointer(h_aNormal, 3, GL_FLOAT, GL_FALSE, 0, 0);
    
    // Bind index array for drawing
-   int nIndices = (int)shapes[0].mesh.indices.size();
-   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indBufObj);
-
+   int nIndices = (int)bunny[0].mesh.indices.size();
+   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indBufObjB);
    
    SetMaterial(3);
    //glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
    ModelTrans.loadIdentity();
    ModelTrans.lookAt(eye, lookAt, up);
    //ModelTrans.translate(glm::vec3(-.8 + translate, 0, 0));  //global trans and rotate
-   ModelTrans.scale(.4, .4, .4);
-   ModelTrans.translate(glm::vec3(0, 0, 0));  //global trans and rotate
-   //ModelTrans.pushMatrix();
+   //ModelTrans.scale(.4, .4, .4);
+   //ModelTrans.translate(glm::vec3(0, 0, 0));  //global trans and rotate
+   ModelTrans.pushMatrix();
+
+   glUniformMatrix4fv(h_uViewMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
       
-      /*ModelTrans.translate(glm::vec3(3, 0, 0));
-      
-      glUniformMatrix4fv(h_uViewMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
-      glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-
-      ModelTrans.translate(glm::vec3(-6, 0, 0));
-
-      glUniformMatrix4fv(h_uViewMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
-      glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-
-      ModelTrans.translate(glm::vec3(3, 0, 3));
-
-      glUniformMatrix4fv(h_uViewMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
-      glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-
-      ModelTrans.translate(glm::vec3(0, 0, -6));*/
-
-      glUniformMatrix4fv(h_uViewMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
-      //glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-   
-
    for (int i=0; i<NUM_BUNNIES; i++) {
-      drawBunny(i);
+      setBunny(i);
       glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
    }
 
@@ -499,9 +590,14 @@ void drawGL()
    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
    // ==========================================================
+   // DRAW THE PENGUIN
+
+   
+
+   // ==========================================================
    // DRAW THE GROUND
 
-   SetMaterial(g_mat_id);
+   SetMaterial(1);
 
    glEnableVertexAttribArray(h_aPosition);
    glBindBuffer(GL_ARRAY_BUFFER, posBufObjG);
@@ -592,8 +688,8 @@ int main(int argc, char **argv)
 
     glEnable (GL_BLEND);
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-   loadShapes("cow-nonormals.obj");
-   //loadShapes("sphere.obj");
+    loadShapes("cow-nonormals.obj", bunny);
+    loadShapes("sphere.obj", penguin);
    //loadShapes("cube.obj");
    initGL();
    installShaders("vert.glsl", "frag.glsl");
