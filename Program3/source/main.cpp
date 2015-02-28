@@ -41,6 +41,7 @@ glm::vec3 g_trans(0, 0, 0);
 glm::vec3 g_light(2, 6, 6);
 
 float forcedY = 0.0;
+int nIndices;
 
 float g_bunny_positionX[NUM_BUNNIES];
 float g_bunny_positionZ[NUM_BUNNIES];
@@ -557,7 +558,7 @@ void drawGL()
    glVertexAttribPointer(h_aNormal, 3, GL_FLOAT, GL_FALSE, 0, 0);
    
    // Bind index array for drawing
-   int nIndices = (int)bunny[0].mesh.indices.size();
+   nIndices = (int)bunny[0].mesh.indices.size();
    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indBufObjB);
    
    SetMaterial(3);
@@ -592,7 +593,47 @@ void drawGL()
    // ==========================================================
    // DRAW THE PENGUIN
 
+   glUniform3f(h_uLightPos, g_light.x, g_light.y, g_light.z);
+    glUniform1i(h_uShadeM, g_SM);
+    glUniform1f(colorByNormalsID, drawNormals);
+    glUniform1f(h_cameratrans, g_Camtrans);
+
+   // Enable and bind position array for drawing
+   GLSL::enableVertexAttribArray(h_aPosition);
+   glBindBuffer(GL_ARRAY_BUFFER, posBufObjP);
+   glVertexAttribPointer(h_aPosition, 3, GL_FLOAT, GL_FALSE, 0, 0);
    
+   // Enable and bind normal array for drawing
+   GLSL::enableVertexAttribArray(h_aNormal);
+   glBindBuffer(GL_ARRAY_BUFFER, norBufObjP);
+   glVertexAttribPointer(h_aNormal, 3, GL_FLOAT, GL_FALSE, 0, 0);
+   
+   // Bind index array for drawing
+   nIndices = (int)penguin[0].mesh.indices.size();
+   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indBufObjP);
+   
+   SetMaterial(3);
+   //glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+
+   glUniformMatrix4fv(h_uViewMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
+      
+   for (int i=0; i<NUM_PENGUINS; i++) {
+      setPenguin(i);
+      glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+   }
+
+   GLSL::disableVertexAttribArray(h_aPosition);
+   GLSL::disableVertexAttribArray(h_aNormal);
+   glBindBuffer(GL_ARRAY_BUFFER, 0);
+   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+   SetLightModel();
+   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+
+   
+   // Disable and unbind
+   glBindBuffer(GL_ARRAY_BUFFER, 0);
+   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
    // ==========================================================
    // DRAW THE GROUND
