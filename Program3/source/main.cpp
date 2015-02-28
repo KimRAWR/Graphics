@@ -51,6 +51,8 @@ float g_penguin_positionX[NUM_PENGUINS];
 float g_penguin_positionZ[NUM_PENGUINS];
 float g_penguin_rotation[NUM_PENGUINS];
 
+int randomMaterial[NUM_BUNNIES];
+
 GLuint ShadeProg;
 GLuint posBufObjB = 0;
 GLuint norBufObjB = 0;
@@ -91,12 +93,15 @@ void initModelArrays() {
       g_bunny_positionX[i] = 25 * (rand() / (float)RAND_MAX - .5);
       g_bunny_positionZ[i] = 25 * (rand() / (float)RAND_MAX - .5);// (float)RAND_MAX;
       g_bunny_rotation[i] = 360 * ((rand() / (float)RAND_MAX) * 2 - 1);
+      randomMaterial[i] = rand() % 4;
    }
    for (int i=0; i<NUM_PENGUINS; i++) {
       g_penguin_positionX[i] = 25 * (rand() / (float)RAND_MAX - .5);
       g_penguin_positionZ[i] = 25 * (rand() / (float)RAND_MAX - .5);// (float)RAND_MAX;
       g_penguin_rotation[i] = 360 * ((rand() / (float)RAND_MAX) * 2 - 1);
    }
+
+
 }
 
 /* helper function to make sure your matrix handle is correct */
@@ -147,6 +152,12 @@ void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mods)
    else if (key == GLFW_KEY_S && (action == GLFW_PRESS || action == GLFW_REPEAT)) {
       eye -= glm::vec3(x, y, z) * glm::vec3(.25, forcedY, .25);
       lookAt -= glm::vec3(x, y, z) * glm::vec3(.25, forcedY, .25);
+   }
+   if (key == GLFW_KEY_Q && (action == GLFW_PRESS || action == GLFW_REPEAT)) {
+      g_light.x += 0.5; 
+   }
+   if (key == GLFW_KEY_E && (action == GLFW_PRESS || action == GLFW_REPEAT)) {
+      g_light.x -= 0.5; 
    }
 }
 
@@ -258,12 +269,12 @@ void setBunny(int numBunny) {
   safe_glUniformMatrix4fv(h_uModelMatrix, glm::value_ptr(com));
 }
 
-void setPenguin(int numPenguin) {
+/*void setPenguin(int numPenguin) {
   glm::mat4 Trans = glm::translate( glm::mat4(1.0f), glm::vec3(g_penguin_positionX[numPenguin], 0, g_penguin_positionZ[numPenguin]));
   glm::mat4 RotateY = glm::rotate( glm::mat4(1.0f), g_penguin_rotation[numPenguin], glm::vec3(0.0f, 1, 0));
   glm::mat4 com = Trans*RotateY;
   safe_glUniformMatrix4fv(h_uModelMatrix, glm::value_ptr(com));
-}
+}*/
 
 void initBunny(std::vector<tinyobj::shape_t>& shape) {
 
@@ -475,56 +486,58 @@ bool installShaders(const string &vShaderName, const string &fShaderName)
    return true;
 }
 
-/*void drawAPenguin(int nIndices) {
-   // ============= sample from draw bunny ================
-      /*glm::mat4 Trans = glm::translate( glm::mat4(1.0f), glm::vec3(g_bunny_positionX[numBunny], 0, g_bunny_positionZ[numBunny]));
-      glm::mat4 RotateY = glm::rotate( glm::mat4(1.0f), g_bunny_rotation[numBunny], glm::vec3(0.0f, 1, 0));
-      glm::mat4 com = Trans*RotateY;
-      safe_glUniformMatrix4fv(h_uModelMatrix, glm::value_ptr(com));
+void drawPenguinModel(int numPenguin) {
+   ModelTrans.loadIdentity();
+   ModelTrans.translate(glm::vec3(g_penguin_positionX[numPenguin], 0, g_penguin_positionZ[numPenguin]));  //global trans and rotate
+   ModelTrans.rotate(g_penguin_rotation[numPenguin], glm::vec3(0, 1, 0));
+   ModelTrans.pushMatrix();
+
+      // BODY
+      ModelTrans.scale(.6, 1, .5);
       
+      ModelTrans.pushMatrix();
 
-   glEnableVertexAttribArray(h_aPosition);
-   glBindBuffer(GL_ARRAY_BUFFER, posBufObjG);
-   glVertexAttribPointer( h_aPosition, 3,  GL_FLOAT, GL_FALSE, 0, (void*)0);
-   GLSL::enableVertexAttribArray(h_aNormal);
-   glBindBuffer(GL_ARRAY_BUFFER, norBufObjG);
-   glVertexAttribPointer(h_aNormal, 3, GL_FLOAT, GL_FALSE, 0, 0);
+         // TUMMY
+         ModelTrans.translate(glm::vec3(0, -.3, .7));
+         ModelTrans.rotate(30, glm::vec3(1, 0, 0));
+         ModelTrans.scale(.6, .6, .4);
 
-   ModelTrans.translate(glm::vec3(3, 0, 0));
-   
-   glUniformMatrix4fv(h_uViewMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
-   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+         // draw tummy
+         glUniformMatrix4fv(h_uModelMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
+         glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+         ModelTrans.popMatrix();
 
-   ModelTrans.translate(glm::vec3(-6, 0, 0));
+      // Push original body 
+      ModelTrans.pushMatrix();
 
-   glUniformMatrix4fv(h_uViewMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
-   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+         // RIGHT ARM
+         ModelTrans.translate(glm::vec3(1.0, -.3, .4));
+         ModelTrans.rotate(20, glm::vec3(0, 0, 1)); //2
+         ModelTrans.scale(.1, .6, .4);
 
-   ModelTrans.translate(glm::vec3(3, 0, 3));
+         // draw right arm
+         glUniformMatrix4fv(h_uModelMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
+         glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
 
-   glUniformMatrix4fv(h_uViewMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
-   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+         ModelTrans.popMatrix();
 
-   ModelTrans.translate(glm::vec3(0, 0, -6));
+      ModelTrans.pushMatrix();
+         // LEFT ARM
+         ModelTrans.translate(glm::vec3(-1.0, -.3, .4));
+         ModelTrans.rotate(-20, glm::vec3(0, 0, 1)); //2
+         ModelTrans.scale(.1, .6, .4);
 
-      
-   GLSL::disableVertexAttribArray(h_aPosition);
-   GLSL::disableVertexAttribArray(h_aNormal);
-   glBindBuffer(GL_ARRAY_BUFFER, 0);
-      
-      //glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+         // draw left arm
+         glUniformMatrix4fv(h_uModelMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
+         glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
 
-   // BODY
-   //createTranslateMat(transMat, 0, 0, -2);
-   //createScaleMat(scaleMat, .35, .85, .35); //x and z should match
-   //multMat(temp, transMat, scaleMat);
+         ModelTrans.popMatrix();
 
-   //keypressRotate(MV, temp, modelRotation);
-
-   //glUniformMatrix4fv(uMV, 1, GL_FALSE, MV);
-   //glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-}*/
-
+      // draw body
+      glUniformMatrix4fv(h_uModelMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
+      glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+      ModelTrans.popMatrix();
+}
 
 void drawGL()
 {
@@ -545,7 +558,7 @@ void drawGL()
     glUniform3f(h_uLightPos, g_light.x, g_light.y, g_light.z);
     glUniform1i(h_uShadeM, g_SM);
     glUniform1f(colorByNormalsID, drawNormals);
-    glUniform1f(h_cameratrans, g_Camtrans);
+    glUniform3f(h_cameratrans, eye.x, eye.y, eye.z);
 
    // Enable and bind position array for drawing
    GLSL::enableVertexAttribArray(h_aPosition);
@@ -573,6 +586,7 @@ void drawGL()
    glUniformMatrix4fv(h_uViewMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
       
    for (int i=0; i<NUM_BUNNIES; i++) {
+      SetMaterial(randomMaterial[i]);
       setBunny(i);
       glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
    }
@@ -618,8 +632,10 @@ void drawGL()
    glUniformMatrix4fv(h_uViewMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
       
    for (int i=0; i<NUM_PENGUINS; i++) {
-      setPenguin(i);
-      glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+      //setPenguin(i);
+      SetMaterial(randomMaterial[i]);
+      drawPenguinModel(i);
+      //glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
    }
 
    GLSL::disableVertexAttribArray(h_aPosition);
@@ -658,7 +674,6 @@ void drawGL()
    
 }
 
-
 void window_size_callback(GLFWwindow* window, int w, int h){
    glViewport(0, 0, (GLsizei)w, (GLsizei)h);
    g_width = w;
@@ -695,18 +710,18 @@ int main(int argc, char **argv)
 {
 
 // Initialise GLFW
-    if( !glfwInit() )
-    {
-        fprintf( stderr, "Failed to initialize GLFW\n" );
-        return -1;
-    }
+   if( !glfwInit() )
+   {
+      fprintf( stderr, "Failed to initialize GLFW\n" );
+      return -1;
+   }
 
-    glfwWindowHint(GLFW_SAMPLES, 4);
+   glfwWindowHint(GLFW_SAMPLES, 4);
    glfwWindowHint(GLFW_RESIZABLE,GL_FALSE);
    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
 
-    // Open a window and create its OpenGL context
+   // Open a window and create its OpenGL context
    g_width = 1024;
    g_height = 768;
    window = glfwCreateWindow( g_width, g_height, "P3 - shading", NULL, NULL);
