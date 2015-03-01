@@ -3,6 +3,7 @@ uniform vec3 UdColor;
 uniform vec3 UsColor;
 uniform float Ushine;
 uniform vec3 uLightPos;
+uniform vec3 cameraTrans;
 
 varying vec3 vCol;
 varying vec3 interpolatedNormal;
@@ -14,10 +15,11 @@ void main()
 
    vec3 Ia = .1 * UaColor;
 
-   vec3 L = normalize(uLightPos );//- interpolatedNormal.xyz);
+   vec3 L = normalize(uLightPos - interpolatedPos);
    vec3 Id = .9 * max(0.0, dot(normalize(interpolatedNormal), L)) * UdColor;
 
-   vec3 H = normalize(L + interpolatedPos.xyz);
+   vec3 V = normalize(cameraTrans - interpolatedPos);
+   vec3 H = normalize(L + V);
    float NdotH = max(0.0, dot(normalize(interpolatedNormal), H));
    vec3 Is = pow(NdotH, Ushine) * UsColor;
 

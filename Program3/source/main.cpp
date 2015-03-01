@@ -91,17 +91,15 @@ GLint colorByNormalsID;
 void initModelArrays() {
    for (int i=0; i<NUM_BUNNIES; i++) {
       g_bunny_positionX[i] = 25 * (rand() / (float)RAND_MAX - .5);
-      g_bunny_positionZ[i] = 25 * (rand() / (float)RAND_MAX - .5);// (float)RAND_MAX;
+      g_bunny_positionZ[i] = 25 * (rand() / (float)RAND_MAX - .5);
       g_bunny_rotation[i] = 360 * ((rand() / (float)RAND_MAX) * 2 - 1);
       randomMaterial[i] = rand() % 4;
    }
    for (int i=0; i<NUM_PENGUINS; i++) {
       g_penguin_positionX[i] = 25 * (rand() / (float)RAND_MAX - .5);
-      g_penguin_positionZ[i] = 25 * (rand() / (float)RAND_MAX - .5);// (float)RAND_MAX;
+      g_penguin_positionZ[i] = 25 * (rand() / (float)RAND_MAX - .5);
       g_penguin_rotation[i] = 360 * ((rand() / (float)RAND_MAX) * 2 - 1);
    }
-
-
 }
 
 /* helper function to make sure your matrix handle is correct */
@@ -153,6 +151,8 @@ void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mods)
       eye -= glm::vec3(x, y, z) * glm::vec3(.25, forcedY, .25);
       lookAt -= glm::vec3(x, y, z) * glm::vec3(.25, forcedY, .25);
    }
+
+   // Light movement
    if (key == GLFW_KEY_Q && (action == GLFW_PRESS || action == GLFW_REPEAT)) {
       g_light.x += 0.5; 
    }
@@ -195,7 +195,7 @@ void SetMaterial(int i) {
 
 /* helper function to set projection matrix - don't touch */
 void SetProjectionMatrix() {
-  glm::mat4 Projection = glm::perspective(90.0f, (float)g_width/g_height, 0.1f, 100.f);
+  glm::mat4 Projection = glm::perspective(80.0f, (float)g_width/g_height, 0.1f, 100.f);
   safe_glUniformMatrix4fv(h_uProjMatrix, glm::value_ptr(Projection));
 }
 
@@ -610,7 +610,7 @@ void drawGL()
    glUniform3f(h_uLightPos, g_light.x, g_light.y, g_light.z);
     glUniform1i(h_uShadeM, g_SM);
     glUniform1f(colorByNormalsID, drawNormals);
-    glUniform1f(h_cameratrans, g_Camtrans);
+    glUniform3f(h_cameratrans, eye.x, eye.y, eye.z);
 
    // Enable and bind position array for drawing
    GLSL::enableVertexAttribArray(h_aPosition);
@@ -680,32 +680,6 @@ void window_size_callback(GLFWwindow* window, int w, int h){
    g_height = h;
 }
 
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
-{
-    if (key == GLFW_KEY_N && action == GLFW_PRESS)  
-      drawNormals = !drawNormals;
-
-    if (key == GLFW_KEY_A && action == GLFW_PRESS)
-      g_angle += 10;
-    if (key == GLFW_KEY_D && action == GLFW_PRESS)
-      g_angle -= 10;
-    if (key == GLFW_KEY_X && action == GLFW_PRESS)
-     g_mat_id = (g_mat_id+1)%4; 
-    if (key == GLFW_KEY_Z && action == GLFW_PRESS) {
-      g_SM = !g_SM; 
-    }
-    if (key == GLFW_KEY_W && action == GLFW_PRESS) {
-      g_vertAngle += 10;
-    }
-    if (key == GLFW_KEY_S && action == GLFW_PRESS) {
-      g_vertAngle -= 10;
-    }
-    if (key == GLFW_KEY_Q && action == GLFW_PRESS)
-     g_light.x += 0.5; 
-    if (key == GLFW_KEY_E && action == GLFW_PRESS)
-     g_light.x -= 0.5; 
-}
-
 int main(int argc, char **argv)
 {
 
@@ -731,7 +705,7 @@ int main(int argc, char **argv)
         return -1;
     }
     glfwMakeContextCurrent(window);
-    glfwSetKeyCallback(window, key_callback);
+    //glfwSetKeyCallback(window, key_callback);
     glfwSetWindowSizeCallback(window, window_size_callback);
 // Initialize GLEW
    if (glewInit() != GLEW_OK) {
