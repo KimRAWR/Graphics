@@ -35,7 +35,9 @@ GLint uP = 0;
 bool wave = true;
 float direction = 1;
 bool upperDown = false;
-
+float translate = 0;
+float waddle = 0;
+float waddleDirection = 1;
 
 static float g_width, g_height;
 float lowerTheta, upperTheta;
@@ -46,6 +48,12 @@ RenderingHelper ModelTrans;
 void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mods) {  
    if (key == GLFW_KEY_SPACE && action == GLFW_PRESS) {
       wave = !wave;
+   }
+   if (key == GLFW_KEY_D && (action == GLFW_PRESS || action == GLFW_REPEAT)) {
+      translate += 5;
+   }
+   if (key == GLFW_KEY_A && (action == GLFW_PRESS || action == GLFW_REPEAT)) {
+      translate -= 5;
    }
 }
 
@@ -93,6 +101,7 @@ void initGL()
    ModelTrans.loadIdentity();
    lowerTheta = 0;
    upperTheta = 0;
+   waddle = 0;
 }
 
 bool installShaders(const string &vShaderName, const string &fShaderName)
@@ -178,22 +187,184 @@ void drawGL()
 	// Compute and send the projection matrix - leave this as is
    glm::mat4 Projection = glm::perspective(80.0f, (float)g_width/g_height, 0.1f, 100.f); 
 	glUniformMatrix4fv(uP, 1, GL_FALSE, glm::value_ptr(Projection));
+
    
    ModelTrans.loadIdentity();
-   ModelTrans.translate(glm::vec3(-.8, 0, -2));  //global trans and rotate
+   ModelTrans.translate(glm::vec3(0, 0, -2));  //global trans and rotate
+   ModelTrans.rotate(translate, glm::vec3(0, 1, 0));
    ModelTrans.pushMatrix();
 
-         // Upper arm
+   // BODY
+   ModelTrans.translate(glm::vec3(0, -1, 0));   
+   ModelTrans.rotate(waddle, glm::vec3(0, 0, 1));
+   ModelTrans.translate(glm::vec3(0, 1, 0));
+         if (waddle > 5.0) {
+            waddleDirection = -1.0;
+         } else if (waddle < -5.0) {
+            waddleDirection = 1.0;
+         }
+         waddle += waddleDirection * .25;
+   
+   ModelTrans.pushMatrix();
+
+      // TUMMY
+      ModelTrans.scale(.6, 1, .5);
+      ModelTrans.translate(glm::vec3(0, -.3, .65));
+      ModelTrans.rotate(30, glm::vec3(1, 0, 0));
+      ModelTrans.scale(.65, .6, .4);
+
+      // draw tummy
+      glUniformMatrix4fv(uMV, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
+      glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+      ModelTrans.popMatrix();
+
+   // Push original body 
+   ModelTrans.pushMatrix();
+
+      // RIGHT ARM
+      ModelTrans.translate(glm::vec3(.49, .22, .10));
+      ModelTrans.rotate(upperTheta, glm::vec3(0, 0, 1));
+      // translate to pivot
+      ModelTrans.translate(glm::vec3(.18, -.44, 0));
+
+      ModelTrans.rotate(20, glm::vec3(0, 0, 1));
+      ModelTrans.rotate(-5, glm::vec3(0, 1, 0));
+      ModelTrans.scale(.1, .48, .4);
+      
+      if (wave) {
+         if (upperTheta > 10.0) {
+            direction = -1.0;
+         } else if (upperTheta < -30.0) {
+            direction = 1.0;
+         }
+         upperTheta += direction * .35;
+      }
+
+      // draw right arm
+      ModelTrans.scale(.6, 1, .5);
+      glUniformMatrix4fv(uMV, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
+      glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+
+      ModelTrans.popMatrix();
+
+   ModelTrans.pushMatrix();
+      // LEFT ARM
+      ModelTrans.translate(glm::vec3(-.47, .18, .1));
+      ModelTrans.rotate(-upperTheta, glm::vec3(0, 0, 1));
+      // translate to pivot
+      ModelTrans.translate(glm::vec3(-.18, -.44, 0));
+      
+      ModelTrans.rotate(-20, glm::vec3(0, 0, 1));
+      ModelTrans.rotate(5, glm::vec3(0, 1, 0));
+      ModelTrans.scale(.1, .48, .4);
+      
+      if (wave) {
+         if (upperTheta > 20.0) {
+            direction = -1.0;
+         } else if (upperTheta < -10.0) {
+            direction = 1.0;
+         }
+         upperTheta += direction * .35;
+      }
+
+      // draw left arm
+      ModelTrans.scale(.6, 1, .5);
+      glUniformMatrix4fv(uMV, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
+      glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+
+      ModelTrans.popMatrix();
+
+   ModelTrans.pushMatrix();
+      //BEAK
+      ModelTrans.scale(.6, 1, .5);
+      ModelTrans.translate(glm::vec3(0, .3, .8));
+      ModelTrans.scale(.3, .05, .3);
+
+      // draw beak
+      glUniformMatrix4fv(uMV, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
+      glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+
+      ModelTrans.popMatrix();
+
+   ModelTrans.pushMatrix();
+      // LEFT EYE
+      ModelTrans.scale(.6, 1, .5);
+      ModelTrans.translate(glm::vec3(-.28, .5, .71));
+      ModelTrans.scale(.06, .03, .05);
+
+      // draw left eye
+      glUniformMatrix4fv(uMV, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
+      glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+
+      ModelTrans.popMatrix();
+   
+   ModelTrans.pushMatrix();
+      // RIGHT EYE
+      ModelTrans.scale(.6, 1, .5);
+      ModelTrans.translate(glm::vec3(.28, .5, .71));
+      ModelTrans.scale(.06, .03, .05);
+
+      // draw right eye
+      glUniformMatrix4fv(uMV, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
+      glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+
+      ModelTrans.popMatrix();
+
+   ModelTrans.pushMatrix();
+      // LEFT FOOT
+      ModelTrans.scale(.6, 1, .5);
+      ModelTrans.translate(glm::vec3(-.28, -.9, .45));
+      ModelTrans.scale(.25, .05, .6);
+
+      // draw left foot
+      glUniformMatrix4fv(uMV, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
+      glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+      
+      ModelTrans.popMatrix();
+
+   ModelTrans.pushMatrix();
+      // RIGHT FOOT
+      ModelTrans.scale(.6, 1, .5);
+      ModelTrans.translate(glm::vec3(.28, -.9, .45));
+      ModelTrans.scale(.25, .05, .6);
+
+      // draw right foot
+      glUniformMatrix4fv(uMV, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
+      glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+      
+      ModelTrans.popMatrix();
+
+   // draw body
+   ModelTrans.scale(.6, 1, .5);
+   glUniformMatrix4fv(uMV, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
+   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+   ModelTrans.popMatrix();
+
+         // draw tummy
+         /*glUniformMatrix4fv(uMV, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
+         glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+         ModelTrans.popMatrix();*/
+
+      // draw body
+      
+      //ModelTrans.pushMatrix();
+
+  // ModelTrans.popMatrix();
+
+         /*// Upper arm
          ModelTrans.translate(glm::vec3(.55, 0, 0));
          ModelTrans.rotate(upperTheta, glm::vec3(0, 0, 1));
          ModelTrans.translate(glm::vec3(.3, 0, 0));
          
-         if (upperTheta > 40.0) {
+         
+         if (wave) {
+            if (upperTheta > 40.0) {
                direction = -1.0;
             } else if (upperTheta < 0.0) {
                direction = 1.0;
             }
             upperTheta += direction * .35;
+         }
 
          ModelTrans.pushMatrix();
 
@@ -201,17 +372,21 @@ void drawGL()
             ModelTrans.translate(glm::vec3(.3, 0, 0));
             ModelTrans.rotate(lowerTheta, glm::vec3(0, 0, 1));
             ModelTrans.translate(glm::vec3(.3, 0, 0));
-            ModelTrans.scale(.65, .2, 1);
+            
 
-            if (lowerTheta > 40.0) {
-               direction = -1.0;
-            } else if (lowerTheta < 0.0) {
-               direction = 1.0;
+            if (wave) {
+               if (lowerTheta > 40.0) {
+                  direction = -1.0;
+               } else if (lowerTheta < 0.0) {
+                  direction = 1.0;
+               }
+
+
+               lowerTheta += direction * .35;
             }
 
-            lowerTheta += direction * .35;
-
             // draw lower arm
+            ModelTrans.scale(.65, .2, 1);
             glUniformMatrix4fv(uMV, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
             glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
          ModelTrans.popMatrix();
@@ -227,7 +402,7 @@ void drawGL()
       ModelTrans.scale(1, 1.5, 1);  //global trans and rotate
       glUniformMatrix4fv(uMV, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
       glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-   
+   */
 	
    // Disable and unbind
 	GLSL::disableVertexAttribArray(aPos);
@@ -275,7 +450,7 @@ int main(int argc, char **argv)
    // Ensure we can capture the escape key being pressed below
    glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 
-	loadShapes("cube.obj");
+	loadShapes("sphere.obj");
 
    std::cout << " loaded the object " << endl;
 
