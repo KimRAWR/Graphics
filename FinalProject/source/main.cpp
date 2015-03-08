@@ -94,6 +94,13 @@ GLint h_cameratrans;
 
 GLint colorByNormalsID;
 
+int tempCount = 0;
+
+// Returns 0 if not intersecting, 1 for intersect
+int checkIntersection(glm::vec3 center1, glm::vec3 center2, float radius1, float radius2) {
+   return glm::distance(center1, center2) < radius1 + radius2;
+}
+
 void initModelArrays() {
    for (int i=0; i<NUM_BUNNIES; i++) {
       g_bunny_positionX[i] = 25 * (rand() / (float)RAND_MAX - .5);
@@ -412,6 +419,7 @@ void initGL()
    ModelTrans.loadIdentity();
 
    initGround();
+
 
    GLSL::checkVersion();
    assert(glGetError() == GL_NO_ERROR);
@@ -826,6 +834,14 @@ int main(int argc, char **argv)
 
     do{
       drawGL();
+
+      // check for collisions
+      for (int i=0; i<NUM_PENGUINS; i++) {
+         if (checkIntersection(eye, glm::vec3(g_penguin_positionX[i], 0, g_penguin_positionZ[i]), .5, .5)) {
+            printf("Collision :O - %d\n", tempCount);
+            tempCount++;
+         }
+      } 
         // Swap buffers
       glfwSwapBuffers(window);
       glfwPollEvents();
