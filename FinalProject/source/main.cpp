@@ -156,13 +156,13 @@ void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mods)
    
    // FORWARD
    else if (key == GLFW_KEY_W && (action == GLFW_PRESS || action == GLFW_REPEAT)) {
-      eye += glm::vec3(x, y, z) * glm::vec3(.25, .25, .25);  //forcedY
-      lookAt += glm::vec3(x, y, z) * glm::vec3(.25, .25, .25);
+      eye += glm::vec3(x, y, z) * glm::vec3(.25, forcedY, .25);  //forcedY
+      lookAt += glm::vec3(x, y, z) * glm::vec3(.25, forcedY, .25);
    }
    // BACK
    else if (key == GLFW_KEY_S && (action == GLFW_PRESS || action == GLFW_REPEAT)) {
-      eye -= glm::vec3(x, y, z) * glm::vec3(.25, .25, .25);
-      lookAt -= glm::vec3(x, y, z) * glm::vec3(.25, .25, .25);
+      eye -= glm::vec3(x, y, z) * glm::vec3(.25, forcedY, .25);
+      lookAt -= glm::vec3(x, y, z) * glm::vec3(.25, forcedY, .25);
    }
 
    // Light movement
@@ -772,8 +772,6 @@ void drawGL()
    // Disable and unbind
    glBindBuffer(GL_ARRAY_BUFFER, 0);
    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-   
 
    glUseProgram(0);
    assert(glGetError() == GL_NO_ERROR);
