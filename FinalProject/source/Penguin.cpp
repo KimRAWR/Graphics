@@ -7,21 +7,25 @@
 #include "glm/gtc/type_ptr.hpp" //value_ptr
 #include "Penguin.h"
 
-/*glm::vec3 runningVector[NUM_PENGUINS*3]; 
-
-float g_penguin_position[NUM_PENGUINS*3]*/
 
 Penguin::Penguin() {
    glm::vec3 position; 
    float rotation;
-
+   glm::vec3 runningVector = glm::vec3(0.0, 0.0, 0.0);
 }
 
-int Penguin::checkRunAway(glm::vec3 eye, glm::vec3 penguin) {
-   if (glm::distance(eye, penguin) < 1.5) {
-      
+void Penguin::checkRunAway(glm::vec3 eye) {
+   if (glm::distance(eye, position) < 1.5) {
+      printf("penguin should run away!\n");
+
+      glm::vec3 movement = glm::normalize(position - eye);
+      runningVector += movement * glm::vec3(.18, 0, .18);
+
+   } else if (glm::distance(eye, position) > 2) {
+      runningVector = glm::vec3(0.0, 0.0, 0.0);
    }
-   return 1;
+
+   position += runningVector;
 }
 
 

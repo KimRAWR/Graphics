@@ -673,7 +673,7 @@ void drawGL()
    glBindBuffer(GL_ARRAY_BUFFER, norBufObjG);
    glVertexAttribPointer(h_aNormal, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
-   glDrawArrays(GL_TRIANGLES, 0, 6);
+   //glDrawArrays(GL_TRIANGLES, 0, 6);
 
    GLSL::disableVertexAttribArray(h_aPosition);
    GLSL::disableVertexAttribArray(h_aNormal);
@@ -839,6 +839,7 @@ int main(int argc, char **argv)
             printf("Collision :O - %d\n", tempCount);
             tempCount++;
          }
+         penguinModels[i].checkRunAway(eye);
       } 
         // Swap buffers
       glfwSwapBuffers(window);

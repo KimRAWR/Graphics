@@ -10,7 +10,8 @@ class Penguin {
    Penguin();
    glm::vec3 position;
    float rotation;
-   int checkRunAway(glm::vec3 eye, glm::vec3 penguin);
+   glm::vec3 runningVector;
+   void checkRunAway(glm::vec3 eye);
 
 
 };
