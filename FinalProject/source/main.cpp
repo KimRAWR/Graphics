@@ -3,7 +3,7 @@
  * February 27, 2015
  */
 
-#define NUM_BUNNIES 10
+#define NUM_BUNNIES 1
 #define NUM_PENGUINS 10
 
 #include "GLIncludes.h"
@@ -103,10 +103,15 @@ int checkIntersection(glm::vec3 center1, glm::vec3 center2, float radius1, float
 
 void initModelArrays() {
    for (int i=0; i<NUM_BUNNIES; i++) {
-      g_bunny_positionX[i] = 25 * (rand() / (float)RAND_MAX - .5);
-      g_bunny_positionZ[i] = 25 * (rand() / (float)RAND_MAX - .5);
-      g_bunny_rotation[i] = 360 * ((rand() / (float)RAND_MAX) * 2 - 1);
-      randomMaterial[i] = rand() % 4;
+      //g_bunny_positionX[i] = 25 * (rand() / (float)RAND_MAX - .5);
+      // g_bunny_positionZ[i] = 25 * (rand() / (float)RAND_MAX - .5);
+      // g_bunny_rotation[i] = 360 * ((rand() / (float)RAND_MAX) * 2 - 1);
+      //randomMaterial[i] = rand() % 4;
+      g_bunny_positionX[i] = 0;
+      g_bunny_positionZ[i] = 0;
+      g_bunny_rotation[i] = 0;
+
+
    }
    for (int i=0; i<NUM_PENGUINS; i++) {
       penguinModels[i].position = vec3(25 * (rand() / (float)RAND_MAX - .5), 0, 25 * (rand() / (float)RAND_MAX - .5));
@@ -278,7 +283,8 @@ void initGround() {
 void setBunny(int numBunny) {
   glm::mat4 Trans = glm::translate( glm::mat4(1.0f), glm::vec3(g_bunny_positionX[numBunny], 0, g_bunny_positionZ[numBunny]));
   glm::mat4 RotateY = glm::rotate( glm::mat4(1.0f), g_bunny_rotation[numBunny], glm::vec3(0.0f, 1, 0));
-  glm::mat4 com = Trans*RotateY;
+  glm::mat4 Scale = glm::scale( glm::mat4(1.0f), glm::vec3(15.0, 15.0, 15.0));
+  glm::mat4 com = Trans*RotateY*Scale;
   safe_glUniformMatrix4fv(h_uModelMatrix, glm::value_ptr(com));
 }
 
@@ -673,16 +679,16 @@ void drawGL()
    glBindBuffer(GL_ARRAY_BUFFER, norBufObjG);
    glVertexAttribPointer(h_aNormal, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
-   //glDrawArrays(GL_TRIANGLES, 0, 6);
+   glDrawArrays(GL_TRIANGLES, 0, 6);
 
    GLSL::disableVertexAttribArray(h_aPosition);
    GLSL::disableVertexAttribArray(h_aNormal);
    glBindBuffer(GL_ARRAY_BUFFER, 0);
-
+  
     // ==============================================================
     // DRAW BUNNY
 
-    //SetMaterial(g_mat_id);
+    //SetMaterial(2);
     glUniform3f(h_uLightPos, g_light.x, g_light.y, g_light.z);
     glUniform1i(h_uShadeM, g_SM);
     glUniform1f(colorByNormalsID, drawNormals);
@@ -702,7 +708,7 @@ void drawGL()
    nIndices = (int)bunny[0].mesh.indices.size();
    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indBufObjB);
    
-   SetMaterial(3);
+   //SetMaterial(2);
    ModelTrans.loadIdentity();
    ModelTrans.lookAt(eye, lookAt, up);
    
@@ -711,7 +717,7 @@ void drawGL()
    glUniformMatrix4fv(h_uViewMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
       
    for (int i=0; i<NUM_BUNNIES; i++) {
-      SetMaterial(randomMaterial[i]);
+      SetMaterial(2);
       setBunny(i);
       glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
    }
@@ -821,7 +827,7 @@ int main(int argc, char **argv)
 
     glEnable (GL_BLEND);
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    loadShapes("cow-nonormals.obj", bunny);
+    loadShapes("cube.obj", bunny);
     loadShapes("sphere.obj", penguin);
    //loadShapes("cube.obj");
    initGL();

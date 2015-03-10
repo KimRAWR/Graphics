@@ -15,13 +15,13 @@ Penguin::Penguin() {
 }
 
 void Penguin::checkRunAway(glm::vec3 eye) {
-   if (glm::distance(eye, position) < 1.5) {
+   if (glm::distance(eye, position) < 3) {
       printf("penguin should run away!\n");
 
       glm::vec3 movement = glm::normalize(position - eye);
-      runningVector += movement * glm::vec3(.18, 0, .18);
+      runningVector += movement * glm::vec3(.1, 0, .1);
 
-   } else if (glm::distance(eye, position) > 2) {
+   } else if (glm::distance(eye, position) > 9) {
       runningVector = glm::vec3(0.0, 0.0, 0.0);
    }
 
