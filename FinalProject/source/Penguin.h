@@ -11,7 +11,9 @@ class Penguin {
    glm::vec3 position;
    float rotation;
    glm::vec3 runningVector;
-   void checkRunAway(glm::vec3 eye);
+   int material;
+
+   int checkRunAway(glm::vec3 eye);
 
 
 };

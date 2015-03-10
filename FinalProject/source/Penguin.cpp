@@ -12,10 +12,13 @@ Penguin::Penguin() {
    glm::vec3 position; 
    float rotation;
    glm::vec3 runningVector = glm::vec3(0.0, 0.0, 0.0);
+   int material = 1; // default to flat grey, should be rose gold when touched
 }
 
-void Penguin::checkRunAway(glm::vec3 eye) {
+// Returns the material number it should have
+int Penguin::checkRunAway(glm::vec3 eye) {
    if (glm::distance(eye, position) < 3) {
+      material = 3;
       printf("penguin should run away!\n");
 
       glm::vec3 movement = glm::normalize(position - eye);
@@ -26,6 +29,7 @@ void Penguin::checkRunAway(glm::vec3 eye) {
    }
 
    position += runningVector;
+   return material;
 }
 
 

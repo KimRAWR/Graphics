@@ -161,13 +161,13 @@ void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mods)
    
    // FORWARD
    else if (key == GLFW_KEY_W && (action == GLFW_PRESS || action == GLFW_REPEAT)) {
-      eye += glm::vec3(x, y, z) * glm::vec3(.25, forcedY, .25);  //forcedY
-      lookAt += glm::vec3(x, y, z) * glm::vec3(.25, forcedY, .25);
+      eye += glm::vec3(x, y, z) * glm::vec3(.25, .25, .25);  //forcedY
+      lookAt += glm::vec3(x, y, z) * glm::vec3(.25, .25, .25);
    }
    // BACK
    else if (key == GLFW_KEY_S && (action == GLFW_PRESS || action == GLFW_REPEAT)) {
-      eye -= glm::vec3(x, y, z) * glm::vec3(.25, forcedY, .25);
-      lookAt -= glm::vec3(x, y, z) * glm::vec3(.25, forcedY, .25);
+      eye -= glm::vec3(x, y, z) * glm::vec3(.25, .25, .25);
+      lookAt -= glm::vec3(x, y, z) * glm::vec3(.25, .25, .25);
    }
 
    // Light movement
@@ -281,9 +281,9 @@ void initGround() {
 }
 
 void setBunny(int numBunny) {
-  glm::mat4 Trans = glm::translate( glm::mat4(1.0f), glm::vec3(g_bunny_positionX[numBunny], 0, g_bunny_positionZ[numBunny]));
+  glm::mat4 Trans = glm::translate( glm::mat4(1.0f), glm::vec3(g_bunny_positionX[numBunny], 5, g_bunny_positionZ[numBunny]));
   glm::mat4 RotateY = glm::rotate( glm::mat4(1.0f), g_bunny_rotation[numBunny], glm::vec3(0.0f, 1, 0));
-  glm::mat4 Scale = glm::scale( glm::mat4(1.0f), glm::vec3(15.0, 15.0, 15.0));
+  glm::mat4 Scale = glm::scale( glm::mat4(1.0f), glm::vec3(15.0, 7.0, 15.0));
   glm::mat4 com = Trans*RotateY*Scale;
   safe_glUniformMatrix4fv(h_uModelMatrix, glm::value_ptr(com));
 }
@@ -757,12 +757,12 @@ void drawGL()
    nIndices = (int)penguin[0].mesh.indices.size();
    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indBufObjP);
    
-   SetMaterial(3);
+   //SetMaterial(3);
 
    glUniformMatrix4fv(h_uViewMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
       
    for (int i=0; i<NUM_PENGUINS; i++) {
-      SetMaterial(randomMaterial[i]);
+      SetMaterial(penguinModels[i].material);
       drawPenguinModel(i);
    }
 
@@ -846,6 +846,7 @@ int main(int argc, char **argv)
             tempCount++;
          }
          penguinModels[i].checkRunAway(eye);
+         
       } 
         // Swap buffers
       glfwSwapBuffers(window);
