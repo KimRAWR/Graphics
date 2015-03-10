@@ -3,8 +3,8 @@
  * February 27, 2015
  */
 
- #define NUM_BUNNIES 10
- #define NUM_PENGUINS 10
+#define NUM_BUNNIES 10
+#define NUM_PENGUINS 10
 
 #include "GLIncludes.h"
 #include <stdio.h>
@@ -22,6 +22,8 @@
 #include "glm/gtc/type_ptr.hpp" //value_ptr
 #include "RenderingHelper.h"
 #include "givenFunctions.h"
+
+#include "Penguin.h"
 
 GLFWwindow* window;
 using namespace std;
@@ -47,9 +49,7 @@ float g_bunny_positionX[NUM_BUNNIES];
 float g_bunny_positionZ[NUM_BUNNIES];
 float g_bunny_rotation[NUM_BUNNIES];
 
-float g_penguin_positionX[NUM_PENGUINS];
-float g_penguin_positionZ[NUM_PENGUINS];
-float g_penguin_rotation[NUM_PENGUINS];
+Penguin penguinModels[NUM_PENGUINS];
 
 int randomMaterial[NUM_BUNNIES];
 
@@ -109,10 +109,10 @@ void initModelArrays() {
       randomMaterial[i] = rand() % 4;
    }
    for (int i=0; i<NUM_PENGUINS; i++) {
-      g_penguin_positionX[i] = 25 * (rand() / (float)RAND_MAX - .5);
-      g_penguin_positionZ[i] = 25 * (rand() / (float)RAND_MAX - .5);
-      g_penguin_rotation[i] = 360 * ((rand() / (float)RAND_MAX) * 2 - 1);
+      penguinModels[i].position = vec3(25 * (rand() / (float)RAND_MAX - .5), 0, 25 * (rand() / (float)RAND_MAX - .5));
+      penguinModels[i].rotation = 360 * ((rand() / (float)RAND_MAX) * 2 - 1);
    }
+
 }
 
 /* helper function to make sure your matrix handle is correct */
@@ -495,8 +495,8 @@ bool installShaders(const string &vShaderName, const string &fShaderName)
 
 void drawPenguinModel(int numPenguin) {
    ModelTrans.loadIdentity();
-   ModelTrans.translate(glm::vec3(g_penguin_positionX[numPenguin], 0, g_penguin_positionZ[numPenguin]));  //global trans and rotate
-   ModelTrans.rotate(g_penguin_rotation[numPenguin], glm::vec3(0, 1, 0));
+   ModelTrans.translate(penguinModels[numPenguin].position);
+   ModelTrans.rotate(penguinModels[numPenguin].rotation, glm::vec3(0, 1, 0));
    ModelTrans.pushMatrix();
 
       // BODY
@@ -835,7 +835,7 @@ int main(int argc, char **argv)
 
       // check for collisions
       for (int i=0; i<NUM_PENGUINS; i++) {
-         if (checkIntersection(eye, glm::vec3(g_penguin_positionX[i], 0, g_penguin_positionZ[i]), .5, .5)) {
+        if (checkIntersection(eye, penguinModels[i].position, .5, .5)) {
             printf("Collision :O - %d\n", tempCount);
             tempCount++;
          }
