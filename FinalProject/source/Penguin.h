@@ -14,6 +14,6 @@ class Penguin {
    int material;
 
    int checkRunAway(glm::vec3 eye);
-
+   void updateFacingDirection();
 
 };

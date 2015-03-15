@@ -40,7 +40,7 @@ float g_angle = 0;
 float g_vertAngle = 0.0;
 int g_mat_id =0;
 glm::vec3 g_trans(0, 0, 0);
-glm::vec3 g_light(2, 6, 6);
+glm::vec3 g_light(6, 6, 6);
 
 float forcedY = 0.0;
 int nIndices;
@@ -115,7 +115,7 @@ void initModelArrays() {
    }
    for (int i=0; i<NUM_PENGUINS; i++) {
       penguinModels[i].position = vec3(25 * (rand() / (float)RAND_MAX - .5), 0, 25 * (rand() / (float)RAND_MAX - .5));
-      penguinModels[i].rotation = 360 * ((rand() / (float)RAND_MAX) * 2 - 1);
+      penguinModels[i].rotation = 0; //rand() % 360; 
    }
 
 }

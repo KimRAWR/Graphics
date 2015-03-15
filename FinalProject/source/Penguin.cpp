@@ -21,15 +21,24 @@ int Penguin::checkRunAway(glm::vec3 eye) {
       material = 3;
       printf("penguin should run away!\n");
 
-      glm::vec3 movement = glm::normalize(position - eye);
-      runningVector += movement * glm::vec3(.1, 0, .1);
+      glm::vec3 movement = glm::normalize(position - eye);  
+      runningVector += movement * glm::vec3(.01, 0.0, .01); 
+
+      rotation = glm::degrees(atan2(movement.z, movement.x));
+      printf("rotation is: %f\n", rotation);
 
    } else if (glm::distance(eye, position) > 9) {
       runningVector = glm::vec3(0.0, 0.0, 0.0);
+      // TODO: randomize the directions when they've stopped running away
    }
 
    position += runningVector;
+
    return material;
+}
+
+void Penguin::updateFacingDirection() {
+   
 }
 
 
