@@ -1,0 +1,10 @@
+Collision detection:
+   [x] sphere around the center of the penguins, 
+      - find distance between the two centers, add the radii,
+        - if distance is greater than the radii added, not intersecting
+   [x] detect when the camera touches a still penguin by sending out put to the
+      console.
+   [ ] move the penguins around randomly
+   [ ] have them detect each other by means of epic fucking nested loops
+      - when they collide, they can stop and change color? 
+      - then make them slightly change directions (random left or right?)

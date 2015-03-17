@@ -49,7 +49,7 @@ float g_bunny_positionX[NUM_BUNNIES];
 float g_bunny_positionZ[NUM_BUNNIES];
 float g_bunny_rotation[NUM_BUNNIES];
 
-Penguin penguinModels[NUM_PENGUINS];
+Penguin *penguinModels[NUM_PENGUINS];
 
 int randomMaterial[NUM_BUNNIES];
 
@@ -58,9 +58,7 @@ GLuint posBufObjB = 0;
 GLuint norBufObjB = 0;
 GLuint indBufObjB = 0;
 
-GLuint posBufObjP = 0;
-GLuint norBufObjP = 0;
-GLuint indBufObjP = 0;
+
 
 GLuint posBufObjG = 0;
 GLuint norBufObjG = 0;
@@ -73,11 +71,7 @@ glm::vec3 up = glm::vec3(0, 1, 0);
 double phi = 0.0;  //pitch
 double theta = 0.0; //yaw
 
-float upperTheta;
-float waddle = 0;
-float waddleDirection = 1;
-float direction = 1;
-bool wave = true;
+
 
 RenderingHelper ModelTrans;
 
@@ -114,8 +108,8 @@ void initModelArrays() {
 
    }
    for (int i=0; i<NUM_PENGUINS; i++) {
-      penguinModels[i].position = vec3(25 * (rand() / (float)RAND_MAX - .5), 0, 25 * (rand() / (float)RAND_MAX - .5));
-      penguinModels[i].rotation = 0; //rand() % 360; 
+      penguinModels[i]->position = vec3(25 * (rand() / (float)RAND_MAX - .5), 0, 25 * (rand() / (float)RAND_MAX - .5));
+      penguinModels[i]->rotation = 0; //rand() % 360; 
    }
 
 }
@@ -346,70 +340,22 @@ void initBunny(std::vector<tinyobj::shape_t>& shape) {
    assert(glGetError() == GL_NO_ERROR);
 }
 
-void initPenguin(std::vector<tinyobj::shape_t>& shape) {
+/*void initPenguin(std::vector<tinyobj::shape_t>& shape) {
 
-   // Send the position array to the GPU
-   const vector<float> &posBuf = shape[0].mesh.positions;
-   glGenBuffers(1, &posBufObjP);
-   glBindBuffer(GL_ARRAY_BUFFER, posBufObjP);
-   glBufferData(GL_ARRAY_BUFFER, posBuf.size()*sizeof(float), &posBuf[0], GL_STATIC_DRAW);
    
-   // Send the normal array to the GPU
-   vector<float> norBuf;
-   glm::vec3 v1, v2, v3;
-   glm::vec3 edge1, edge2, norm;
-   int idx1, idx2, idx3;
-   //for every vertex initialize the vertex normal to 0
-   for (int j = 0; j < shape[0].mesh.positions.size()/3; j++) {
-      norBuf.push_back(0);
-      norBuf.push_back(0);
-      norBuf.push_back(0);
-   }
-   //process the mesh and compute the normals - for every face
-   //add its normal to its associated vertex
-   for (int i = 0; i < shape[0].mesh.indices.size()/3; i++) {
-      idx1 = shape[0].mesh.indices[3*i+0];
-      idx2 = shape[0].mesh.indices[3*i+1];
-      idx3 = shape[0].mesh.indices[3*i+2];
-      v1 = glm::vec3(shape[0].mesh.positions[3*idx1 +0],shape[0].mesh.positions[3*idx1 +1], shape[0].mesh.positions[3*idx1 +2]);
-      v2 = glm::vec3(shape[0].mesh.positions[3*idx2 +0],shape[0].mesh.positions[3*idx2 +1], shape[0].mesh.positions[3*idx2 +2]);
-      v3 = glm::vec3(shape[0].mesh.positions[3*idx3 +0],shape[0].mesh.positions[3*idx3 +1], shape[0].mesh.positions[3*idx3 +2]);
-      edge1 = v2 - v1;
-      edge2 = v3 - v1;
-      norm = glm::cross(edge1, edge2);
-      norBuf[3*idx1+0] += (norm.x);
-      norBuf[3*idx1+1] += (norm.y);
-      norBuf[3*idx1+2] += (norm.z);
-      norBuf[3*idx2+0] += (norm.x);
-      norBuf[3*idx2+1] += (norm.y);
-      norBuf[3*idx2+2] += (norm.z);
-      norBuf[3*idx3+0] += (norm.x);
-      norBuf[3*idx3+1] += (norm.y);
-      norBuf[3*idx3+2] += (norm.z);
-   }
-   glGenBuffers(1, &norBufObjP);
-   glBindBuffer(GL_ARRAY_BUFFER, norBufObjP);
-   glBufferData(GL_ARRAY_BUFFER, norBuf.size()*sizeof(float), &norBuf[0], GL_STATIC_DRAW);
-   
-   // Send the index array to the GPU
-   const vector<unsigned int> &indBuf = shape[0].mesh.indices;
-   glGenBuffers(1, &indBufObjP);
-   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indBufObjP);
-   glBufferData(GL_ELEMENT_ARRAY_BUFFER, indBuf.size()*sizeof(unsigned int), &indBuf[0], GL_STATIC_DRAW);
-
-   // Unbind the arrays
-   glBindBuffer(GL_ARRAY_BUFFER, 0);
-   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-   GLSL::checkVersion();
-   assert(glGetError() == GL_NO_ERROR);
-}
+}*/
 
 void initGL()
 {
+
    initGround();
+
+   for (int i=0; i<NUM_PENGUINS; i++) {
+      penguinModels[i] = new Penguin();
+   }
    initModelArrays();
 
-    upperTheta = 0;
+    //upperTheta = 0;
 
    // Set the background color
    glClearColor(0.6f, 0.6f, 0.8f, 1.0f);
@@ -417,7 +363,7 @@ void initGL()
    glEnable(GL_DEPTH_TEST);
    glPointSize(18);
    
-   initPenguin(penguin);
+   //initPenguin(penguin);
    initBunny(bunny);
 
    //initialize the modeltrans matrix stack
@@ -499,7 +445,7 @@ bool installShaders(const string &vShaderName, const string &fShaderName)
    return true;
 }
 
-void drawPenguinModel(int numPenguin) {
+/*void drawPenguinModel(int numPenguin) {
    ModelTrans.loadIdentity();
    ModelTrans.translate(penguinModels[numPenguin].position);
    ModelTrans.rotate(penguinModels[numPenguin].rotation, glm::vec3(0, 1, 0));
@@ -654,7 +600,7 @@ void drawPenguinModel(int numPenguin) {
    glUniformMatrix4fv(h_uModelMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
    glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
    ModelTrans.popMatrix();
-}
+}*/
 
 void drawGL()
 {
@@ -738,7 +684,7 @@ void drawGL()
    // ==========================================================
    // DRAW THE PENGUIN
 
-   glUniform3f(h_uLightPos, g_light.x, g_light.y, g_light.z);
+    /*glUniform3f(h_uLightPos, g_light.x, g_light.y, g_light.z);
     glUniform1i(h_uShadeM, g_SM);
     glUniform1f(colorByNormalsID, drawNormals);
     glUniform3f(h_cameratrans, eye.x, eye.y, eye.z);
@@ -759,14 +705,15 @@ void drawGL()
    
    //SetMaterial(3);
 
-   glUniformMatrix4fv(h_uViewMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
+   glUniformMatrix4fv(h_uViewMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));*/
       
    for (int i=0; i<NUM_PENGUINS; i++) {
-      SetMaterial(penguinModels[i].material);
-      drawPenguinModel(i);
+      SetMaterial(penguinModels[i]->material);
+      //drawPenguinModel(i);
+      penguinModels[i]->draw(eye, lookAt, up);
    }
 
-   GLSL::disableVertexAttribArray(h_aPosition);
+   /*GLSL::disableVertexAttribArray(h_aPosition);
    GLSL::disableVertexAttribArray(h_aNormal);
    glBindBuffer(GL_ARRAY_BUFFER, 0);
    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
@@ -780,7 +727,9 @@ void drawGL()
    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
    glUseProgram(0);
-   assert(glGetError() == GL_NO_ERROR);
+   assert(glGetError() == GL_NO_ERROR);*/
+
+
    
 }
 
@@ -828,24 +777,23 @@ int main(int argc, char **argv)
     glEnable (GL_BLEND);
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     loadShapes("cube.obj", bunny);
-    loadShapes("sphere.obj", penguin);
+    //loadShapes("sphere.obj", penguin);
    //loadShapes("cube.obj");
    initGL();
    installShaders("vert.glsl", "frag.glsl");
 
    glClearColor(0.6f, 0.6f, 0.8f, 1.0f);
 
-
     do{
       drawGL();
 
       // check for collisions
       for (int i=0; i<NUM_PENGUINS; i++) {
-        if (checkIntersection(eye, penguinModels[i].position, .5, .5)) {
+        if (checkIntersection(eye, penguinModels[i]->position, .5, .5)) {
             printf("Collision :O - %d\n", tempCount);
             tempCount++;
          }
-         penguinModels[i].checkRunAway(eye);
+         penguinModels[i]->checkRunAway(eye);
          
       } 
         // Swap buffers

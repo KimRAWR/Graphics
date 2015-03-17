@@ -5,6 +5,8 @@ set(HEADERS
    tiny_obj_loader.h
    RenderingHelper.h
    givenFunctions.h
+   Penguin.h
+   shaderProgram.h
 )
 
 # List all .c / .cpp files here
@@ -14,4 +16,6 @@ set(SOURCES
    tiny_obj_loader.cc
    RenderingHelper.cpp
    givenFunctions.cpp
+   Penguin.cpp
+   shaderProgram.cpp
 )

@@ -1,4 +1,4 @@
-# Install script for directory: /Users/karre/Graphics/FinalProject
+# Install script for directory: /Users/kimrawr/graphics/FinalProject
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -12,7 +12,7 @@ if(NOT DEFINED CMAKE_INSTALL_CONFIG_NAME)
     string(REGEX REPLACE "^[^A-Za-z0-9_]+" ""
            CMAKE_INSTALL_CONFIG_NAME "${BUILD_TYPE}")
   else()
-    set(CMAKE_INSTALL_CONFIG_NAME "")
+    set(CMAKE_INSTALL_CONFIG_NAME "RelWithDebInfo")
   endif()
   message(STATUS "Install configuration: \"${CMAKE_INSTALL_CONFIG_NAME}\"")
 endif()
@@ -29,7 +29,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/Users/karre/Graphics/FinalProject/dependencies/glfw/cmake_install.cmake")
+  include("/Users/kimrawr/graphics/FinalProject/dependencies/glfw/cmake_install.cmake")
 
 endif()
 
@@ -39,7 +39,7 @@ else()
   set(CMAKE_INSTALL_MANIFEST "install_manifest.txt")
 endif()
 
-file(WRITE "/Users/karre/Graphics/FinalProject/${CMAKE_INSTALL_MANIFEST}" "")
+file(WRITE "/Users/kimrawr/graphics/FinalProject/${CMAKE_INSTALL_MANIFEST}" "")
 foreach(file ${CMAKE_INSTALL_MANIFEST_FILES})
-  file(APPEND "/Users/karre/Graphics/FinalProject/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
+  file(APPEND "/Users/kimrawr/graphics/FinalProject/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
 endforeach()

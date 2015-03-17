@@ -4,6 +4,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/FinalProject.dir/source/tiny_obj_loader.cc.o"
   "CMakeFiles/FinalProject.dir/source/RenderingHelper.cpp.o"
   "CMakeFiles/FinalProject.dir/source/givenFunctions.cpp.o"
+  "CMakeFiles/FinalProject.dir/source/Penguin.cpp.o"
+  "CMakeFiles/FinalProject.dir/source/shaderProgram.cpp.o"
   "CMakeFiles/FinalProject.dir/dependencies/glad/src/glad.c.o"
   "FinalProject.pdb"
   "FinalProject"

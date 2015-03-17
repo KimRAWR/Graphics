@@ -34,19 +34,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /Applications/CMake.app/Contents/bin/cmake
+CMAKE_COMMAND = /usr/local/Cellar/cmake/3.1.3/bin/cmake
 
 # The command to remove a file.
-RM = /Applications/CMake.app/Contents/bin/cmake -E remove -f
+RM = /usr/local/Cellar/cmake/3.1.3/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/karre/Graphics/FinalProject
+CMAKE_SOURCE_DIR = /Users/kimrawr/graphics/FinalProject
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/karre/Graphics/FinalProject
+CMAKE_BINARY_DIR = /Users/kimrawr/graphics/FinalProject
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -64,7 +64,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/Applications/CMake.app/Contents/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/usr/local/Cellar/cmake/3.1.3/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -73,9 +73,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karre/Graphics/FinalProject/CMakeFiles /Users/karre/Graphics/FinalProject/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kimrawr/graphics/FinalProject/CMakeFiles /Users/kimrawr/graphics/FinalProject/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karre/Graphics/FinalProject/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kimrawr/graphics/FinalProject/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -176,6 +176,30 @@ source/GLSL.cpp.s:
 	$(MAKE) -f CMakeFiles/FinalProject.dir/build.make CMakeFiles/FinalProject.dir/source/GLSL.cpp.s
 .PHONY : source/GLSL.cpp.s
 
+source/Penguin.o: source/Penguin.cpp.o
+.PHONY : source/Penguin.o
+
+# target to build an object file
+source/Penguin.cpp.o:
+	$(MAKE) -f CMakeFiles/FinalProject.dir/build.make CMakeFiles/FinalProject.dir/source/Penguin.cpp.o
+.PHONY : source/Penguin.cpp.o
+
+source/Penguin.i: source/Penguin.cpp.i
+.PHONY : source/Penguin.i
+
+# target to preprocess a source file
+source/Penguin.cpp.i:
+	$(MAKE) -f CMakeFiles/FinalProject.dir/build.make CMakeFiles/FinalProject.dir/source/Penguin.cpp.i
+.PHONY : source/Penguin.cpp.i
+
+source/Penguin.s: source/Penguin.cpp.s
+.PHONY : source/Penguin.s
+
+# target to generate assembly for a file
+source/Penguin.cpp.s:
+	$(MAKE) -f CMakeFiles/FinalProject.dir/build.make CMakeFiles/FinalProject.dir/source/Penguin.cpp.s
+.PHONY : source/Penguin.cpp.s
+
 source/RenderingHelper.o: source/RenderingHelper.cpp.o
 .PHONY : source/RenderingHelper.o
 
@@ -248,6 +272,30 @@ source/main.cpp.s:
 	$(MAKE) -f CMakeFiles/FinalProject.dir/build.make CMakeFiles/FinalProject.dir/source/main.cpp.s
 .PHONY : source/main.cpp.s
 
+source/shaderProgram.o: source/shaderProgram.cpp.o
+.PHONY : source/shaderProgram.o
+
+# target to build an object file
+source/shaderProgram.cpp.o:
+	$(MAKE) -f CMakeFiles/FinalProject.dir/build.make CMakeFiles/FinalProject.dir/source/shaderProgram.cpp.o
+.PHONY : source/shaderProgram.cpp.o
+
+source/shaderProgram.i: source/shaderProgram.cpp.i
+.PHONY : source/shaderProgram.i
+
+# target to preprocess a source file
+source/shaderProgram.cpp.i:
+	$(MAKE) -f CMakeFiles/FinalProject.dir/build.make CMakeFiles/FinalProject.dir/source/shaderProgram.cpp.i
+.PHONY : source/shaderProgram.cpp.i
+
+source/shaderProgram.s: source/shaderProgram.cpp.s
+.PHONY : source/shaderProgram.s
+
+# target to generate assembly for a file
+source/shaderProgram.cpp.s:
+	$(MAKE) -f CMakeFiles/FinalProject.dir/build.make CMakeFiles/FinalProject.dir/source/shaderProgram.cpp.s
+.PHONY : source/shaderProgram.cpp.s
+
 source/tiny_obj_loader.o: source/tiny_obj_loader.cc.o
 .PHONY : source/tiny_obj_loader.o
 
@@ -288,6 +336,9 @@ help:
 	@echo "... source/GLSL.o"
 	@echo "... source/GLSL.i"
 	@echo "... source/GLSL.s"
+	@echo "... source/Penguin.o"
+	@echo "... source/Penguin.i"
+	@echo "... source/Penguin.s"
 	@echo "... source/RenderingHelper.o"
 	@echo "... source/RenderingHelper.i"
 	@echo "... source/RenderingHelper.s"
@@ -297,6 +348,9 @@ help:
 	@echo "... source/main.o"
 	@echo "... source/main.i"
 	@echo "... source/main.s"
+	@echo "... source/shaderProgram.o"
+	@echo "... source/shaderProgram.i"
+	@echo "... source/shaderProgram.s"
 	@echo "... source/tiny_obj_loader.o"
 	@echo "... source/tiny_obj_loader.i"
 	@echo "... source/tiny_obj_loader.s"
