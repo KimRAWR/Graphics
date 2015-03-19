@@ -41,6 +41,8 @@ float g_vertAngle = 0.0;
 int g_mat_id =0;
 glm::vec3 g_trans(0, 0, 0);
 glm::vec3 g_light(6, 6, 6);
+time_t startTime;
+time_t endTime;
 
 float forcedY = 0.0;
 int nIndices;
@@ -72,6 +74,7 @@ double phi = 0.0;  //pitch
 double theta = 0.0; //yaw
 
 RenderingHelper ModelTrans;
+bool shouldShowMessage = true;
 
 //Handles to the shader data
 GLint h_aPosition;
@@ -139,6 +142,29 @@ void scrollCallback(GLFWwindow *window, double xoffset, double yoffset) {
    lookAt = glm::vec3(x, y, z) + eye;
 }
 
+// bounds the camera within the box
+void boundCamera(glm::vec3 *eye) {
+   float rightBoundary = 9.0;
+   float leftBoundary = -9.0;
+   float bottomBoundary = -9.0;
+   float topBoundary = 9.0;
+
+   // ensure position is within bounds
+   if (eye->x > rightBoundary) {
+      eye->x = rightBoundary;
+   }
+   else if (eye->x < leftBoundary) {
+      eye->x = leftBoundary;
+   }
+
+   if (eye->z > topBoundary) {
+      eye->z = topBoundary;
+   }
+   else if (eye->z < bottomBoundary) {
+      eye->z = bottomBoundary;
+   }
+}
+
 void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mods) {  
    float x = .5*cos(phi)*cos(theta);
    float y = .5*sin(phi);
@@ -152,22 +178,26 @@ void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mods)
    if (key == GLFW_KEY_D && (action == GLFW_PRESS || action == GLFW_REPEAT)) {
       eye += glm::cross(lookAt - eye, up) * .25f; 
       lookAt += glm::cross(lookAt - eye, up) * .25f;
+      boundCamera(&eye);
    }
    // LEFT
    else if (key == GLFW_KEY_A && (action == GLFW_PRESS || action == GLFW_REPEAT)) {
       eye -= glm::cross(lookAt - eye, up) * .25f; 
       lookAt -= glm::cross(lookAt - eye, up) * .25f;
+      boundCamera(&eye);
    }
   
    // FORWARD
    else if (key == GLFW_KEY_W && (action == GLFW_PRESS || action == GLFW_REPEAT)) {
       eye += glm::vec3(x, y, z) * glm::vec3(movementSpeed, movementSpeed, movementSpeed);  //forcedY
       lookAt += glm::vec3(x, y, z) * glm::vec3(movementSpeed, movementSpeed, movementSpeed);
+      boundCamera(&eye);
    }
    // BACK
    else if (key == GLFW_KEY_S && (action == GLFW_PRESS || action == GLFW_REPEAT)) {
       eye -= glm::vec3(x, y, z) * glm::vec3(movementSpeed, movementSpeed, movementSpeed);
       lookAt -= glm::vec3(x, y, z) * glm::vec3(movementSpeed, movementSpeed, movementSpeed);
+      boundCamera(&eye);
    }
 
    // Light movement
@@ -540,9 +570,32 @@ void window_size_callback(GLFWwindow* window, int w, int h){
    g_height = h;
 }
 
+
+void victoryMessage() {
+//printf(" \n");
+printf("                           _ _                 \n");
+printf("                     /\\   | | |                \n");
+printf("                    /  \\  | | |                \n");
+printf("       _____       / /\\ \\ | | |               \n");
+printf("      |  __ \\     / ____ \\| | |   (_)          \n");
+printf("      | |__) |__ /_/_   \\_\\_|_|  _ _ _ __  ___ \n");
+printf("      |  ___/ _ \\ '_ \\ / _` | | | | | '_ \\/ __|\n");
+printf("      | |  |  __/ | | | (_| | |_| | | | | \\__ \\\n");
+printf("      |_|   \\___|_| |_|\\__, |\\__,_|_|_| |_|___/\n");
+printf("       _____        __  __/ |   _           _  \n");
+printf("      |_   _|      / _||___/   | |         | | \n");
+printf("        | |  _ __ | |_ ___  ___| |_ ___  __| | \n");
+printf("        | | | '_ \\|  _/ _ \\/ __| __/ _ \\/ _` | \n");
+printf("       _| |_| | | | ||  __/ (__| ||  __/ (_| | \n");
+printf("      |_____|_| |_|_| \\___|\\___|\\__\\___|\\__,_| \n");
+                                          
+                                          
+
+}
+
 int main(int argc, char **argv)
 {
-
+   time(&startTime);
 // Initialise GLFW
    if( !glfwInit() )
    {
@@ -598,6 +651,23 @@ int main(int argc, char **argv)
          
       } */
       checkCollisions();
+
+      // check for infections
+      bool allInfected = true;
+      for (int i=0; i<NUM_PENGUINS; i++) {
+         if (penguinModels[i]->isInfected == false) {
+            allInfected = false;
+            break;
+         }
+      }
+
+      if (allInfected && shouldShowMessage) {
+         victoryMessage();
+         time(&endTime);
+         printf("\n        It took you %d minutes and %ld seconds!\n\n", (int)(endTime-startTime)/60, (endTime-startTime)%60);
+         shouldShowMessage = false;
+      }
+      
 
         // Swap buffers
       glfwSwapBuffers(window);

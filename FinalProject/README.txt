@@ -1,16 +1,31 @@
 Kim Arre
-Program 4
-February 27, 2015
+March 19, 2015
 
-Hi, Taylor/Zoe! 
-I figured out something that was acting weird with my shaders, so I'm resubmitting this a day late to utilize one of my two free late days.
+Final Project - Penguin Herding Simulator 2K15 / Midas Touch Penguin
+=================================================================
 
-As I believe most other people have, to look around, I used the scroll glfw callback function.
+Compile/Run:
+   I've been using the 'make' command to build everything. Included are my related CMake and sources.txt files. 
 
-I chose to make the camera's Y value fixed, so simulate how it would be if someone were running around on the ground. I'll hopefully do something with this for the final project.
+User Instructions:
+	The main controls are WASD to move around, with the touchpad scroll to look around. 
+	The camera and all of the moving penguins are bound to the inside of the room.
+	Penguins turn gold when you touch them (Midas touch).
+	The console outputs how long it took to infect all the penguins, though takes a few seconds to display sometimes.
+	Penguins like to mock you by moonwalking away from you sometimes. A 'feature,' not a bug. ;)
 
-Keypresses:
-   For strafing and moving foward and back, you can just hold down one of the WASD keys to move around more quickly. Q and E move the light source back and forth.
 
-Bugs:
-   The main bug that I ran into and haven't been able to figure out is that the ground translates with the light source for some reason. So if you're moving the light around, and the ground slips out from under you, that's why.
+
+Have a cat. Because it's really late and I like cats.
+
+    /\     /\
+   {  `---'  }
+   {  O   O  }
+   ~~>  V  <~~
+    \  \|/  /
+     `-----'____
+     /     \    \_
+    {       }\  )_\_   _
+    |  \_/  |/ /  \_\_/ )
+     \__/  /(_/     \__/
+       (__/

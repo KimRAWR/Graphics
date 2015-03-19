@@ -15,6 +15,7 @@ class Penguin {
    glm::vec3 runningVector;
    int material;
    RenderingHelper ModelTrans;
+   bool isInfected;
 
    float g_angle;
    float g_vertAngle;

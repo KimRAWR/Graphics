@@ -42,6 +42,7 @@ Penguin::Penguin() :
    waddleDirection = 1;
    direction = 1;
    wave = true;
+   isInfected = false;
 
    g_trans = glm::vec3(0, 0, 0);
    g_light = glm::vec3(6, 6, 6);
@@ -130,6 +131,7 @@ int Penguin::checkRunAway(glm::vec3 eye) {
    float topBoundary = 9.0;
 
    if (glm::distance(eye, position) < 3) {
+      isInfected = true;
       material = 3;
       
       movement = glm::normalize(position - eye);  
@@ -275,8 +277,6 @@ void Penguin::draw(glm::vec3 eye, glm::vec3 lookAt, glm::vec3 up) { //width, hei
    assert(glGetError() == GL_NO_ERROR);
 }
 
-
-
 void Penguin::drawPenguinModel() {
    ModelTrans.loadIdentity();
    ModelTrans.translate(position);
@@ -285,7 +285,7 @@ void Penguin::drawPenguinModel() {
 
       // BODY
    ModelTrans.translate(glm::vec3(0, -.8, 0));   
-   ModelTrans.rotate(upperTheta/3, glm::vec3(0, 0, 1));
+   ModelTrans.rotate(upperTheta/3, glm::vec3(0, 0, 1)); // waddle
    ModelTrans.translate(glm::vec3(0, 1, 0));
          if (waddle > 3.0) {
             waddleDirection = -1.0;
