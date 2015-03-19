@@ -126,6 +126,8 @@ int Penguin::checkRunAway(glm::vec3 eye) {
    glm::vec3 movement;
    float rightBoundary = 9.0;
    float leftBoundary = -9.0;
+   float bottomBoundary = -9.0;
+   float topBoundary = 9.0;
 
    if (glm::distance(eye, position) < 3) {
       material = 3;
@@ -135,7 +137,7 @@ int Penguin::checkRunAway(glm::vec3 eye) {
 
       rotation = glm::degrees(atan2(movement.z, movement.x));
 
-   } else if (glm::distance(eye, position) > 9) {
+   } else if (glm::distance(eye, position) > 7.5) {
       runningVector = glm::vec3(0.0, 0.0, 0.0);
       
    } // penguin is in the middle of running 
@@ -172,13 +174,58 @@ int Penguin::checkRunAway(glm::vec3 eye) {
             runningVector = movement * glm::vec3(.001, 0.0, .001);
          }
       }
+
+      // Top boundary
+      else if(position.z >= topBoundary) {
+         printf("hit top boundary\n");
+         // moving rightward
+         if (runningVector.x > 0) {
+            printf("rightward\n");
+            rotation = 360 - rotation;//2 * (90 - rotation);
+            movement = glm::vec3(glm::degrees(cos(glm::radians(rotation))), 0, glm::degrees(sin(glm::radians(rotation))));
+            runningVector = movement * glm::vec3(.001, 0.0, .001);
+         } // moving leftward 
+         else {  
+            printf("leftward\n");
+            rotation += 2 * (180 - rotation);//2 * ( 90 - (360 - rotation));
+            movement = glm::vec3(glm::degrees(cos(glm::radians(rotation))), 0, glm::degrees(sin(glm::radians(rotation))));
+            runningVector = movement * glm::vec3(.001, 0.0, .001);
+         }
+      }
+
+      // Bottom boundary
+      else if(position.z <= bottomBoundary) {
+         printf("hit bottom boundary\n");
+         // moving rightward
+         if (runningVector.x > 0) {
+            printf("rightward\n");
+            rotation = 360 - rotation;//2 * (90 - rotation);
+            movement = glm::vec3(glm::degrees(cos(glm::radians(rotation))), 0, glm::degrees(sin(glm::radians(rotation))));
+            runningVector = movement * glm::vec3(.001, 0.0, .001);
+         } // moving leftward 
+         else {  
+            printf("leftward\n");
+            rotation += 2 * (180 - rotation);//2 * ( 90 - (360 - rotation));
+            movement = glm::vec3(glm::degrees(cos(glm::radians(rotation))), 0, glm::degrees(sin(glm::radians(rotation))));
+            runningVector = movement * glm::vec3(.001, 0.0, .001);
+         }
+      }
    }
    position += runningVector;
+
+   // ensure position is within bounds
    if (position.x > rightBoundary) {
       position.x = rightBoundary;
    }
    else if (position.x < leftBoundary) {
       position.x = leftBoundary;
+   }
+
+   if (position.z > topBoundary) {
+      position.z = topBoundary;
+   }
+   else if (position.z < bottomBoundary) {
+      position.z = bottomBoundary;
    }
 
    
