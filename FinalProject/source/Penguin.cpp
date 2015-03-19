@@ -32,7 +32,7 @@ Penguin::Penguin() :
    h_uMatShine = GLSL::getUniformLocation(ShadeProg.prog, "Ushine");
    h_cameratrans = GLSL::getUniformLocation(ShadeProg.prog, "cameraTrans");
 
-   //ShadeProg("penguin.vert", "penguin.frag");
+   rotation = (rand() % 3600) * .1;
 
    ModelTrans.useModelViewMatrix();
    ModelTrans.loadIdentity();
@@ -125,13 +125,11 @@ Penguin::Penguin() :
 int Penguin::checkRunAway(glm::vec3 eye) {
    if (glm::distance(eye, position) < 3) {
       material = 3;
-      printf("penguin should run away!\n");
-
+      
       glm::vec3 movement = glm::normalize(position - eye);  
       runningVector += movement * glm::vec3(.01, 0.0, .01); 
 
       rotation = glm::degrees(atan2(movement.z, movement.x));
-      printf("rotation is: %f\n", rotation);
 
    } else if (glm::distance(eye, position) > 9) {
       runningVector = glm::vec3(0.0, 0.0, 0.0);
@@ -150,6 +148,8 @@ void Penguin::updateFacingDirection() {
 
 
 void Penguin::draw(glm::vec3 eye, glm::vec3 lookAt, glm::vec3 up) { //width, height?
+      //glUseProgram(ShadeProg.prog);
+
       ModelTrans.loadIdentity();
       ModelTrans.lookAt(eye, lookAt, up);
 
@@ -249,7 +249,7 @@ void Penguin::drawPenguinModel() {
          } else if (upperTheta < -30.0) {
             direction = 1.0;
          }
-         upperTheta += direction * .05;
+         upperTheta += direction * .7;
       }
 
       // draw right arm

@@ -6,15 +6,15 @@
 
 #IncludeRegexTransform: 
 
-/Users/kimrawr/graphics/FinalProject/source/GLIncludes.h
+/Users/kimrawr/Graphics/FinalProject/source/GLIncludes.h
 GL/glew.h
 -
 GLFW/glfw3.h
 -
 
-/Users/kimrawr/graphics/FinalProject/source/GLSL.cpp
+/Users/kimrawr/Graphics/FinalProject/source/GLSL.cpp
 GLSL.h
-/Users/kimrawr/graphics/FinalProject/source/GLSL.h
+/Users/kimrawr/Graphics/FinalProject/source/GLSL.h
 iostream
 -
 stdio.h
@@ -24,13 +24,13 @@ stdlib.h
 string.h
 -
 
-/Users/kimrawr/graphics/FinalProject/source/GLSL.h
+/Users/kimrawr/Graphics/FinalProject/source/GLSL.h
 GLIncludes.h
-/Users/kimrawr/graphics/FinalProject/source/GLIncludes.h
+/Users/kimrawr/Graphics/FinalProject/source/GLIncludes.h
 
-/Users/kimrawr/graphics/FinalProject/source/Penguin.cpp
+/Users/kimrawr/Graphics/FinalProject/source/Penguin.cpp
 GLIncludes.h
-/Users/kimrawr/graphics/FinalProject/source/GLIncludes.h
+/Users/kimrawr/Graphics/FinalProject/source/GLIncludes.h
 stdio.h
 -
 stdlib.h
@@ -40,165 +40,165 @@ iostream
 vector
 -
 GLSL.h
-/Users/kimrawr/graphics/FinalProject/source/GLSL.h
+/Users/kimrawr/Graphics/FinalProject/source/GLSL.h
 tiny_obj_loader.h
-/Users/kimrawr/graphics/FinalProject/source/tiny_obj_loader.h
+/Users/kimrawr/Graphics/FinalProject/source/tiny_obj_loader.h
 glm/glm.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/glm.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/glm.hpp
 glm/gtc/matrix_transform.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/gtc/matrix_transform.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtc/matrix_transform.hpp
 glm/gtc/type_ptr.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/gtc/type_ptr.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtc/type_ptr.hpp
 Penguin.h
-/Users/kimrawr/graphics/FinalProject/source/Penguin.h
+/Users/kimrawr/Graphics/FinalProject/source/Penguin.h
 RenderingHelper.h
-/Users/kimrawr/graphics/FinalProject/source/RenderingHelper.h
+/Users/kimrawr/Graphics/FinalProject/source/RenderingHelper.h
 shaderProgram.h
-/Users/kimrawr/graphics/FinalProject/source/shaderProgram.h
+/Users/kimrawr/Graphics/FinalProject/source/shaderProgram.h
 
-/Users/kimrawr/graphics/FinalProject/source/Penguin.h
+/Users/kimrawr/Graphics/FinalProject/source/Penguin.h
 GLIncludes.h
-/Users/kimrawr/graphics/FinalProject/source/GLIncludes.h
+/Users/kimrawr/Graphics/FinalProject/source/GLIncludes.h
 GLSL.h
-/Users/kimrawr/graphics/FinalProject/source/GLSL.h
+/Users/kimrawr/Graphics/FinalProject/source/GLSL.h
 glm/glm.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/glm.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/glm.hpp
 glm/gtc/matrix_transform.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/gtc/matrix_transform.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtc/matrix_transform.hpp
 glm/gtc/type_ptr.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/gtc/type_ptr.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtc/type_ptr.hpp
 shaderProgram.h
-/Users/kimrawr/graphics/FinalProject/source/shaderProgram.h
+/Users/kimrawr/Graphics/FinalProject/source/shaderProgram.h
 RenderingHelper.h
-/Users/kimrawr/graphics/FinalProject/source/RenderingHelper.h
+/Users/kimrawr/Graphics/FinalProject/source/RenderingHelper.h
 
-/Users/kimrawr/graphics/FinalProject/source/RenderingHelper.cpp
+/Users/kimrawr/Graphics/FinalProject/source/RenderingHelper.cpp
 RenderingHelper.h
-/Users/kimrawr/graphics/FinalProject/source/RenderingHelper.h
+/Users/kimrawr/Graphics/FinalProject/source/RenderingHelper.h
 glm/gtx/transform.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/gtx/transform.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtx/transform.hpp
 
-/Users/kimrawr/graphics/FinalProject/source/RenderingHelper.h
+/Users/kimrawr/Graphics/FinalProject/source/RenderingHelper.h
 stack
 -
 glm/glm.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/glm.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/glm.hpp
 glm/gtx/vector_angle.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/gtx/vector_angle.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtx/vector_angle.hpp
 glm/gtx/component_wise.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/gtx/component_wise.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtx/component_wise.hpp
 glm/gtc/matrix_access.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/gtc/matrix_access.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtc/matrix_access.hpp
 glm/gtc/matrix_integer.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/gtc/matrix_integer.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtc/matrix_integer.hpp
 glm/gtc/matrix_inverse.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/gtc/matrix_inverse.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtc/matrix_inverse.hpp
 glm/gtc/matrix_transform.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/gtc/matrix_transform.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtc/matrix_transform.hpp
 
-/Users/kimrawr/graphics/FinalProject/source/givenFunctions.cpp
+/Users/kimrawr/Graphics/FinalProject/source/givenFunctions.cpp
 GLIncludes.h
-/Users/kimrawr/graphics/FinalProject/source/GLIncludes.h
+/Users/kimrawr/Graphics/FinalProject/source/GLIncludes.h
 tiny_obj_loader.h
-/Users/kimrawr/graphics/FinalProject/source/tiny_obj_loader.h
+/Users/kimrawr/Graphics/FinalProject/source/tiny_obj_loader.h
 cassert
 -
 
-/Users/kimrawr/graphics/FinalProject/source/givenFunctions.h
+/Users/kimrawr/Graphics/FinalProject/source/givenFunctions.h
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/_detail.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/_detail.hpp
 setup.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/setup.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/setup.hpp
 cassert
 -
 cstdint
 -
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/_fixes.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/_fixes.hpp
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/_swizzle.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/_swizzle.hpp
 _swizzle_func.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/_swizzle_func.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/_swizzle_func.hpp
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/_swizzle_func.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/_swizzle_func.hpp
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/_vectorize.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/_vectorize.hpp
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/func_common.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/func_common.hpp
 _fixes.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/_fixes.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/_fixes.hpp
 func_common.inl
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/func_common.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/func_common.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/func_common.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/func_common.inl
 _vectorize.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/_vectorize.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/_vectorize.hpp
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/func_exponential.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/func_exponential.hpp
 func_exponential.inl
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/func_exponential.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/func_exponential.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/func_exponential.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/func_exponential.inl
 _vectorize.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/_vectorize.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/_vectorize.hpp
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/func_geometric.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/func_geometric.hpp
 func_geometric.inl
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/func_geometric.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/func_geometric.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/func_geometric.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/func_geometric.inl
 _vectorize.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/_vectorize.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/_vectorize.hpp
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/func_integer.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/func_integer.hpp
 func_integer.inl
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/func_integer.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/func_integer.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/func_integer.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/func_integer.inl
 _vectorize.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/_vectorize.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/_vectorize.hpp
 intrin.h
 -
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/func_matrix.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/func_matrix.hpp
 func_matrix.inl
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/func_matrix.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/func_matrix.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/func_matrix.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/func_matrix.inl
 _vectorize.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/_vectorize.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/_vectorize.hpp
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/func_noise.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/func_noise.hpp
 func_noise.inl
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/func_noise.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/func_noise.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/func_noise.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/func_noise.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/func_packing.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/func_packing.hpp
 func_packing.inl
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/func_packing.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/func_packing.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/func_packing.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/func_packing.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/func_trigonometric.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/func_trigonometric.hpp
 func_trigonometric.inl
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/func_trigonometric.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/func_trigonometric.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/func_trigonometric.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/func_trigonometric.inl
 _vectorize.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/_vectorize.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/_vectorize.hpp
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/func_vector_relational.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/func_vector_relational.hpp
 _detail.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/_detail.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/_detail.hpp
 func_vector_relational.inl
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/func_vector_relational.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/func_vector_relational.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/func_vector_relational.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/func_vector_relational.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/setup.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/setup.hpp
 TargetConditionals.h
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/TargetConditionals.h
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/TargetConditionals.h
 immintrin.h
 -
 pmmintrin.h
@@ -206,221 +206,221 @@ pmmintrin.h
 emmintrin.h
 -
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type.hpp
 type_half.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_half.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_half.hpp
 type_float.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_float.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_float.hpp
 type_int.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_int.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_int.hpp
 type_gentype.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_gentype.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_gentype.hpp
 type_vec1.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_vec1.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_vec1.hpp
 type_vec2.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_vec2.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_vec2.hpp
 type_vec3.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_vec3.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_vec3.hpp
 type_vec4.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_vec4.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_vec4.hpp
 type_mat2x2.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat2x2.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat2x2.hpp
 type_mat2x3.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat2x3.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat2x3.hpp
 type_mat2x4.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat2x4.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat2x4.hpp
 type_mat3x2.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat3x2.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat3x2.hpp
 type_mat3x3.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat3x3.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat3x3.hpp
 type_mat3x4.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat3x4.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat3x4.hpp
 type_mat4x2.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat4x2.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat4x2.hpp
 type_mat4x3.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat4x3.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat4x3.hpp
 type_mat4x4.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat4x4.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat4x4.hpp
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_float.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_float.hpp
 type_half.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_half.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_half.hpp
 setup.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/setup.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/setup.hpp
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_gentype.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_gentype.hpp
 type_size.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_size.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_size.hpp
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_half.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_half.hpp
 cstdlib
 -
 type_half.inl
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_half.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_half.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_half.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_half.inl
 _detail.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/_detail.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/_detail.hpp
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_int.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_int.hpp
 setup.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/setup.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/setup.hpp
 _detail.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/_detail.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/_detail.hpp
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat.hpp
 type_gentype.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_gentype.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_gentype.hpp
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat2x2.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat2x2.hpp
 type_mat.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat.hpp
 type_mat2x2.inl
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat2x2.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat2x2.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat2x2.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat2x2.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat2x3.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat2x3.hpp
 type_mat.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat.hpp
 type_mat2x3.inl
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat2x3.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat2x3.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat2x3.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat2x3.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat2x4.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat2x4.hpp
 type_mat.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat.hpp
 type_mat2x4.inl
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat2x4.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat2x4.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat2x4.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat2x4.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat3x2.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat3x2.hpp
 type_mat.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat.hpp
 type_mat3x2.inl
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat3x2.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat3x2.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat3x2.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat3x2.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat3x3.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat3x3.hpp
 type_mat.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat.hpp
 type_mat3x3.inl
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat3x3.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat3x3.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat3x3.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat3x3.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat3x4.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat3x4.hpp
 type_mat.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat.hpp
 type_mat3x4.inl
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat3x4.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat3x4.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat3x4.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat3x4.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat4x2.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat4x2.hpp
 type_mat.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat.hpp
 type_mat4x2.inl
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat4x2.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat4x2.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat4x2.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat4x2.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat4x3.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat4x3.hpp
 type_mat.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat.hpp
 type_mat4x3.inl
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat4x3.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat4x3.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat4x3.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat4x3.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat4x4.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat4x4.hpp
 type_mat.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat.hpp
 type_mat4x4.inl
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat4x4.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat4x4.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_mat4x4.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_mat4x4.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_size.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_size.hpp
 cstdlib
 -
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_vec.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_vec.hpp
 type_gentype.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_gentype.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_gentype.hpp
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_vec1.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_vec1.hpp
 type_vec.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_vec.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_vec.hpp
 type_float.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_float.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_float.hpp
 type_int.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_int.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_int.hpp
 type_size.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_size.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_size.hpp
 _swizzle.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/_swizzle.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/_swizzle.hpp
 type_vec1.inl
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_vec1.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_vec1.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_vec1.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_vec1.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_vec2.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_vec2.hpp
 type_vec.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_vec.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_vec.hpp
 type_float.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_float.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_float.hpp
 type_int.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_int.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_int.hpp
 type_size.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_size.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_size.hpp
 _swizzle.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/_swizzle.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/_swizzle.hpp
 type_vec2.inl
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_vec2.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_vec2.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_vec2.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_vec2.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_vec3.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_vec3.hpp
 type_vec.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_vec.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_vec.hpp
 type_float.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_float.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_float.hpp
 type_int.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_int.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_int.hpp
 type_size.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_size.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_size.hpp
 _swizzle.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/_swizzle.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/_swizzle.hpp
 type_vec3.inl
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_vec3.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_vec3.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_vec3.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_vec3.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_vec4.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_vec4.hpp
 type_vec.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_vec.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_vec.hpp
 type_float.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_float.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_float.hpp
 type_int.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_int.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_int.hpp
 type_size.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_size.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_size.hpp
 _swizzle.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/_swizzle.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/_swizzle.hpp
 type_vec4.inl
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_vec4.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_vec4.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type_vec4.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type_vec4.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/core/_fixes.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/core/_fixes.hpp
 
-/Users/kimrawr/graphics/FinalProject/source/glm/core/setup.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/core/setup.hpp
 TargetConditionals.h
-/Users/kimrawr/graphics/FinalProject/source/glm/core/TargetConditionals.h
+/Users/kimrawr/Graphics/FinalProject/source/glm/core/TargetConditionals.h
 immintrin.h
 -
 pmmintrin.h
@@ -428,9 +428,9 @@ pmmintrin.h
 emmintrin.h
 -
 
-/Users/kimrawr/graphics/FinalProject/source/glm/glm.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/glm.hpp
 core/_fixes.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/core/_fixes.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/core/_fixes.hpp
 cmath
 -
 climits
@@ -442,163 +442,163 @@ limits
 cstdio
 -
 core/setup.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/core/setup.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/core/setup.hpp
 ./core/_detail.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/_detail.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/_detail.hpp
 ./core/type.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/type.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/type.hpp
 ./core/func_trigonometric.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/func_trigonometric.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/func_trigonometric.hpp
 ./core/func_exponential.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/func_exponential.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/func_exponential.hpp
 ./core/func_common.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/func_common.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/func_common.hpp
 ./core/func_packing.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/func_packing.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/func_packing.hpp
 ./core/func_geometric.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/func_geometric.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/func_geometric.hpp
 ./core/func_matrix.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/func_matrix.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/func_matrix.hpp
 ./core/func_vector_relational.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/func_vector_relational.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/func_vector_relational.hpp
 ./core/func_integer.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/func_integer.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/func_integer.hpp
 ./core/func_noise.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/func_noise.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/func_noise.hpp
 ./core/_swizzle.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/./core/_swizzle.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/./core/_swizzle.hpp
 
-/Users/kimrawr/graphics/FinalProject/source/glm/gtc/half_float.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtc/half_float.hpp
 ../glm.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/glm.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/glm.hpp
 half_float.inl
-/Users/kimrawr/graphics/FinalProject/source/glm/gtc/half_float.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtc/half_float.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/gtc/half_float.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtc/half_float.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/gtc/matrix_access.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtc/matrix_access.hpp
 ../glm.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/glm.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/glm.hpp
 matrix_access.inl
-/Users/kimrawr/graphics/FinalProject/source/glm/gtc/matrix_access.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtc/matrix_access.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/gtc/matrix_access.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtc/matrix_access.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/gtc/matrix_integer.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtc/matrix_integer.hpp
 ../glm.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/glm.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/glm.hpp
 
-/Users/kimrawr/graphics/FinalProject/source/glm/gtc/matrix_inverse.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtc/matrix_inverse.hpp
 ../glm.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/glm.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/glm.hpp
 matrix_inverse.inl
-/Users/kimrawr/graphics/FinalProject/source/glm/gtc/matrix_inverse.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtc/matrix_inverse.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/gtc/matrix_inverse.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtc/matrix_inverse.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/gtc/matrix_transform.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtc/matrix_transform.hpp
 ../glm.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/glm.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/glm.hpp
 matrix_transform.inl
-/Users/kimrawr/graphics/FinalProject/source/glm/gtc/matrix_transform.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtc/matrix_transform.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/gtc/matrix_transform.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtc/matrix_transform.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/gtc/quaternion.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtc/quaternion.hpp
 ../glm.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/glm.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/glm.hpp
 ../gtc/half_float.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/gtc/half_float.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtc/half_float.hpp
 quaternion.inl
-/Users/kimrawr/graphics/FinalProject/source/glm/gtc/quaternion.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtc/quaternion.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/gtc/quaternion.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtc/quaternion.inl
 limits
 -
 
-/Users/kimrawr/graphics/FinalProject/source/glm/gtc/type_ptr.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtc/type_ptr.hpp
 ../glm.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/glm.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/glm.hpp
 ../gtc/half_float.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/gtc/half_float.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtc/half_float.hpp
 ../gtc/quaternion.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/gtc/quaternion.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtc/quaternion.hpp
 cstring
 -
 type_ptr.inl
-/Users/kimrawr/graphics/FinalProject/source/glm/gtc/type_ptr.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtc/type_ptr.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/gtc/type_ptr.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtc/type_ptr.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/gtx/component_wise.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtx/component_wise.hpp
 ../glm.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/glm.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/glm.hpp
 component_wise.inl
-/Users/kimrawr/graphics/FinalProject/source/glm/gtx/component_wise.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtx/component_wise.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/gtx/component_wise.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtx/component_wise.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/gtx/epsilon.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtx/epsilon.hpp
 ../glm.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/glm.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/glm.hpp
 ../gtc/half_float.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/gtc/half_float.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtc/half_float.hpp
 ../gtc/quaternion.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/gtc/quaternion.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtc/quaternion.hpp
 epsilon.inl
-/Users/kimrawr/graphics/FinalProject/source/glm/gtx/epsilon.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtx/epsilon.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/gtx/epsilon.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtx/epsilon.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/gtx/quaternion.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtx/quaternion.hpp
 ../glm.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/glm.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/glm.hpp
 ../gtc/quaternion.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/gtc/quaternion.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtc/quaternion.hpp
 quaternion.inl
-/Users/kimrawr/graphics/FinalProject/source/glm/gtx/quaternion.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtx/quaternion.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/gtx/quaternion.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtx/quaternion.inl
 limits
 -
 
-/Users/kimrawr/graphics/FinalProject/source/glm/gtx/rotate_vector.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtx/rotate_vector.hpp
 ../glm.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/glm.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/glm.hpp
 ../gtx/transform.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/gtx/transform.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtx/transform.hpp
 rotate_vector.inl
-/Users/kimrawr/graphics/FinalProject/source/glm/gtx/rotate_vector.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtx/rotate_vector.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/gtx/rotate_vector.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtx/rotate_vector.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/gtx/transform.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtx/transform.hpp
 ../glm.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/glm.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/glm.hpp
 ../gtc/matrix_transform.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/gtc/matrix_transform.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtc/matrix_transform.hpp
 transform.inl
-/Users/kimrawr/graphics/FinalProject/source/glm/gtx/transform.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtx/transform.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/gtx/transform.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtx/transform.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/gtx/vector_angle.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtx/vector_angle.hpp
 ../glm.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/glm.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/glm.hpp
 ../gtx/epsilon.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/gtx/epsilon.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtx/epsilon.hpp
 ../gtx/quaternion.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/gtx/quaternion.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtx/quaternion.hpp
 ../gtx/rotate_vector.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/gtx/rotate_vector.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtx/rotate_vector.hpp
 vector_angle.inl
-/Users/kimrawr/graphics/FinalProject/source/glm/gtx/vector_angle.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtx/vector_angle.inl
 
-/Users/kimrawr/graphics/FinalProject/source/glm/gtx/vector_angle.inl
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtx/vector_angle.inl
 
-/Users/kimrawr/graphics/FinalProject/source/main.cpp
+/Users/kimrawr/Graphics/FinalProject/source/main.cpp
 GLIncludes.h
-/Users/kimrawr/graphics/FinalProject/source/GLIncludes.h
+/Users/kimrawr/Graphics/FinalProject/source/GLIncludes.h
 stdio.h
 -
 stdlib.h
@@ -610,41 +610,41 @@ cassert
 cmath
 -
 GLSL.h
-/Users/kimrawr/graphics/FinalProject/source/GLSL.h
+/Users/kimrawr/Graphics/FinalProject/source/GLSL.h
 tiny_obj_loader.h
-/Users/kimrawr/graphics/FinalProject/source/tiny_obj_loader.h
+/Users/kimrawr/Graphics/FinalProject/source/tiny_obj_loader.h
 glm/glm.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/glm.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/glm.hpp
 glm/gtc/matrix_transform.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/gtc/matrix_transform.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtc/matrix_transform.hpp
 glm/gtc/type_ptr.hpp
-/Users/kimrawr/graphics/FinalProject/source/glm/gtc/type_ptr.hpp
+/Users/kimrawr/Graphics/FinalProject/source/glm/gtc/type_ptr.hpp
 RenderingHelper.h
-/Users/kimrawr/graphics/FinalProject/source/RenderingHelper.h
+/Users/kimrawr/Graphics/FinalProject/source/RenderingHelper.h
 givenFunctions.h
-/Users/kimrawr/graphics/FinalProject/source/givenFunctions.h
+/Users/kimrawr/Graphics/FinalProject/source/givenFunctions.h
 Penguin.h
-/Users/kimrawr/graphics/FinalProject/source/Penguin.h
+/Users/kimrawr/Graphics/FinalProject/source/Penguin.h
 
-/Users/kimrawr/graphics/FinalProject/source/shaderProgram.cpp
+/Users/kimrawr/Graphics/FinalProject/source/shaderProgram.cpp
 shaderProgram.h
-/Users/kimrawr/graphics/FinalProject/source/shaderProgram.h
+/Users/kimrawr/Graphics/FinalProject/source/shaderProgram.h
 GLIncludes.h
-/Users/kimrawr/graphics/FinalProject/source/GLIncludes.h
+/Users/kimrawr/Graphics/FinalProject/source/GLIncludes.h
 GLSL.h
-/Users/kimrawr/graphics/FinalProject/source/GLSL.h
+/Users/kimrawr/Graphics/FinalProject/source/GLSL.h
 stdlib.h
 -
 stdio.h
 -
 
-/Users/kimrawr/graphics/FinalProject/source/shaderProgram.h
+/Users/kimrawr/Graphics/FinalProject/source/shaderProgram.h
 string
 -
 GLIncludes.h
-/Users/kimrawr/graphics/FinalProject/source/GLIncludes.h
+/Users/kimrawr/Graphics/FinalProject/source/GLIncludes.h
 
-/Users/kimrawr/graphics/FinalProject/source/tiny_obj_loader.cc
+/Users/kimrawr/Graphics/FinalProject/source/tiny_obj_loader.cc
 cstdlib
 -
 cstring
@@ -662,9 +662,9 @@ fstream
 sstream
 -
 tiny_obj_loader.h
-/Users/kimrawr/graphics/FinalProject/source/tiny_obj_loader.h
+/Users/kimrawr/Graphics/FinalProject/source/tiny_obj_loader.h
 
-/Users/kimrawr/graphics/FinalProject/source/tiny_obj_loader.h
+/Users/kimrawr/Graphics/FinalProject/source/tiny_obj_loader.h
 string
 -
 vector

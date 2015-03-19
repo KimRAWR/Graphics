@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/Users/kimrawr/graphics/FinalProject/dependencies/glad/src/glad.c
+/Users/kimrawr/Graphics/FinalProject/dependencies/glad/src/glad.c
 stdio.h
 -
 string.h

@@ -109,7 +109,7 @@ void initModelArrays() {
    }
    for (int i=0; i<NUM_PENGUINS; i++) {
       penguinModels[i]->position = vec3(25 * (rand() / (float)RAND_MAX - .5), 0, 25 * (rand() / (float)RAND_MAX - .5));
-      penguinModels[i]->rotation = 0; //rand() % 360; 
+      //penguinModels[i]->rotation = rand() % 360; 
    }
 
 }
@@ -676,7 +676,7 @@ void drawGL()
    SetLightModel();
    glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
 
-   
+   glUseProgram(0);
    // Disable and unbind
    glBindBuffer(GL_ARRAY_BUFFER, 0);
    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
@@ -713,6 +713,7 @@ void drawGL()
       penguinModels[i]->draw(eye, lookAt, up);
    }
 
+  //glUseProgram(ShadeProg);
    /*GLSL::disableVertexAttribArray(h_aPosition);
    GLSL::disableVertexAttribArray(h_aNormal);
    glBindBuffer(GL_ARRAY_BUFFER, 0);

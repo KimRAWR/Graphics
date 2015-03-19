@@ -1,2 +1,2 @@
-/Users/kimrawr/graphics/FinalProject/CMakeFiles/FinalProject.dir
-/Users/kimrawr/graphics/FinalProject/dependencies/glfw/src/CMakeFiles/glfw.dir
+/Users/kimrawr/Graphics/FinalProject/CMakeFiles/FinalProject.dir
+/Users/kimrawr/Graphics/FinalProject/dependencies/glfw/src/CMakeFiles/glfw.dir

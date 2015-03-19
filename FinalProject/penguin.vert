@@ -1,22 +1,21 @@
-attribute vec3 aPosition;
-attribute vec3 aNormal;
-attribute vec2 aTexCoord;
+attribute vec4 aPos;
+attribute vec3 aNor;
+uniform mat4 P;
+uniform mat4 M;
+uniform mat4 V;
+varying vec3 vCol;
+uniform vec3 uLightPos;
 
-uniform mat4 uProjMatrix;
-uniform mat4 uViewMatrix;
-uniform mat4 uModelMatrix;
+varying vec3 interpolatedNormal;
+varying vec3 interpolatedPos;
 
-varying vec3 vColor;
-varying vec2 vTexCoord;
+//vec3 updated_aNor = (V * M * vec4(aNor, 0.0)).xyz;
 
-void main() {
-  vec4 vPosition;
+void main()
+{
+	gl_Position = P * V * M * aPos;
+	//vCol = 0.5*(aNor + 1.0);
 
-  /* First model transforms */
-  gl_Position = uProjMatrix*uViewMatrix*uModelMatrix*vec4(aPosition, 1);
-
-  /* a color that could be blended - or be shading */
-  vColor = vec3(0.56, 0.3, 0.1);
-  /* pass through the texture coordinates to be interpolated */
-  vTexCoord = aTexCoord;
+   interpolatedPos = gl_Position.xyz;
+   interpolatedNormal = aNor;
 }
