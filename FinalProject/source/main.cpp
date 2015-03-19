@@ -81,10 +81,7 @@ GLint h_uViewMatrix;
 GLint h_uProjMatrix;
 GLint h_uLightPos;
 GLint h_uMatAmb, h_uMatDif, h_uMatSpec, h_uMatShine;
-GLint h_uShadeM;
 GLint h_cameratrans;
-
-GLint colorByNormalsID;
 
 int tempCount = 0;
 
@@ -365,10 +362,9 @@ void initGL()
    }
    initModelArrays();
 
-    //upperTheta = 0;
-
    // Set the background color
    glClearColor(0.6f, 0.6f, 0.8f, 1.0f);
+   
    // Enable Z-buffer test
    glEnable(GL_DEPTH_TEST);
    glPointSize(18);
@@ -381,7 +377,6 @@ void initGL()
    ModelTrans.loadIdentity();
 
    initGround();
-
 
    GLSL::checkVersion();
    assert(glGetError() == GL_NO_ERROR);
@@ -447,9 +442,7 @@ bool installShaders(const string &vShaderName, const string &fShaderName)
     h_uMatDif = GLSL::getUniformLocation(ShadeProg, "UdColor");
     h_uMatSpec = GLSL::getUniformLocation(ShadeProg, "UsColor");
     h_uMatShine = GLSL::getUniformLocation(ShadeProg, "Ushine");
-    h_uShadeM = GLSL::getUniformLocation(ShadeProg, "uShadeModel");
     h_cameratrans = GLSL::getUniformLocation(ShadeProg, "cameraTrans");
-    colorByNormalsID = GLSL::getUniformLocation(ShadeProg, "colorByNormals");
    
    assert(glGetError() == GL_NO_ERROR);
    return true;
@@ -487,10 +480,7 @@ void drawGL()
     // ==============================================================
     // DRAW BUNNY
 
-    //SetMaterial(2);
     glUniform3f(h_uLightPos, g_light.x, g_light.y, g_light.z);
-    glUniform1i(h_uShadeM, g_SM);
-    glUniform1f(colorByNormalsID, drawNormals);
     glUniform3f(h_cameratrans, eye.x, eye.y, eye.z);
 
    // Enable and bind position array for drawing

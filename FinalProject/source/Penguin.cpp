@@ -145,7 +145,6 @@ int Penguin::checkRunAway(glm::vec3 eye) {
 
       // Left boundary
       if (position.x <= leftBoundary) {
-         printf("hit left boundary\n");
          // moving upward
          if (runningVector.z > 0) {
             rotation = 90 - (180 - rotation);
@@ -161,10 +160,9 @@ int Penguin::checkRunAway(glm::vec3 eye) {
 
       // Right boundary
       else if(position.x >= rightBoundary) {
-         printf("hit right boundary\n");
          // moving upward
          if (runningVector.z > 0) {
-            rotation = 2 * (90 - rotation);//90 - (180 - rotation);
+            rotation = 2 * (90 - rotation);
             movement = glm::vec3(glm::degrees(cos(glm::radians(rotation))), 0, glm::degrees(sin(glm::radians(rotation))));
             runningVector = movement * glm::vec3(.001, 0.0, .001);
          } // moving downward 
@@ -177,17 +175,14 @@ int Penguin::checkRunAway(glm::vec3 eye) {
 
       // Top boundary
       else if(position.z >= topBoundary) {
-         printf("hit top boundary\n");
          // moving rightward
          if (runningVector.x > 0) {
-            printf("rightward\n");
-            rotation = 360 - rotation;//2 * (90 - rotation);
+            rotation = 360 - rotation;
             movement = glm::vec3(glm::degrees(cos(glm::radians(rotation))), 0, glm::degrees(sin(glm::radians(rotation))));
             runningVector = movement * glm::vec3(.001, 0.0, .001);
          } // moving leftward 
          else {  
-            printf("leftward\n");
-            rotation += 2 * (180 - rotation);//2 * ( 90 - (360 - rotation));
+            rotation += 2 * (180 - rotation);
             movement = glm::vec3(glm::degrees(cos(glm::radians(rotation))), 0, glm::degrees(sin(glm::radians(rotation))));
             runningVector = movement * glm::vec3(.001, 0.0, .001);
          }
@@ -195,22 +190,20 @@ int Penguin::checkRunAway(glm::vec3 eye) {
 
       // Bottom boundary
       else if(position.z <= bottomBoundary) {
-         printf("hit bottom boundary\n");
          // moving rightward
          if (runningVector.x > 0) {
-            printf("rightward\n");
-            rotation = 360 - rotation;//2 * (90 - rotation);
+            rotation = 360 - rotation;
             movement = glm::vec3(glm::degrees(cos(glm::radians(rotation))), 0, glm::degrees(sin(glm::radians(rotation))));
             runningVector = movement * glm::vec3(.001, 0.0, .001);
          } // moving leftward 
          else {  
-            printf("leftward\n");
-            rotation += 2 * (180 - rotation);//2 * ( 90 - (360 - rotation));
+            rotation += 2 * (180 - rotation);
             movement = glm::vec3(glm::degrees(cos(glm::radians(rotation))), 0, glm::degrees(sin(glm::radians(rotation))));
             runningVector = movement * glm::vec3(.001, 0.0, .001);
          }
       }
    }
+
    position += runningVector;
 
    // ensure position is within bounds
@@ -227,16 +220,9 @@ int Penguin::checkRunAway(glm::vec3 eye) {
    else if (position.z < bottomBoundary) {
       position.z = bottomBoundary;
    }
-
    
    return material;
 }
-
-void Penguin::updateFacingDirection() {
-   
-}
-
-
 
 void Penguin::draw(glm::vec3 eye, glm::vec3 lookAt, glm::vec3 up) { //width, height?
       //glUseProgram(ShadeProg.prog);
