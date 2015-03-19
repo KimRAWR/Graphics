@@ -55,7 +55,7 @@ Penguin::Penguin() :
    indBufObjP = 0;
 
    runningVector = glm::vec3(0.0, 0.0, 0.0);
-   material = 1; // default to flat grey, should be rose gold when touched
+   material = 0; // default to shiny blue, should be rose gold when touched
 
    std::string err = tinyobj::LoadObj(shapes, materials, "sphere.obj");
    if(!err.empty()) {
@@ -123,21 +123,65 @@ Penguin::Penguin() :
 
 // Returns the material number it should have
 int Penguin::checkRunAway(glm::vec3 eye) {
+   glm::vec3 movement;
+   float rightBoundary = 9.0;
+   float leftBoundary = -9.0;
+
    if (glm::distance(eye, position) < 3) {
       material = 3;
       
-      glm::vec3 movement = glm::normalize(position - eye);  
+      movement = glm::normalize(position - eye);  
       runningVector += movement * glm::vec3(.01, 0.0, .01); 
 
       rotation = glm::degrees(atan2(movement.z, movement.x));
 
    } else if (glm::distance(eye, position) > 9) {
       runningVector = glm::vec3(0.0, 0.0, 0.0);
-      // TODO: randomize the directions when they've stopped running away
+      
+   } // penguin is in the middle of running 
+   else {
+
+      // Left boundary
+      if (position.x <= leftBoundary) {
+         printf("hit left boundary\n");
+         // moving upward
+         if (runningVector.z > 0) {
+            rotation = 90 - (180 - rotation);
+            movement = glm::vec3(glm::degrees(cos(glm::radians(rotation))), 0, glm::degrees(sin(glm::radians(rotation))));
+            runningVector = movement * glm::vec3(.001, 0.0, .001);
+         } // moving downward 
+         else {  
+            rotation -= 2 * ( 90 - (360 - rotation));
+            movement = glm::vec3(glm::degrees(cos(glm::radians(rotation))), 0, glm::degrees(sin(glm::radians(rotation))));
+            runningVector = movement * glm::vec3(.001, 0.0, .001);
+         }
+      } 
+
+      // Right boundary
+      else if(position.x >= rightBoundary) {
+         printf("hit right boundary\n");
+         // moving upward
+         if (runningVector.z > 0) {
+            rotation = 2 * (90 - rotation);//90 - (180 - rotation);
+            movement = glm::vec3(glm::degrees(cos(glm::radians(rotation))), 0, glm::degrees(sin(glm::radians(rotation))));
+            runningVector = movement * glm::vec3(.001, 0.0, .001);
+         } // moving downward 
+         else {  
+            rotation -= 2 * ( 90 - (360 - rotation));
+            movement = glm::vec3(glm::degrees(cos(glm::radians(rotation))), 0, glm::degrees(sin(glm::radians(rotation))));
+            runningVector = movement * glm::vec3(.001, 0.0, .001);
+         }
+      }
+   }
+   position += runningVector;
+   if (position.x > rightBoundary) {
+      position.x = rightBoundary;
+   }
+   else if (position.x < leftBoundary) {
+      position.x = leftBoundary;
    }
 
-   position += runningVector;
-
+   
    return material;
 }
 

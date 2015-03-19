@@ -50,6 +50,8 @@ float g_bunny_positionZ[NUM_BUNNIES];
 float g_bunny_rotation[NUM_BUNNIES];
 
 Penguin *penguinModels[NUM_PENGUINS];
+// positions for X and Z component
+float penguinPositions[NUM_PENGUINS*2] = {-2, 2, -6, 4, -2, -2, -7, -2, -4, -6, 0, -6, 4, -4, 2, 2, 7, 2, 4, 6};
 
 int randomMaterial[NUM_BUNNIES];
 
@@ -57,8 +59,6 @@ GLuint ShadeProg;
 GLuint posBufObjB = 0;
 GLuint norBufObjB = 0;
 GLuint indBufObjB = 0;
-
-
 
 GLuint posBufObjG = 0;
 GLuint norBufObjG = 0;
@@ -70,8 +70,6 @@ glm::vec3 eye = glm::vec3(-2, .5, 0);
 glm::vec3 up = glm::vec3(0, 1, 0);
 double phi = 0.0;  //pitch
 double theta = 0.0; //yaw
-
-
 
 RenderingHelper ModelTrans;
 
@@ -95,12 +93,21 @@ int checkIntersection(glm::vec3 center1, glm::vec3 center2, float radius1, float
    return glm::distance(center1, center2) < radius1 + radius2;
 }
 
+void checkCollisions() {
+   for (int i=0; i<NUM_PENGUINS; i++) {
+      if (checkIntersection(eye, penguinModels[i]->position, .5, .5)) {
+         printf("Collision :O - %d\n", tempCount);
+         tempCount++;
+      }
+      penguinModels[i]->checkRunAway(eye);
+     
+   }
+}
+
+
+
 void initModelArrays() {
    for (int i=0; i<NUM_BUNNIES; i++) {
-      //g_bunny_positionX[i] = 25 * (rand() / (float)RAND_MAX - .5);
-      // g_bunny_positionZ[i] = 25 * (rand() / (float)RAND_MAX - .5);
-      // g_bunny_rotation[i] = 360 * ((rand() / (float)RAND_MAX) * 2 - 1);
-      //randomMaterial[i] = rand() % 4;
       g_bunny_positionX[i] = 0;
       g_bunny_positionZ[i] = 0;
       g_bunny_rotation[i] = 0;
@@ -108,7 +115,7 @@ void initModelArrays() {
 
    }
    for (int i=0; i<NUM_PENGUINS; i++) {
-      penguinModels[i]->position = vec3(25 * (rand() / (float)RAND_MAX - .5), 0, 25 * (rand() / (float)RAND_MAX - .5));
+      penguinModels[i]->position = vec3(penguinPositions[i*2], 0, penguinPositions[i*2+1]);//vec3(10 * (rand() / (float)RAND_MAX - .5), 0, 25 * (rand() / (float)RAND_MAX - .5));
       //penguinModels[i]->rotation = rand() % 360; 
    }
 
@@ -140,6 +147,8 @@ void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mods)
    float y = .5*sin(phi);
    float z = .5*cos(phi)*cos(90-theta);
 
+   float movementSpeed = .35;
+
    lookAt = glm::vec3(x, y, z) + eye;
 
    // RIGHT
@@ -152,16 +161,16 @@ void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mods)
       eye -= glm::cross(lookAt - eye, up) * .25f; 
       lookAt -= glm::cross(lookAt - eye, up) * .25f;
    }
-   
+  
    // FORWARD
    else if (key == GLFW_KEY_W && (action == GLFW_PRESS || action == GLFW_REPEAT)) {
-      eye += glm::vec3(x, y, z) * glm::vec3(.25, .25, .25);  //forcedY
-      lookAt += glm::vec3(x, y, z) * glm::vec3(.25, .25, .25);
+      eye += glm::vec3(x, y, z) * glm::vec3(movementSpeed, movementSpeed, movementSpeed);  //forcedY
+      lookAt += glm::vec3(x, y, z) * glm::vec3(movementSpeed, movementSpeed, movementSpeed);
    }
    // BACK
    else if (key == GLFW_KEY_S && (action == GLFW_PRESS || action == GLFW_REPEAT)) {
-      eye -= glm::vec3(x, y, z) * glm::vec3(.25, .25, .25);
-      lookAt -= glm::vec3(x, y, z) * glm::vec3(.25, .25, .25);
+      eye -= glm::vec3(x, y, z) * glm::vec3(movementSpeed, movementSpeed, movementSpeed);
+      lookAt -= glm::vec3(x, y, z) * glm::vec3(movementSpeed, movementSpeed, movementSpeed);
    }
 
    // Light movement
@@ -179,14 +188,15 @@ void SetMaterial(int i) {
   glUseProgram(ShadeProg);
   switch (i) {
     case 0: //shiny blue plastic
-        glUniform3f(h_uMatAmb, 0.02, 0.02, 0.1);
-        glUniform3f(h_uMatDif, 0.0, 0.08, 0.5);
+        glUniform3f(h_uMatAmb, 0.9, 0.9, 0.9);
+        //glUniform3f(h_uMatDif, 0.0, 0.08, 0.5);
+        glUniform3f(h_uMatDif, .43, .68, .99);
         glUniform3f(h_uMatSpec, 0.14, 0.14, 0.4);
         glUniform1f(h_uMatShine, 120.0);
         break;
-    case 1: // flat grey
+    case 1: // flat white
         glUniform3f(h_uMatAmb, 0.13, 0.13, 0.14);
-        glUniform3f(h_uMatDif, 0.3, 0.3, 0.4);
+        glUniform3f(h_uMatDif, 0.9, 0.9, 0.99);
         glUniform3f(h_uMatSpec, 0.3, 0.3, 0.4);
         glUniform1f(h_uMatShine, 4.0);
         break;
@@ -277,7 +287,7 @@ void initGround() {
 void setBunny(int numBunny) {
   glm::mat4 Trans = glm::translate( glm::mat4(1.0f), glm::vec3(g_bunny_positionX[numBunny], 5, g_bunny_positionZ[numBunny]));
   glm::mat4 RotateY = glm::rotate( glm::mat4(1.0f), g_bunny_rotation[numBunny], glm::vec3(0.0f, 1, 0));
-  glm::mat4 Scale = glm::scale( glm::mat4(1.0f), glm::vec3(15.0, 7.0, 15.0));
+  glm::mat4 Scale = glm::scale( glm::mat4(1.0f), glm::vec3(10.0, 7.0, 10.0));
   glm::mat4 com = Trans*RotateY*Scale;
   safe_glUniformMatrix4fv(h_uModelMatrix, glm::value_ptr(com));
 }
@@ -445,163 +455,6 @@ bool installShaders(const string &vShaderName, const string &fShaderName)
    return true;
 }
 
-/*void drawPenguinModel(int numPenguin) {
-   ModelTrans.loadIdentity();
-   ModelTrans.translate(penguinModels[numPenguin].position);
-   ModelTrans.rotate(penguinModels[numPenguin].rotation, glm::vec3(0, 1, 0));
-   ModelTrans.pushMatrix();
-
-      // BODY
-   ModelTrans.translate(glm::vec3(0, -.8, 0));   
-   ModelTrans.rotate(upperTheta/3, glm::vec3(0, 0, 1));
-   ModelTrans.translate(glm::vec3(0, 1, 0));
-         if (waddle > 3.0) {
-            waddleDirection = -1.0;
-         } else if (waddle < -3.0) {
-            waddleDirection = 1.0;
-         }
-         waddle += waddleDirection * .035;
-   
-   ModelTrans.pushMatrix();
-
-      // TUMMY
-      ModelTrans.scale(.6, 1, .5);
-      ModelTrans.translate(glm::vec3(0, -.3, .65));
-      ModelTrans.rotate(30, glm::vec3(1, 0, 0));
-      ModelTrans.scale(.65, .6, .4);
-
-      // draw tummy
-      glUniformMatrix4fv(h_uModelMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
-      glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-      ModelTrans.popMatrix();
-
-   // Push original body 
-   ModelTrans.pushMatrix();
-
-      // RIGHT ARM
-      ModelTrans.translate(glm::vec3(.49, .22, .10));
-      ModelTrans.rotate(upperTheta, glm::vec3(0, 0, 1));
-      // translate to pivot
-      ModelTrans.translate(glm::vec3(.18, -.44, 0));
-
-      ModelTrans.rotate(20, glm::vec3(0, 0, 1));
-      ModelTrans.rotate(-5, glm::vec3(0, 1, 0));
-      ModelTrans.scale(.1, .48, .4);
-      
-      if (wave) {
-         if (upperTheta > 10.0) {
-            direction = -1.0;
-         } else if (upperTheta < -30.0) {
-            direction = 1.0;
-         }
-         upperTheta += direction * .05;
-      }
-
-      // draw right arm
-      ModelTrans.scale(.6, 1, .5);
-      glUniformMatrix4fv(h_uModelMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
-      glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-
-      ModelTrans.popMatrix();
-
-   ModelTrans.pushMatrix();
-      // LEFT ARM
-      ModelTrans.translate(glm::vec3(-.47, .18, .1));
-      ModelTrans.rotate(-upperTheta, glm::vec3(0, 0, 1));
-      // translate to pivot
-      ModelTrans.translate(glm::vec3(-.18, -.44, 0));
-      
-      ModelTrans.rotate(-20, glm::vec3(0, 0, 1));
-      ModelTrans.rotate(5, glm::vec3(0, 1, 0));
-      ModelTrans.scale(.1, .48, .4);
-      
-      if (wave) {
-         if (upperTheta > 20.0) {
-            direction = -1.0;
-         } else if (upperTheta < -10.0) {
-            direction = 1.0;
-         }
-         upperTheta += direction * .05;
-      }
-
-      // draw left arm
-      ModelTrans.scale(.6, 1, .5);
-      glUniformMatrix4fv(h_uModelMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
-      glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-
-      ModelTrans.popMatrix();
-
-   ModelTrans.pushMatrix();
-      //BEAK
-      ModelTrans.scale(.6, 1, .5);
-      ModelTrans.translate(glm::vec3(0, .3, .8));
-      ModelTrans.scale(.3, .05, .3);
-
-      // draw beak
-      glUniformMatrix4fv(h_uModelMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
-      glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-
-      ModelTrans.popMatrix();
-
-   ModelTrans.pushMatrix();
-      // LEFT EYE
-      ModelTrans.scale(.6, 1, .5);
-      ModelTrans.translate(glm::vec3(-.28, .5, .71));
-      ModelTrans.scale(.06, .03, .05);
-
-      // draw left eye
-      glUniformMatrix4fv(h_uModelMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
-      glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-
-      ModelTrans.popMatrix();
-   
-   ModelTrans.pushMatrix();
-      // RIGHT EYE
-      ModelTrans.scale(.6, 1, .5);
-      ModelTrans.translate(glm::vec3(.28, .5, .71));
-      ModelTrans.scale(.06, .03, .05);
-
-      // draw right eye
-      glUniformMatrix4fv(h_uModelMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
-      glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-
-      ModelTrans.popMatrix();
-
-   ModelTrans.pushMatrix();
-      // LEFT FOOT
-      ModelTrans.scale(.6, 1, .5);
-      ModelTrans.translate(glm::vec3(-.28, -.9, .1));
-      ModelTrans.rotate( upperTheta/3-5, glm::vec3(1, 0, 0));
-      ModelTrans.translate(glm::vec3(0, 0, .45));
-      ModelTrans.scale(.25, .05, .6);
-
-      // draw left foot
-      glUniformMatrix4fv(h_uModelMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
-      glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-      
-      ModelTrans.popMatrix();
-
-   ModelTrans.pushMatrix();
-      // RIGHT FOOT
-      ModelTrans.scale(.6, 1, .5);
-      ModelTrans.translate(glm::vec3(.28, -.9, .1));
-      ModelTrans.rotate(-upperTheta/3-5, glm::vec3(1, 0, 0));
-      ModelTrans.translate(glm::vec3(0, 0, .45));
-      ModelTrans.scale(.25, .05, .6);
-
-      // draw right foot
-      glUniformMatrix4fv(h_uModelMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
-      glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-      
-      ModelTrans.popMatrix();
-
-   // draw body
-   ModelTrans.scale(.6, 1, .5);
-   glUniformMatrix4fv(h_uModelMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));
-   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-   ModelTrans.popMatrix();
-}*/
-
 void drawGL()
 {
    // Clear the screen
@@ -683,54 +536,11 @@ void drawGL()
 
    // ==========================================================
    // DRAW THE PENGUIN
-
-    /*glUniform3f(h_uLightPos, g_light.x, g_light.y, g_light.z);
-    glUniform1i(h_uShadeM, g_SM);
-    glUniform1f(colorByNormalsID, drawNormals);
-    glUniform3f(h_cameratrans, eye.x, eye.y, eye.z);
-
-   // Enable and bind position array for drawing
-   GLSL::enableVertexAttribArray(h_aPosition);
-   glBindBuffer(GL_ARRAY_BUFFER, posBufObjP);
-   glVertexAttribPointer(h_aPosition, 3, GL_FLOAT, GL_FALSE, 0, 0);
-   
-   // Enable and bind normal array for drawing
-   GLSL::enableVertexAttribArray(h_aNormal);
-   glBindBuffer(GL_ARRAY_BUFFER, norBufObjP);
-   glVertexAttribPointer(h_aNormal, 3, GL_FLOAT, GL_FALSE, 0, 0);
-   
-   // Bind index array for drawing
-   nIndices = (int)penguin[0].mesh.indices.size();
-   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indBufObjP);
-   
-   //SetMaterial(3);
-
-   glUniformMatrix4fv(h_uViewMatrix, 1, GL_FALSE, glm::value_ptr(ModelTrans.modelViewMatrix));*/
-      
+ 
    for (int i=0; i<NUM_PENGUINS; i++) {
       SetMaterial(penguinModels[i]->material);
-      //drawPenguinModel(i);
       penguinModels[i]->draw(eye, lookAt, up);
    }
-
-  //glUseProgram(ShadeProg);
-   /*GLSL::disableVertexAttribArray(h_aPosition);
-   GLSL::disableVertexAttribArray(h_aNormal);
-   glBindBuffer(GL_ARRAY_BUFFER, 0);
-   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-   SetLightModel();
-   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-
-   
-   // Disable and unbind
-   glBindBuffer(GL_ARRAY_BUFFER, 0);
-   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-   glUseProgram(0);
-   assert(glGetError() == GL_NO_ERROR);*/
-
-
    
 }
 
@@ -789,14 +599,16 @@ int main(int argc, char **argv)
       drawGL();
 
       // check for collisions
-      for (int i=0; i<NUM_PENGUINS; i++) {
+      /*for (int i=0; i<NUM_PENGUINS; i++) {
         if (checkIntersection(eye, penguinModels[i]->position, .5, .5)) {
             printf("Collision :O - %d\n", tempCount);
             tempCount++;
          }
          penguinModels[i]->checkRunAway(eye);
          
-      } 
+      } */
+      checkCollisions();
+
         // Swap buffers
       glfwSwapBuffers(window);
       glfwPollEvents();
